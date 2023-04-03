@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import NavigationPanel from './NavigationPanel';
-import ListeCommentaire from './ListeCommentaire';
 import Bottom from './Bottom';
 
 function PagePrincipal(props){

@@ -7,7 +7,7 @@ function NewComment(props) {
     const { comment, handleComment, handleAddComment } = props;
     return (
         <div>
-            <input type="text" value={comment} onChange={handleComment} />
+            <textarea type="text" value={comment} onChange={handleComment} />
             <button onClick={handleAddComment}>Add Comment</button>
         </div>
     );

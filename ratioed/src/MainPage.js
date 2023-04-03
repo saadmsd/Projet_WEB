@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import NavigationPanel from './NavigationPanel';   
-import Signup from './Signup';
 import PagePrincipal from './PagePrincipal';
 import PageConnexion from './PageConnexion';
+import PageProfil from './PageProfil';
 
 function MainPage (props) {
     const [isConnected, setConnect] = useState(true);
@@ -20,8 +19,11 @@ function MainPage (props) {
 
     return (
         <div>
-            {(isConnected===false)  ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout}/> :null}
-            {(isConnected===true) && (page==="message_page") ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout}/> : <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout}/>}
+            {isConnected === false 
+            ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout} /> 
+            : isConnected === true && page === "message_page" 
+                ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} /> 
+                : <PageProfil isConnected={isConnected} page={page} login={getConnected} logout={setLogout}/>}
         </div>
     );
 }

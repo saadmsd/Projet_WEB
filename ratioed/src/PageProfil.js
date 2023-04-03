@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import NavigationPanel from './NavigationPanel';
-import ListeCommentaire from './ListeCommentaire';
 import Bottom from './Bottom';
 
 function PageProfil (props) {
@@ -17,7 +16,6 @@ function PageProfil (props) {
     return (
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout}/>
-            
             <Bottom page={page}/>
         </div>
     );
