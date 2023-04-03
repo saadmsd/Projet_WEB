@@ -4,7 +4,7 @@ import ListeCommentaire from './ListeCommentaire';
 
 
 function PagePrincipal(props){
-    const {isConnected, login, logout} = props;
+    const {isConnected,page, login, logout} = props;
 
     const getConnected = () =>{
         login();
@@ -17,6 +17,7 @@ function PagePrincipal(props){
     return (
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout}/>
+            <Bottom page={page}/>
         </div>
     );
 }

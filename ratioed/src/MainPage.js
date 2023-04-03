@@ -20,7 +20,8 @@ function MainPage (props) {
 
     return (
         <div>
-            {(page === "signin_page") && (isConnected===false)  ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout}/> :<PagePrincipal isConnected={isConnected} login={getConnected} logout={setLogout}/>}
+            {(isConnected===false)  ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout}/> :null}
+            {(isConnected===true) && (page==="message_page") ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout}/> : <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout}/>}
         </div>
     );
 }
