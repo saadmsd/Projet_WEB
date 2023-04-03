@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import NavigationPanel from './NavigationPanel';
 import ListeCommentaire from './ListeCommentaire';
-
+import Bottom from './Bottom';
 
 function PagePrincipal(props){
-    const {isConnected, login, logout} = props;
+    const {isConnected, login, logout, page} = props;
 
     const getConnected = () =>{
         login();
@@ -17,6 +17,8 @@ function PagePrincipal(props){
     return (
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout}/>
+            
+            <Bottom page={page}/>
         </div>
     );
 }
