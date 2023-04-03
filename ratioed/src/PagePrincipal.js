@@ -3,7 +3,7 @@ import NavigationPanel from './NavigationPanel';
 import Bottom from './Bottom';
 
 function PagePrincipal(props){
-    const {isConnected, login, logout, page} = props;
+    const {isConnected, login, logout, page, setPage} = props;
 
     const getConnected = () =>{
         login();
@@ -16,8 +16,8 @@ function PagePrincipal(props){
     return (
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout}/>
-            
-            <Bottom page={page}/>
+            <h1>Page Principal</h1>
+            <Bottom page={page} setPage={setPage}/>
         </div>
     );
 }

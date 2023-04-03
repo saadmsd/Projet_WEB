@@ -3,7 +3,7 @@ import NewComment from "./NewComment";
 import Switch from "./Switch";
 
 function Bottom(props) {
-    const { page } = props;
+    const { page,setPage } = props;
     const [comment, setComment] = useState("");
     const [id, setId] = useState(0);
     
@@ -30,7 +30,7 @@ function Bottom(props) {
     
     return (
         <div>
-        <Switch page = {page}/>
+        <Switch page = {page} setPage={setPage}/>
         <NewComment
             comment={comment}
             handleComment={handleComment}
