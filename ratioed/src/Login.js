@@ -1,11 +1,17 @@
 import { useState } from 'react';
 
 function Login (props) {
-    const [login, setLogin] = useState("");
+    const {login} = props;
+    const [loggin, setLoggin] = useState("");
     const [password, setPassword] = useState("");
 
-    const getLogin = (evt) => {setLogin(evt.target.value)}
+    const getLoggin = (evt) => {setLoggin(evt.target.value)}
     const getPassword = (evt) => {setPassword(evt.target.value)}
+
+    const getConnected = () => {
+        login();
+    }
+
 
     const submissionHandler = (evt) => {
         evt.preventDefault();
@@ -14,9 +20,9 @@ function Login (props) {
 
     return (
         <form method="POST" action="">
-            <label htmlFor="login">Login</label><input id="login" onChange={getLogin}/>
+            <label htmlFor="loggin">Login</label><input id="login" onChange={getLoggin}/>
             <label htmlFor="mdp">Mot de passe</label><input type="password" id="mdp" onChange={getPassword}/>
-            <button type="submit">Log In</button>
+            <button type="submit" onClick={getConnected}>Log In</button>
         </form>
     );
 }

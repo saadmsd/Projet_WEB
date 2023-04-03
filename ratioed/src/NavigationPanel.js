@@ -2,7 +2,7 @@ import React from 'react';
 import Login from './Login';
 import Logout from './Logout';
 import SearchBar from './SearchBar';
-import './NavigationPanel.css';
+import './style/NavigationPanel.css';
 
 function NavigationPanel(props) {
   return (
