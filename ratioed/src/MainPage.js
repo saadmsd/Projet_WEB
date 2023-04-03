@@ -5,7 +5,7 @@ import PagePrincipal from './PagePrincipal';
 import PageConnexion from './PageConnexion';
 
 function MainPage (props) {
-    const [isConnected, setConnect] = useState(false);
+    const [isConnected, setConnect] = useState(true);
     const [page, setPage] = useState("signin_page");
 
     const getConnected = () =>{
@@ -20,7 +20,7 @@ function MainPage (props) {
 
     return (
         <div>
-            {(page === "signin_page") && (isConnected===false)  ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout}/> :<PagePrincipal/>}
+            {(page === "signin_page") && (isConnected===false)  ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout}/> :<PagePrincipal isConnected={isConnected} login={getConnected} logout={setLogout}/>}
         </div>
     );
 }
