@@ -20,3 +20,5 @@ function Switch(props){
     );         
 
 }
+
+export default Switch;
