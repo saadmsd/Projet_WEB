@@ -1,25 +1,26 @@
 import { useState } from "react";
 
 function Like(props) {
-    const [isLiked, setLike] = useState(false);
-    const [likeCount, setLikeCount] = useState(0);
-    
-    const handleLike = () => {
-        setLike(!isLiked);
-        if (isLiked) {
-            setLikeCount(likeCount - 1);
-        }
-        else {
-            setLikeCount(likeCount + 1);
+    //const { page, setPage } = props;
+    const [likes, setLike] = useState(0);
+    const [isLiked, setLiked] = useState(false);
+
+    const handleLike = (evt) => {
+        if(isLiked === false){
+            setLike(likes + 1);
+            setLiked(true);
+        }else{
+            setLike(likes - 1);
+            setLiked(false);
         }
     };
-    
+
     return (
-        <div>
-        <button onClick={handleLike}>
-            {isLiked ? "Unlike" : "Like"}
-        </button>
-        <span>{likeCount}</span>
+        <div id="div">
+            <button onClick={handleLike} id="like">
+                <img src="https://img.icons8.com/ios/50/000000/like--v1.png" alt="like" />
+            </button>
+            <p id="likes">{likes}</p>
         </div>
     );
 }

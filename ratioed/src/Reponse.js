@@ -1,12 +1,12 @@
+import React from "react";
 import { useState } from "react";
 import Auteur from "./Auteur";
 import Texte from "./Texte";
 import Bouton from "./Bouton";
-import ListeReponse from "./ListeReponse";
+import Like from "./Like";
 
-
-function Commentaire(props){
-    /*contient tout les elements d'un commentaire*/
+function Reponse(props){
+    /*contient tout les elements d'une reponse*/
     const [auteur, setAuteur] = useState(props.auteur);
     const [texte, setTexte] = useState(props.texte);
 
@@ -15,11 +15,12 @@ function Commentaire(props){
             <p style={{ marginRight: "1em" }}>
                 <Auteur auteur={auteur}/>
                 <Texte texte={texte}/>
-                <Bouton/>
-                <ListeReponse/>
+                <Like/>
             </p>
       </div>
     );
 }
 
-export default Commentaire;
+export default Reponse;
+
+

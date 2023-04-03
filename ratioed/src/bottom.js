@@ -1,6 +1,7 @@
 import { useState } from "react";
 import NewComment from "./NewComment";
 import Switch from "./Switch";
+//import "./style/Bottom.css";
 
 function Bottom(props) {
     const { page,setPage } = props;
@@ -29,13 +30,13 @@ function Bottom(props) {
     };
     
     return (
-        <div>
-        <Switch page = {page} setPage={setPage}/>
-        <NewComment
-            comment={comment}
-            handleComment={handleComment}
-            handleAddComment={handleAddComment}
-        />
+        <div id="div">
+            <Switch page = {page} setPage={setPage} id="switch"/>
+            <NewComment
+                comment={comment}
+                handleComment={handleComment}
+                handleAddComment={handleAddComment}
+            id = "NC"/>
         </div>
     );
 }

@@ -6,7 +6,7 @@ function Texte(props){
 
     return(
         <div>
-            <span>{texte}</span>
+            <div>{texte}</div>
         </div>
     );
 }

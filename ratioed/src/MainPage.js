@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PagePrincipal from './PagePrincipal';
 import PageConnexion from './PageConnexion';
 import PageProfil from './PageProfil';
-import Switch from './Switch';
 
 function MainPage (props) {
     const [isConnected, setConnect] = useState(true);

@@ -1,0 +1,27 @@
+/*feuille de style pour le composant Bottom.js*/
+/*Met le bouton switch a gauche et le new comment a droite*/
+
+#div {
+  display: flex;
+  justify-content: space-between;
+  align-items: bottom;
+  background-color: #007bff;
+  padding: 10px;
+  /*mettre en bas de page*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+}
+
+/*mettre switch a gauche*/
+#switch {
+  margin-left: 10px;
+}
+
+/*mettre new comment au milieu*/
+#new_comment {
+  margin-left: auto;
+}
+
+
