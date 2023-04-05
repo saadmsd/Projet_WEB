@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Commentaire from "./Commentaire";
+import NewComment from "./NewComment";
 
 function ListeCommentaire(props) {
     /*Liste des commentaires*/
@@ -13,15 +14,19 @@ function ListeCommentaire(props) {
             texte: "Moi aussi je peux commenter ouuuuuuu",
         },
     ]);
+    const [filtre , setFiltre] = useState("User2");
+
+    const handleAddComment = (commentaire) => {
+        setCommentaires([...commentaires, commentaire]);
+    };
 
     return (
         <div>
-            {commentaires.map((commentaire) => (
-                <Commentaire
-                    auteur={commentaire.auteur}
-                    texte={commentaire.texte}
-                />
-            ))}
+            <NewComment addComment={handleAddComment} />
+            {filtre === "Tous" ? ( commentaires.map((commentaire) => (
+                <Commentaire auteur={commentaire.auteur} texte={commentaire.texte} />
+            ))) : (commentaires.filter((commentaire) => commentaire.auteur === filtre).map((commentaire) => (
+                <Commentaire auteur={commentaire.auteur} texte={commentaire.texte} />)))}
         </div>
     );
 }

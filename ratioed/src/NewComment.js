@@ -1,10 +1,27 @@
 import { useState } from "react";
-import Auteur from "./Auteur";
-import Texte from "./Texte";
-import Bouton from "./Bouton";
+import ListeCommentaire from "./ListeCommentaire";
+
 
 function NewComment(props) {
-    const { comment, handleComment, handleAddComment } = props;
+
+    const {addComment} = props;
+    const [comment, setComment] = useState("");
+
+    const getComment = (evt) => {
+        setComment(evt.target.value);
+    };
+
+
+    const handleComment = (evt) => {
+        getComment(evt);
+    };
+
+    const handleAddComment = (evt) => {
+        evt.preventDefault();
+        addComment(comment);
+        setComment("");
+    };
+
     return (
         <div>
             <textarea type="text" value={comment} onChange={handleComment} />
