@@ -1,69 +1,71 @@
-import { useState } from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-function Signin (props) {
-
+const Signup = () => {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [passOK, setPassOK] = useState(true);
-    const [pass1, setPass1] = useState("");
-    const [pass2, setPass2] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [error, setError] = useState("");
+    const history = useHistory();
 
-    const getLogin = (evt) => {setLogin(evt.target.value)};
-    const getFirstName = (evt) => {setFirstName(evt.target.value)};
-    const getLastName = (evt) => {setLastName(evt.target.value)};
-    const getPass1 = (evt) => {setPass1(evt.target.value)};
-    const getPass2 = (evt) => {setPass2(evt.target.value)};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios
+        .post("http://localhost:3000", {
+            login,
+            password,
+            lastname,
+            firstname,
+        })
+        .then((res) => {
+            if (res.status === 201) {
+                console.log(res.data);
+            } else {
+                const error = new Error(res.error);
+                throw error;
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            setError("Error signing up please try again");
+        });
+    };
 
-    const submissionHandler = (evt) => {
-        if (pass1 === pass2) setPassOK(true);
-        else setPassOK(false);
-        if (passOK) {
-            axios.post("http://localhost:3001/api/user", {
-                login: login,
-                password: password,
-                firstname: firstName,
-                lastname: lastName
-            }).then((res) => {
-                console.log(res);
-            }).catch((err) => {
-                console.log(err);
-            })
-        }
-    }
 
-    const resetHandler = (evt) => {
+    const handleReset = () => {
         setLogin("");
         setPassword("");
-        setFirstName("");
-        setLastName("");
-        setPassOK(false);
-        setPass1("");
-        setPass2("");
+        setLastname("");
+        setFirstname("");
+        setError("");
+        };
 
-    }
 
     return (
-        <div>
-            <label htmlFor="firstname">First name</label>
-            <label htmlFor="lastname">Last name</label>
-            <input id="firstname" value={firstName} onChange={getFirstName} name='firstname' />
-            <input id="lastname" value={lastName}onChange={getLastName} name='lastname' />
-            <label htmlFor="signin_login">Login</label>
-            <input id="signin_login" value={login} onChange={getLogin} name='login' />
-            <label htmlFor="signin_mdp1">Password</label>
-            <input type="password" value={pass1} id="signin_mdp1" onChange={getPass1} name='password' />
-            <label htmlFor="signin_mdp2">Password (2)</label>
-            <input type="password" value={pass2} id="signin_mdp2" onChange={getPass2}/>
-            <button onClick={submissionHandler}>Sign In</button>
-            <button onClick={resetHandler}>Reset</button>
-            {passOK ? <p></p> : <p style={{color:"red"}}>Erreur: mots de passe différents</p>}
-        </div>
+        <form onSubmit={handleSubmit}>
+        <label>
+            Login:
+            <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
+        </label>
+        <label>
+            Password:
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
+        <label>
+            Lastname:
+            <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+        </label>
+        <label>
+            Firstname:
+            <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+        </label>
+        <button type="submit">Sign up</button>
+            <button type="reset">Reset</button>
+        {error && <p>{error}</p>}
+        </form>
     );
-}
+};
 
-
-export default Signin;
+export default Signup;

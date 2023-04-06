@@ -1,5 +1,5 @@
 const path = require('path');
-const api = require('./api.js');
+const api = require('./src/api.js');
 
 // Détermine le répertoire de base
 const basedir = path.normalize(path.dirname(__dirname));
@@ -7,7 +7,7 @@ console.debug(`Base directory: ${basedir}`);
 
 express = require('express');
 const app = express()
-api_1 = require("./api.js");
+api_1 = require("./src/api.js");
 const session = require("express-session");
 
 app.use(session({

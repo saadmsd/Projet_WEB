@@ -4,8 +4,8 @@ import PageConnexion from './PageConnexion';
 import PageProfil from './PageProfil';
 
 function MainPage (props) {
-    const [isConnected, setConnect] = useState(true);
-    const [page, setPage] = useState("message_page");
+    const [isConnected, setConnect] = useState(false);
+    const [page, setPage] = useState("signin_page");
 
     const getConnected = () =>{
         setConnect(true);
