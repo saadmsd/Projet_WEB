@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+
+
 
 const Signup = () => {
     const [login, setLogin] = useState("");
@@ -8,12 +9,11 @@ const Signup = () => {
     const [lastname, setLastname] = useState("");
     const [firstname, setFirstname] = useState("");
     const [error, setError] = useState("");
-    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios
-        .post("http://localhost:3000", {
+
+        axios.post("/", {
             login,
             password,
             lastname,
@@ -28,8 +28,10 @@ const Signup = () => {
             }
         })
         .catch((err) => {
+            console.log("en bas")
             console.error(err);
-            setError("Error signing up please try again");
+            console.log("en haut");
+            setError("Error signingup please try again");
         });
     };
 
@@ -62,7 +64,7 @@ const Signup = () => {
             <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
         </label>
         <button type="submit">Sign up</button>
-            <button type="reset">Reset</button>
+            <button type="reset" onClick={handleReset}>Reset</button>
         {error && <p>{error}</p>}
         </form>
     );
