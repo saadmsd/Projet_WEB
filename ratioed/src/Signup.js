@@ -13,7 +13,7 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-         axios.post("/api/user/", {
+         axios.post("/user/", {
              login,
              password,
              lastname,
@@ -46,7 +46,7 @@ const Signup = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form method = "POST" action="http://localhost:3000/api/user/">
         <label>
             Login:
             <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />

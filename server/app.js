@@ -2,10 +2,7 @@ const express = require('express');
 const path = require('path');
 const { router } = require('./api.js');
 // require database connection 
-const dbConnect = require("./db/dbConnect");
 
-// execute database connection 
-dbConnect();
 
 const app = express();
 
@@ -22,5 +19,46 @@ app.use((req, res, next) => {
     next();
   });
 app.use('/api', router);
+
+// // register endpoint
+// app.post("/user/", (request, response) => {
+//     // hash the password
+//     bcrypt
+//       .hash(request.body.password, 10)
+//       .then((hashedPassword) => {
+//         // create a new user instance and collect the data
+//         const user = new User({
+//           login: request.body.login,
+//           password: hashedPassword,
+//           lastname: request.body.lastname,
+//           firstname: request.body.firstname,
+//         });
+  
+//         // save the new user
+//         user
+//           .save()
+//           // return success if the new user is added to the database successfully
+//           .then((result) => {
+//             response.status(201).send({
+//               message: "User Created Successfully",
+//               result,
+//             });
+//           })
+//           // catch error if the new user wasn't added successfully to the database
+//           .catch((error) => {
+//             response.status(500).send({
+//               message: "Error creating user",
+//               error,
+//             });
+//           });
+//       })
+//       // catch error if the password hash isn't successful
+//       .catch((e) => {
+//         response.status(500).send({
+//           message: "Password was not hashed successfully",
+//           e,
+//         });
+//       });
+//   });
 
 module.exports = app; // Export the app instance
