@@ -1,6 +1,11 @@
 const express = require('express');
 const path = require('path');
 const { router } = require('./api.js');
+// require database connection 
+const dbConnect = require("./db/dbConnect");
+
+// execute database connection 
+dbConnect();
 
 const app = express();
 

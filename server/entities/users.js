@@ -1,10 +1,5 @@
 //CE fichier contient les fonctions qui permettent de gerer les utilisateurs grace a la base de donnees mongoDB
 
-const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://localhost:27017/";
-const dbName = "Test";
-const collection = "Users";
-
 //creer une classe qui permet de gerer les utilisateurs
 
 class Users {
@@ -66,4 +61,5 @@ class Users {
     }
   }
   exports.default = Users;
+
 

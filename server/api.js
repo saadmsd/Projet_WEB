@@ -23,7 +23,7 @@ router.post("/user/", (req, res) => {
 
   res.status(200).send({message: "tout est bon"});
 
-  /* if (!login || !password || !lastname || !firstname) {
+  if (!login || !password || !lastname || !firstname) {
     res.status(400).send("Missing fields");
   } else {
     try {
@@ -35,7 +35,7 @@ router.post("/user/", (req, res) => {
     } catch (err) {
       res.status(500).send(err);
     }
-  } */
+  } 
 });
 
 router.get('/', (req, res) => {
