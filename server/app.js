@@ -1,24 +1,15 @@
+const express = require('express');
 const path = require('path');
-const api = require('./src/api.js');
+const { router } = require('./api.js');
+
+const app = express();
 
 // Détermine le répertoire de base
 const basedir = path.normalize(path.dirname(__dirname));
 console.debug(`Base directory: ${basedir}`);
 
-express = require('express');
-const app = express()
-api_1 = require("./src/api.js");
-const session = require("express-session");
+app.use(express.static(path.join(basedir, 'public')));
 
-app.use(session({
-    secret: "technoweb rocks"
-}));
+app.use('/api', router);
 
-
-app.use('/api', api.default());
-
-// Démarre le serveur
-app.on('close', () => {
-});
-exports.default = app;
-
+module.exports = app; // Export the app instance

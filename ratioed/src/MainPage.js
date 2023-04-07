@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PagePrincipal from './PagePrincipal';
 import PageConnexion from './PageConnexion';
 import PageProfil from './PageProfil';
+import axios from 'axios';
 
 function MainPage (props) {
     const [isConnected, setConnect] = useState(false);

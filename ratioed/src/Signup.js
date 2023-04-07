@@ -13,26 +13,26 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post("/", {
-            login,
-            password,
-            lastname,
-            firstname,
-        })
-        .then((res) => {
-            if (res.status === 201) {
-                console.log(res.data);
-            } else {
-                const error = new Error(res.error);
-                throw error;
-            }
-        })
-        .catch((err) => {
-            console.log("en bas")
-            console.error(err);
-            console.log("en haut");
-            setError("Error signingup please try again");
-        });
+        // axios.post("/api/user", {
+        //     login,
+        //     password,
+        //     lastname,
+        //     firstname,
+        // })
+        // .then((res) => {
+        //     if (res.status === 201) {
+        //         console.log(res.data);
+        //     } else {
+        //         const error = new Error(res.error);
+        //         throw error;
+        //     }
+        // })
+        // .catch((err) => {
+        //     console.log("en bas")
+        //     console.error(err);
+        //     console.log("en haut");
+        //     setError("Error signingup please try again");
+        // });
     };
 
 
@@ -46,22 +46,22 @@ const Signup = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form  method = "POST" action = "localhost:3000/api/user/">
         <label>
             Login:
-            <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} />
+            <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />
         </label>
         <label>
             Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name = "password" />
         </label>
         <label>
             Lastname:
-            <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+            <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} name = "lastname" />
         </label>
         <label>
             Firstname:
-            <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+            <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} name = "firstname" />
         </label>
         <button type="submit">Sign up</button>
             <button type="reset" onClick={handleReset}>Reset</button>
