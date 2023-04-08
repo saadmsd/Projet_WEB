@@ -6,19 +6,33 @@ import ListeReponse from "./ListeReponse";
 
 
 function Commentaire(props){
-    /*contient tout les elements d'un commentaire*/
-    const [auteur, setAuteur] = useState(props.auteur);
-    const [texte, setTexte] = useState(props.texte);
+    
+    const [reponses, setReponses] = useState([]);
+    const [newReponse, setNewReponse] = useState(false);
+    const [nbLikes, setNbLikes] = useState(props.commentaire.nbLikes);
 
-    return(
-        <div style={{ display: "flex", alignItems: "center" }}>
-            <p style={{ marginRight: "1em" }}>
-                <Auteur auteur={auteur}/>
-                <Texte texte={texte}/>
-                <Bouton/>
-                <ListeReponse/>
-            </p>
-      </div>
+    const addReponse = (reponse) => {
+        setReponses([...reponses, reponse]);
+        setNewReponse(false);
+    }
+
+    const like = () => {
+        setNbLikes(nbLikes + 1);
+    }
+
+    //<Bouton texte="Répondre" onClick={() => setNewReponse(!newReponse)} />
+    // {newReponse && <ListeReponse addReponse={addReponse} />}
+    // {reponses.map((reponse) => (
+    //     <ListeReponse key={reponse.id} reponse={reponse} />
+    // ))}
+
+    return (
+        <div className="commentaire">
+            <Auteur auteur={props.commentaire.auteur} />
+            <Texte texte={props.commentaire.texte} />
+            <Bouton texte="Like" onClick={like} />
+            <span>{nbLikes} likes</span>
+        </div>
     );
 }
 

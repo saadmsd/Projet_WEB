@@ -1,34 +1,46 @@
 import { useState } from "react";
 import Commentaire from "./Commentaire";
 import NewComment from "./NewComment";
+import axios from "axios";
 
 function ListeCommentaire(props) {
-    /*Liste des commentaires*/
-    const [commentaires, setCommentaires] = useState([
-        {
-            auteur: "User1",
-            texte: "Ca dit quoi ?",
-        },
-        {
-            auteur: "User2",
-            texte: "Moi aussi je peux commenter ouuuuuuu",
-        },
-    ]);
-    const [filtre , setFiltre] = useState("User2");
-
-    const handleAddComment = (commentaire) => {
-        setCommentaires([...commentaires, commentaire]);
+    //Récupérer les commentaires de la base de données
+    const [commentaires, setCommentaires] = useState([]);
+    const [newComment, setNewComment] = useState(false);
+    
+    const getCommentaires = () => {
+        axios.get("http://localhost:3000/api/commentaire")
+        .then((response) => {
+            setCommentaires(response.data.result);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     };
 
+    const addComment = (comment) => {
+        axios.post("http://localhost:3000/api/commentaire", comment)
+        .then((response) => {
+            console.log(response);
+            getCommentaires();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    
     return (
         <div>
-            <NewComment addComment={handleAddComment} />
-            {filtre === "Tous" ? ( commentaires.map((commentaire) => (
-                <Commentaire auteur={commentaire.auteur} texte={commentaire.texte} />
-            ))) : (commentaires.filter((commentaire) => commentaire.auteur === filtre).map((commentaire) => (
-                <Commentaire auteur={commentaire.auteur} texte={commentaire.texte} />)))}
+            <h2>Commentaires</h2>
+            <button onClick={() => setNewComment(!newComment)}>Ajouter un commentaire</button>
+            {newComment && <NewComment addComment={addComment} />}
+            {commentaires.map((commentaire) => (
+                <Commentaire key={commentaire._id} commentaire={commentaire} />
+            ))}
         </div>
     );
+
 }
 
 export default ListeCommentaire;
