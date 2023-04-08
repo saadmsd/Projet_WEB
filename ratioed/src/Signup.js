@@ -8,37 +8,48 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [lastname, setLastname] = useState("");
     const [firstname, setFirstname] = useState("");
+    const [pass1, setPass1] = useState("");
+    const [pass2, setPass2] = useState("");
+    const [passOk, setPassOk] = useState(false);
     const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
+    
+    const handleSubmit = (e) => {  
         e.preventDefault();
-
-         axios.post("/user/", {
-             login,
-             password,
-             lastname,
-             firstname,
-         })
-         .then((res) => {
-             if (res.status === 200) {
-                 console.log(res.data);
-             } else {
-                 const error = new Error(res.error);
-                 throw error;
-             }
-         })
-         .catch((err) => {
-             console.log("en bas")
-             console.error(err);
-             console.log("en haut");
-             setError("Error signingup please try again");
-         });
+        if (pass1===pass2) {
+            setPassOk(true);
+            const configuration = {
+                method: "POST",
+                url: "/api/user/",
+                data: {
+                    login: login,
+                    password: pass1,
+                    lastname: lastname,
+                    firstname: firstname,
+                },
+            };
+            axios(configuration)
+                .then((response) => {
+                    console.log(response);
+                    setError("User created successfully");
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setError(error.response.data.message);
+                    }
+                );
+        } else {
+            setPassOk(false)
+            setError("Passwords do not match");
+            setPass1("");
+            setPass2("");
+        }
     };
-
 
     const handleReset = () => {
         setLogin("");
-        setPassword("");
+        setPass1("");
+        setPass2("");
         setLastname("");
         setFirstname("");
         setError("");
@@ -46,14 +57,18 @@ const Signup = () => {
 
 
     return (
-        <form method = "POST" action="http://localhost:3000/api/user/">
+        <form>
         <label>
             Login:
-            <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />
+            <input type="email" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />
         </label>
         <label>
             Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name = "password" />
+            <input type="password" value={pass1} onChange={(e) => setPass1(e.target.value)} name = "pass1" />
+        </label>
+        <label>
+            Confirm Password:
+            <input type="password" value={pass2} onChange={(e) => setPass2(e.target.value)} name = "pass2" />
         </label>
         <label>
             Lastname:
@@ -63,7 +78,7 @@ const Signup = () => {
             Firstname:
             <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} name = "firstname" />
         </label>
-        <button type="submit">Sign up</button>
+        <button type="submit" onClick={handleSubmit}>Sign up</button>
             <button type="reset" onClick={handleReset}>Reset</button>
         {error && <p>{error}</p>}
         </form>
