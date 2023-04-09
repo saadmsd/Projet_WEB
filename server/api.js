@@ -123,7 +123,7 @@ router.post('/commentaire/', (req, res) => {
   });
 });
 
-//recuperer tous les commentaires
+//afficher tous les commentaires
 router.get('/commentaire/', (req, res) => {
   Commentaire.find()
   .then((result) => {
@@ -139,6 +139,7 @@ router.get('/commentaire/', (req, res) => {
     });
   });
 });
+
 
 
     
