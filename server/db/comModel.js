@@ -1,8 +1,19 @@
 const mongoose = require("mongoose");
 const userShema = new mongoose.Schema({
-    auteur: String,
-    texte: String,
-    date: {Date, default: Date.now},
+    auteur:{
+        type : String,
+    },
+    texte:{
+        type : String,
+        required: [true, "Please enter a comment"],
+    },
+    date : {
+        type : Date, 
+        default: Date.now(),
+        get: function(date) {
+            return date.toISOString().slice(0, 10);
+        }
+    },
     nbLike: Number,
 });
 

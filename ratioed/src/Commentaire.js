@@ -1,39 +1,34 @@
 import { useState } from "react";
-import Auteur from "./Auteur";
-import Texte from "./Texte";
-import Bouton from "./Bouton";
-import ListeReponse from "./ListeReponse";
 
 
 function Commentaire(props){
-    
-    const [reponses, setReponses] = useState([]);
-    const [newReponse, setNewReponse] = useState(false);
-    const [nbLikes, setNbLikes] = useState(props.commentaire.nbLikes);
 
-    const addReponse = (reponse) => {
-        setReponses([...reponses, reponse]);
-        setNewReponse(false);
-    }
+    const {commentaire} = props;
+    const [nbLike, setNbLike] = useState(commentaire.nbLike);
+    const [like, setLike] = useState(false);
 
-    const like = () => {
-        setNbLikes(nbLikes + 1);
-    }
-
-    //<Bouton texte="Répondre" onClick={() => setNewReponse(!newReponse)} />
-    // {newReponse && <ListeReponse addReponse={addReponse} />}
-    // {reponses.map((reponse) => (
-    //     <ListeReponse key={reponse.id} reponse={reponse} />
-    // ))}
+    const handleLike = () => {
+        if (like) {
+            setNbLike(nbLike-1);
+            setLike(false);
+        } else {
+            setNbLike(nbLike+1);
+            setLike(true);
+        }
+    };
 
     return (
-        <div className="commentaire">
-            <Auteur auteur={props.commentaire.auteur} />
-            <Texte texte={props.commentaire.texte} />
-            <Bouton texte="Like" onClick={like} />
-            <span>{nbLikes} likes</span>
+        <div>
+            <h3>{commentaire.auteur}</h3>
+            <p>{commentaire.texte}</p>
+            <p>{props.formatDate(props.commentaire.date)}</p>
+            <p>{commentaire.nbLike}</p>
+            <button onClick={handleLike}>Like</button>
         </div>
     );
+
+    
+    
 }
 
 export default Commentaire;

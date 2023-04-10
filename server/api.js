@@ -104,7 +104,7 @@ router.post('/commentaire/', (req, res) => {
   const commentaire = new Commentaire({
     //recuperer l'auteur = login de l'utilisateur
     auteur: req.body.auteur,
-    texte: req.body.contenu,
+    texte: req.body.texte,
     date: req.body.date,
     nbLikes: req.body.nbLikes,
   });

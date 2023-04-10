@@ -1,25 +1,36 @@
 import { useState } from "react";
-import ListeCommentaire from "./ListeCommentaire";
+import axios from "axios";
 
 
 function NewComment(props) {
 
-    const {addComment} = props;
     const [comment, setComment] = useState("");
 
-    const getComment = (evt) => {
-        setComment(evt.target.value);
+
+    const handleAddComment = (e) => {
+        e.preventDefault();
+        const configuration = {
+            method: "POST",
+            url: "/api/commentaire/",
+            data: {
+                auteur: "test",
+                texte: comment,
+                date: new Date(),
+                nbLike: 0,
+            },
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                //props.addComment(response.data.result);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
-
-    const handleComment = (evt) => {
-        getComment(evt);
-    };
-
-    const handleAddComment = (evt) => {
-        evt.preventDefault();
-        addComment(comment);
-        setComment("");
+    const handleComment = (e) => {
+        setComment(e.target.value);
     };
 
     return (
