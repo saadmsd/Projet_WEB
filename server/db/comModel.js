@@ -16,7 +16,10 @@ const comShema = new mongoose.Schema({
             return date.toISOString().slice(0, 10);
         }
     },
-    nbLike: Number,
+    nbLike: {
+        type: Number,
+        default: 0,
+    }
 });
 
 module.exports = mongoose.model.Commentaire || mongoose.model("Commentaire", comShema);

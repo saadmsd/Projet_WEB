@@ -164,6 +164,23 @@ router.get('/user/:login', (req, res) => {
   });
 });
 
+//liker un commentaire
+router.put('/commentaire/:id', (req, res) => {
+  Commentaire.findByIdAndUpdate(req.params.id, {nbLikes: req.body.nbLikes})
+  .then((result) => {
+    res.status(200).send({
+      message: "Commentaire liké",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors du like du commentaire",
+      error,
+    });
+  });
+});
+
 
 router.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/plain;charset=UTF-8');
