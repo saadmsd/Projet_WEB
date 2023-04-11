@@ -4,7 +4,7 @@ import Signup from "./Signup";
 import axios from "axios";
 
 function PageConnexion(props) {
-    const { isConnected, login, logout } = props;
+    const { isConnected, login, logout, } = props;
 
     const getConnected = () => {
         login();
