@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 
 function Commentaire(props){
@@ -8,13 +9,22 @@ function Commentaire(props){
     const [like, setLike] = useState(false);
 
     const handleLike = () => {
-        if (like) {
-            setNbLike(nbLike-1);
-            setLike(false);
-        } else {
-            setNbLike(nbLike+1);
-            setLike(true);
-        }
+        const configuration = {
+            method: "PUT",
+            url: "/api/commentaire/"+commentaire.id,
+            data: { 
+                nbLike: nbLike + 1,
+            },
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setNbLike(nbLike + 1);
+                setLike(true);
+            })
+            .catch((error) => {
+                console.log(error);
+        });
     };
 
     return (
