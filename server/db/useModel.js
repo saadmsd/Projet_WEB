@@ -1,3 +1,5 @@
+//Model pour un utilisateurs
+
 const mongoose = require("mongoose");
 const userShema = new mongoose.Schema({
     login: {

@@ -9,8 +9,6 @@ const app = express();
 const basedir = path.normalize(path.dirname(__dirname));
 console.debug(`Base directory: ${basedir}`);
 
-
-
 app.use(express.static(path.join(basedir, 'public')));
 
 // free endpoint

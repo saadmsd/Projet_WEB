@@ -1,5 +1,7 @@
+//Model pour un commentaire
+
 const mongoose = require("mongoose");
-const userShema = new mongoose.Schema({
+const comShema = new mongoose.Schema({
     auteur:{
         type : String,
     },
@@ -17,4 +19,4 @@ const userShema = new mongoose.Schema({
     nbLike: Number,
 });
 
-module.exports = mongoose.model.Commentaire || mongoose.model("Commentaire", userShema);
+module.exports = mongoose.model.Commentaire || mongoose.model("Commentaire", comShema);

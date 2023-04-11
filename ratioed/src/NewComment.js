@@ -5,6 +5,24 @@ import axios from "axios";
 function NewComment(props) {
 
     const [comment, setComment] = useState("");
+    const [auteur , setAuteur] = useState("");
+
+
+
+    const getauteur = () => {
+        const configuration = {
+            method: "GET",
+            url: "/api/user/",
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setAuteur(response.data.result);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
 
     const handleAddComment = (e) => {
@@ -13,7 +31,7 @@ function NewComment(props) {
             method: "POST",
             url: "/api/commentaire/",
             data: {
-                auteur: "test",
+                auteur: getauteur(),
                 texte: comment,
                 date: new Date(),
                 nbLike: 0,

@@ -6,6 +6,7 @@ const dbConnect = require("./db/dbConnect.js");
 
 const User = require("./db/useModel.js");
 const Commentaire = require("./db/comModel.js");
+const FriendList = require("./db/friendListModel.js");
 
 // execute database connection 
 dbConnect();
@@ -77,7 +78,7 @@ router.post("/login/", (request, response) => {
               userId: user._id,
             },
             "Random-token",
-            {expiresIn: "2h",}
+            {expiresIn: "5sec",}
           );
           response.status(200).send({
             message: "Login successful",
@@ -98,6 +99,12 @@ router.post("/login/", (request, response) => {
       });
     });
 });
+
+
+router.post("/logout", (req, res) => {
+  res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) }).send();
+});
+
 
 //ajouter un commentaire
 router.post('/commentaire/', (req, res) => {
@@ -140,9 +147,22 @@ router.get('/commentaire/', (req, res) => {
   });
 });
 
-
-
-    
+//recuperer l'id de l'utilisateur
+router.get('/user/:login', (req, res) => {
+  User.findOne({login: req.params.login})
+  .then((result) => {
+    res.status(200).send({
+      message: "Id récupéré",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération de l'id",
+      error,
+    });
+  });
+});
 
 
 

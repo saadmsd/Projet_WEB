@@ -7,6 +7,7 @@ import axios from 'axios';
 function MainPage (props) {
     const [isConnected, setConnect] = useState(false);
     const [page, setPage] = useState("signin_page");
+    const [currentUser, setCurrentUser] = useState(null);
 
     const getConnected = () =>{
         setConnect(true);
@@ -21,9 +22,9 @@ function MainPage (props) {
     return (
         <div>
             {isConnected === false 
-            ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout} /> 
+            ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> 
             : (isConnected === true && page === "message_page")
-                ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} />
+                ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
                 : (isConnected === true && page === "profil_page")
                     ?<PageProfil isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage}/>
                     : null}
