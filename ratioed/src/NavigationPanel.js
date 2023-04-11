@@ -11,7 +11,7 @@ function NavigationPanel(props) {
   return (
     <div>
         <nav id="navigation_pan">
-          <img src="logo192.png" alt="Logo de Ratioed" />
+          <img src="logo_ratio.jpeg" alt="Logo de Ratioed" />
             {(props.isConnected) ? 
             <div>
                 <SearchBar id="form"/>
