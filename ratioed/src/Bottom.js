@@ -4,7 +4,7 @@ import Switch from "./Switch";
 //import "./style/Bottom.css";
 
 function Bottom(props) {
-    const { page,setPage } = props;
+    const { page,setPage,currentUser, setCurrentUser } = props;
     const [id, setId] = useState(0);
     
     const handleId = (evt) => {
@@ -14,7 +14,7 @@ function Bottom(props) {
     return (
         <div id="div">
             <Switch page = {page} setPage={setPage} id="switch"/>
-            <NewComment  id = "NC"/>
+            <NewComment  id = "NC" currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </div>
     );
 }

@@ -147,23 +147,22 @@ router.get('/commentaire/', (req, res) => {
   });
 });
 
-//recuperer l'id de l'utilisateur
+//recuperer le nom et prenom de l'utilisateur par son login
 router.get('/user/:login', (req, res) => {
-  User.findOne({login: req.params.login})
+  User.findOne({login:req.params.login})
   .then((result) => {
     res.status(200).send({
-      message: "Id récupéré",
+      message: "Utilisateur récupéré",
       result,
     });
   })
   .catch((error) => {
     res.status(500).send({
-      message: "Erreur lors de la récupération de l'id",
+      message: "Erreur lors de la récupération de l'utilisateur",
       error,
     });
   });
 });
-
 
 
 router.get('/', (req, res) => {

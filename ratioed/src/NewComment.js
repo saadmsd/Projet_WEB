@@ -5,19 +5,22 @@ import axios from "axios";
 function NewComment(props) {
 
     const [comment, setComment] = useState("");
-    const [auteur , setAuteur] = useState("");
+    const [nom , setAuteur] = useState("");
+    const [prenom , setPrenom] = useState("");
+    //const [currentUser, setCurrentUser] = useState(null);
 
 
 
     const getauteur = () => {
         const configuration = {
             method: "GET",
-            url: "/api/user/",
+            url: "/api/user/"+props.currentUser,
         };
         axios(configuration)
             .then((response) => {
                 console.log(response);
-                setAuteur(response.data.result);
+                setNom(response.data.result.nom);
+                setPrenom(response.data.result.prenom);
             })
             .catch((error) => {
                 console.log(error);
@@ -31,7 +34,7 @@ function NewComment(props) {
             method: "POST",
             url: "/api/commentaire/",
             data: {
-                auteur: getauteur(),
+                auteur: nom + " " + prenom,
                 texte: comment,
                 date: new Date(),
                 nbLike: 0,

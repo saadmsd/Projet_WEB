@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 function Login (props) {
-    const {login} = props;
+    const {login, currentUser, setCurrentUser} = props;
     const [loggin, setLoggin] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -26,7 +26,7 @@ function Login (props) {
                 console.log(response);
                 login();
                 getCommentaires();
-                //changer l'url a /commentaire
+                setCurrentUser(loggin);
                 
             })
             .catch((error) => {
