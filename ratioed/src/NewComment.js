@@ -4,28 +4,28 @@ import axios from "axios";
 
 function NewComment(props) {
 
+    const {currentUser, setCurrentUser} = props;
+
     const [comment, setComment] = useState("");
-    const [nom , setAuteur] = useState("");
+    const [nom , setNom] = useState("");
     const [prenom , setPrenom] = useState("");
     //const [currentUser, setCurrentUser] = useState(null);
 
-
-
-    const getauteur = () => {
-        const configuration = {
-            method: "GET",
-            url: "/api/user/"+props.currentUser,
-        };
-        axios(configuration)
-            .then((response) => {
-                console.log(response);
-                setNom(response.data.result.nom);
-                setPrenom(response.data.result.prenom);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
+        // const getauteur = () => {
+        //     const configuration = {
+        //         method: "GET",
+        //         url: "/api/user/"+props.currentUser,
+        //     };
+        //     axios(configuration)
+        //         .then((response) => {
+        //             console.log(response);
+        //             setNom(response.data.result.lastname);
+        //             setPrenom(response.data.result.firstname);
+        //         })
+        //         .catch((error) => {
+        //             console.log(error);
+        //         });
+        // };
 
 
     const handleAddComment = (e) => {
@@ -34,7 +34,7 @@ function NewComment(props) {
             method: "POST",
             url: "/api/commentaire/",
             data: {
-                auteur: nom + " " + prenom,
+                auteur: currentUser,
                 texte: comment,
                 date: new Date(),
                 nbLike: 0,
