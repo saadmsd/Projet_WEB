@@ -5,20 +5,23 @@ import axios from "axios";
 function ListeCommentaire(props) {
     
     const [commentaires, setCommentaires] = useState([]);
+    const [req,setReq] = useState(false);
 
     const getCommentaires = () => {
-        const configuration = {
-            method: "GET",
-            url: "/api/commentaire/",
-        };
-        axios(configuration)
-            .then((response) => {
-                console.log(response);
-                setCommentaires(response.data.result);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            const configuration = {
+                method: "GET",
+                url: "/api/commentaire/",
+            };
+            axios(configuration)
+                .then((response) => {
+                    console.log(response);
+                    setCommentaires(response.data.result);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });    
+
+        setReq(true);
     };
     
     const formatDate = (date) => {
@@ -30,7 +33,8 @@ function ListeCommentaire(props) {
     return (
         <div>
             <h2>Commentaires</h2>
-            <button onClick={getCommentaires}>Get Commentaires</button>
+            {req===false ? getCommentaires() : null}
+            <button onClick={getCommentaires}>Refresh</button>
             {commentaires.map((commentaire) => (
                 <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} />
             ))}
