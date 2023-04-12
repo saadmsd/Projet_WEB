@@ -165,21 +165,42 @@ router.get('/user/:login', (req, res) => {
   });
 });
 
-//liker un commentaire
-router.put('/commentaire/:id', (req, res) => {
-  Commentaire.findByIdAndUpdate(req.params.id, {nbLikes: req.body.nbLikes})
-  .then((result) => {
-    res.status(200).send({
-      message: "Commentaire liké",
-      result,
+// Liker un commentaire
+router.put('/commentaire/:id/like', (req, res) => {
+  Commentaire.findById(req.params.id)
+    .then((commentaire) => {
+      // Vérifier si l'utilisateur a déjà liké le commentaire
+      if (commentaire.likes.includes(req.user.id)) {
+        return res.status(400).send({
+          message: "Vous avez déjà liké ce commentaire"
+        });
+      }
+
+      // Ajouter l'utilisateur aux likes du commentaire
+      commentaire.likes.push(req.user.id);
+      commentaire.nbLike = commentaire.likes.length;
+
+      // Enregistrer le commentaire dans la base de données
+      commentaire.save()
+        .then(() => {
+          res.status(200).send({
+            message: "Commentaire liké",
+            nbLike: commentaire.nbLike,
+          });
+        })
+        .catch((error) => {
+          res.status(500).send({
+            message: "Erreur lors du like du commentaire",
+            error,
+          });
+        });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: "Erreur lors du like du commentaire",
+        error,
+      });
     });
-  })
-  .catch((error) => {
-    res.status(500).send({
-      message: "Erreur lors du like du commentaire",
-      error,
-    });
-  });
 });
 
 
