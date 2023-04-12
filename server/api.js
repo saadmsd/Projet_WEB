@@ -114,6 +114,7 @@ router.post('/commentaire/', (req, res) => {
     texte: req.body.texte,
     date: req.body.date,
     nbLikes: req.body.nbLikes,
+    response: req.body.response,
   });
   commentaire.save()
   .then((result) => {

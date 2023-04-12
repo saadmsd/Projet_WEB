@@ -19,6 +19,10 @@ const comShema = new mongoose.Schema({
     nbLike: {
         type: Number,
         default: 0,
+    },
+    response: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Commentaire",
     }
 });
 
