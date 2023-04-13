@@ -108,14 +108,23 @@ router.post("/logout", (req, res) => {
 
 //ajouter un commentaire
 router.post('/commentaire/', (req, res) => {
-  const commentaire = new Commentaire({
-    //recuperer l'auteur = login de l'utilisateur
-    auteur: req.body.auteur,
-    texte: req.body.texte,
-    date: req.body.date,
-    nbLikes: req.body.nbLikes,
-    response: req.body.response,
-  });
+  //recuperer l'id du dernier commentaire de la base de données et l'incrementer de 1 pour le nouveau commentaire
+  Commentaire.find().sort({id:-1}).limit(1)
+  .then((result) => {
+    if (result.length === 0) {
+      var iid = 1;
+    } else {
+      var iid = result[0].id + 1;
+    }
+    //creer un nouveau commentaire
+    const commentaire = new Commentaire({
+      id: iid,
+      auteur: req.body.auteur,
+      texte : req.body.texte,
+      date: req.body.date,
+      nbLike: req.body.nbLike,
+    });
+  //sauvegarder le nouveau commentaire dans la base de données
   commentaire.save()
   .then((result) => {
     res.status(201).send({
@@ -129,12 +138,21 @@ router.post('/commentaire/', (req, res) => {
       error,
     });
   });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération du dernier commentaire",
+      error,
+    });
+  });
 });
+
+
 
 //afficher tous les commentaires
 router.get('/commentaire/', (req, res) => {
-  //recuperer tous les commentaires mais dans le sens inverse
-  Commentaire.find().sort({date: -1})
+  //recuperer tous les commentaire de la base de données et les envoyer au front dans le sens inverse de l'ordre de création
+  Commentaire.find()  
   .then((result) => {
     res.status(200).send({
       message: "Commentaires récupérés",
@@ -166,35 +184,21 @@ router.get('/user/:login', (req, res) => {
   });
 });
 
-// Liker un commentaire
-router.put('/commentaire/:id/like', (req, res) => {
-  Commentaire.findById(req.params.id)
-    .then((commentaire) => {
-      // Vérifier si l'utilisateur a déjà liké le commentaire
-      if (commentaire.likes.includes(req.user.id)) {
-        return res.status(400).send({
-          message: "Vous avez déjà liké ce commentaire"
-        });
-      }
-
-      // Ajouter l'utilisateur aux likes du commentaire
-      commentaire.likes.push(req.user.id);
-      commentaire.nbLike = commentaire.likes.length;
-
-      // Enregistrer le commentaire dans la base de données
-      commentaire.save()
-        .then(() => {
-          res.status(200).send({
-            message: "Commentaire liké",
-            nbLike: commentaire.nbLike,
-          });
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: "Erreur lors du like du commentaire",
-            error,
-          });
-        });
+// Liker un commentaire en fonction de son id
+router.put('/commentaire/:id', (req, res) => {
+  Commentaire.findOne({id:req.params.id})
+  .then((result) => {
+    //incrementer le nombre de like du commentaire
+    result.nbLike = result.nbLike + 1;
+    //ajouter le login de l'utilisateur qui a liké le commentaire dans le tableau des utilisateurs qui ont liké le commentaire
+    result.likedBy.push(req.body.auteur);
+    //sauvegarder le commentaire modifié dans la base de données
+    result.save()
+    .then((result) => {
+      res.status(200).send({
+        message: "Commentaire liké",
+        result,
+      });
     })
     .catch((error) => {
       res.status(500).send({
@@ -202,7 +206,17 @@ router.put('/commentaire/:id/like', (req, res) => {
         error,
       });
     });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération du commentaire",
+      error,
+    });
+  });
 });
+
+
+
 
 
 router.get('/', (req, res) => {

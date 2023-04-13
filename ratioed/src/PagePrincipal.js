@@ -17,7 +17,7 @@ function PagePrincipal(props){
     return (
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-            <h1>Page Principal</h1><ListeCommentaire/>
+            <h1>Page Principal</h1><ListeCommentaire currentUser={currentUser}/>
             <Bottom page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
         </div>
     );

@@ -4,6 +4,7 @@ import axios from "axios";
 
 function ListeCommentaire(props) {
     
+    const {currentUser} = props;
     const [commentaires, setCommentaires] = useState([]);
     const [req,setReq] = useState(false);
 
@@ -15,7 +16,7 @@ function ListeCommentaire(props) {
             axios(configuration)
                 .then((response) => {
                     console.log(response);
-                    console.log(commentaires);
+                    setCommentaires([]);
                     setCommentaires(response.data.result);
                 })
                 .catch((error) => {
@@ -24,6 +25,10 @@ function ListeCommentaire(props) {
 
         setReq(true);
     };
+
+    const reverseCommentaires = () => {
+        return commentaires.reverse();
+    }
     
     const formatDate = (date) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -36,9 +41,12 @@ function ListeCommentaire(props) {
             <h2>Commentaires</h2>
             {req===false ? getCommentaires() : null}
             <button onClick={getCommentaires}>Refresh</button>
-            {commentaires.reverse().map((commentaire) => (
-                <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} />
+            {commentaires.toReversed().map((commentaire) => (
+                <ul>
+                    <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser}/>
+                </ul>
             ))}
+
         </div>
     );
 

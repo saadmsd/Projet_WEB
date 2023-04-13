@@ -2,6 +2,11 @@
 
 const mongoose = require("mongoose");
 const comShema = new mongoose.Schema({
+    id : {
+        type : Number,
+        unique: true,
+        required: false,
+    },
     auteur:{
         type : String,
     },
@@ -14,16 +19,22 @@ const comShema = new mongoose.Schema({
         default: Date.now(),
         get: function(date) {
             return date.toISOString().slice(0, 10);
-        }
+        },
+        required: false,
     },
     nbLike: {
         type: Number,
         default: 0,
+    },
+    likedBy: {
+        type: [String],
+        default: [],
     },
     response: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Commentaire",
     }
 });
+
 
 module.exports = mongoose.model.Commentaire || mongoose.model("Commentaire", comShema);

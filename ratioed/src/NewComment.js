@@ -9,23 +9,6 @@ function NewComment(props) {
     const [comment, setComment] = useState("");
     const [nom , setNom] = useState("");
     const [prenom , setPrenom] = useState("");
-    //const [currentUser, setCurrentUser] = useState(null);
-
-        // const getauteur = () => {
-        //     const configuration = {
-        //         method: "GET",
-        //         url: "/api/user/"+props.currentUser,
-        //     };
-        //     axios(configuration)
-        //         .then((response) => {
-        //             console.log(response);
-        //             setNom(response.data.result.lastname);
-        //             setPrenom(response.data.result.firstname);
-        //         })
-        //         .catch((error) => {
-        //             console.log(error);
-        //         });
-        // };
 
 
     const handleAddComment = (e) => {
@@ -43,10 +26,11 @@ function NewComment(props) {
         axios(configuration)
             .then((response) => {
                 console.log(response);
-                //props.addComment(response.data.result);
+                setComment("");
             })
             .catch((error) => {
                 console.log(error);
+                console.log("error");
             });
     };
 
