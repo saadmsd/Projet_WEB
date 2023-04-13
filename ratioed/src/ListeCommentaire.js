@@ -15,6 +15,7 @@ function ListeCommentaire(props) {
             axios(configuration)
                 .then((response) => {
                     console.log(response);
+                    console.log(commentaires);
                     setCommentaires(response.data.result);
                 })
                 .catch((error) => {
@@ -35,7 +36,7 @@ function ListeCommentaire(props) {
             <h2>Commentaires</h2>
             {req===false ? getCommentaires() : null}
             <button onClick={getCommentaires}>Refresh</button>
-            {commentaires.map((commentaire) => (
+            {commentaires.reverse().map((commentaire) => (
                 <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} />
             ))}
         </div>
