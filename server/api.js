@@ -133,7 +133,8 @@ router.post('/commentaire/', (req, res) => {
 
 //afficher tous les commentaires
 router.get('/commentaire/', (req, res) => {
-  Commentaire.find()
+  //recuperer tous les commentaires mais dans le sens inverse
+  Commentaire.find().sort({date: -1})
   .then((result) => {
     res.status(200).send({
       message: "Commentaires récupérés",
