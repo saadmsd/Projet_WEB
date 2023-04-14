@@ -5,16 +5,22 @@ function Logout (props) {
     const {logout, currentUser, setCurrentUser} = props;
 
     const setLogout = () => {
-        axios.get('/api/logout')
-        .then((response) => {
-            console.log(response);
-            setCurrentUser(null);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-        logout();
+        const configuration = {
+            method: "GET",
+            url: "/api/logout/",
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setCurrentUser(null);
+                logout();
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log("error");
+            });
     }
+
 
 
 

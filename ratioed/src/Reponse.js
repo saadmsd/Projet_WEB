@@ -1,24 +1,48 @@
 import React from "react";
 import { useState } from "react";
-import Auteur from "./Auteur";
-import Texte from "./Texte";
-import Bouton from "./Bouton";
-import Like from "./Like";
+import axios from "axios";
+
 
 function Reponse(props){
-    /*contient tout les elements d'une reponse*/
-    const [auteur, setAuteur] = useState(props.auteur);
-    const [texte, setTexte] = useState(props.texte);
+    
+    const {currentUser, commentaire} = props;
+    const [reponse, setReponse] = useState("");
 
-    return(
-        <div style={{ display: "flex", alignItems: "center" }}>
-            <p style={{ marginRight: "1em" }}>
-                <Auteur auteur={auteur}/>
-                <Texte texte={texte}/>
-                <Like/>
-            </p>
-      </div>
-    );
+    const handleReponse = () => {
+        // Envoyer la réponse à l'aide d'une requête axios
+        const configuration = {
+            method: "POST",
+            url: "/api/commentaire/reponse/"+commentaire.id,
+            data: {
+                auteur: currentUser,
+                texte: reponse,
+                date: new Date(),
+                nbLike: 0,
+            },
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setReponse("");
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+                console.log("error");
+            }
+            );
+}
+
+
+
+
+return(
+    <div>
+        <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
+            <button onClick={handleReponse}>Envoyer</button>
+  </div>
+);
+
 }
 
 export default Reponse;

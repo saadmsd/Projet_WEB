@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Reponse from "./Reponse";
 
 
 function Commentaire(props){
@@ -7,6 +8,8 @@ function Commentaire(props){
     const {currentUser} = props;
     const [commentaire, setCommentaire] = useState(props.commentaire);
     const [like, setLike] = useState(false);
+    const [answer, setAnswer] = useState(false);
+    const [reponse, setReponse] = useState("");
 
     const handleLike = () => {
         //verifier si l'utilisateur a deja like
@@ -15,7 +18,7 @@ function Commentaire(props){
             if(commentaire.likedBy.includes(currentUser) === false){
                 const configuration = {
                     method: "PUT",
-                    url: "/api/commentaire/"+commentaire.id,
+                    url: "/api/commentaire/like/"+commentaire.id,
                     data: {
                         auteur: commentaire.auteur,
                         texte: commentaire.texte,
@@ -40,6 +43,13 @@ function Commentaire(props){
         }
     }
 
+    const handleAnswer = () => {
+        if(answer === false){
+            setAnswer(true);
+        } else {
+            setAnswer(false);
+        }
+    }
 
     return (
         <div>
@@ -47,7 +57,13 @@ function Commentaire(props){
             <p>{commentaire.texte}</p>
             <p>{props.formatDate(commentaire.date)}</p>
             <p>{commentaire.nbLike}</p>
-            <button onClick={handleLike}>Like</button>
+            <button onClick={handleLike}>
+            <img src="https://img.icons8.com/ios/50/000000/like--v1.png" alt="like" />
+            </button>
+            {answer === false ? <button onClick={handleAnswer}>Répondre</button> : <button onClick={handleAnswer}>Annuler</button>}
+            {answer === true ? <div>
+                <Reponse currentUser={currentUser} commentaire={commentaire} />
+            </div> : null}
         </div>
     );
 

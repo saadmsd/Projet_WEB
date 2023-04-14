@@ -1,7 +1,7 @@
-//Model pour un commentaire
+//schema de reponse a un commentaire
 
 const mongoose = require("mongoose");
-const comShema = new mongoose.Schema({
+const repShema = new mongoose.Schema({
     id : {
         type : Number,
         unique: true,
@@ -15,26 +15,24 @@ const comShema = new mongoose.Schema({
         required: [true, "Please enter a comment"],
     },
     date : {
-        type : Date, 
+        type : Date,
         default: Date.now(),
         get: function(date) {
             return date.toISOString().slice(0, 10);
-        },
-        required: false,
+        }
     },
     nbLike: {
         type: Number,
         default: 0,
     },
-    likedBy: { 
+    likedBy: {
         type: [String],
         default: [],
     },
-    responses: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "Reponse",
-    },
+    parentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Commentaire",
+    }
 });
 
-
-module.exports = mongoose.model.Commentaire || mongoose.model("Commentaire", comShema);
+module.exports = mongoose.model.Reponse || mongoose.model("Reponse", repShema);

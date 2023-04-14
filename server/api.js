@@ -6,6 +6,7 @@ const dbConnect = require("./db/dbConnect.js");
 
 const User = require("./db/useModel.js");
 const Commentaire = require("./db/comModel.js");
+const Reponse = require("./db/repModel.js");
 const FriendList = require("./db/friendListModel.js");
 
 // execute database connection 
@@ -100,9 +101,12 @@ router.post("/login/", (request, response) => {
     });
 });
 
-
-router.post("/logout", (req, res) => {
-  res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) }).send();
+// logout endpoint
+router.get("/logout/", (req, res) => {
+  res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+  res.status(200).send({
+    message: "Logout successful",
+  });
 });
 
 
@@ -167,6 +171,8 @@ router.get('/commentaire/', (req, res) => {
   });
 });
 
+    
+
 //recuperer le nom et prenom de l'utilisateur par son login
 router.get('/user/:login', (req, res) => {
   User.findOne({login:req.params.login})
@@ -185,7 +191,7 @@ router.get('/user/:login', (req, res) => {
 });
 
 // Liker un commentaire en fonction de son id
-router.put('/commentaire/:id', (req, res) => {
+router.put('/commentaire/like/:id', (req, res) => {
   Commentaire.findOne({id:req.params.id})
   .then((result) => {
     //incrementer le nombre de like du commentaire
@@ -214,6 +220,91 @@ router.put('/commentaire/:id', (req, res) => {
     });
   });
 });
+
+//ajouter une reponse a un commentaire
+router.post('/commentaire/reponse/:id', (req, res) => {
+  Commentaire.findOne({id:req.params.id})
+  .then((result) => {
+    //recuperer l'id du commentaire a repondre et l'incrementer de 0.1 pour la reponse
+    var iid = result.id + 0.1;
+    //creer une nouvelle reponse
+    const reponse = new Reponse({
+      id: iid,
+      auteur: req.body.auteur,
+      texte : req.body.texte,
+      date: req.body.date,
+      nbLike: req.body.nbLike,
+      parentId: result,
+    });
+    //sauvegarder la reponse dans la base de données
+    reponse.save()
+    .then((result) => {
+      res.status(201).send({
+        message: "Reponse ajoutée",
+        result,
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: "Erreur lors de l'ajout de la reponse",
+        error,
+      });
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération du commentaire",
+      error,
+    });
+  });
+});
+
+// //ajouter la repsonse a la liste des reponses du commentaire
+// router.put('/commentaire/reponse/:id', (req, res) => {
+//   Commentaire.findOne({id:req.params.id})
+//   .then((result) => {
+//     //recuperer la reponse a ajouter
+//     Reponse.findOne({id:req.body.id})
+//     .then((result2) => {
+//       //ajouter la reponse a la liste des reponses du commentaire
+//       result.reponses.push(result2);
+//       //sauvegarder le commentaire modifié dans la base de données
+//       result.save()
+//       .then((result) => {
+//         res.status(200).send({
+//           message: "Reponse ajoutée au commentaire",
+//           result,
+//         });
+//       })
+//       .catch((error) => {
+//         res.status(500).send({
+//           message: "Erreur lors de l'ajout de la reponse au commentaire",
+//           error,
+//         });
+//       });
+//     })
+//     .catch((error) => {
+//       res.status(500).send({
+//         message: "Erreur lors de la récupération de la reponse",
+//         error,
+//       });
+//     });
+//   })
+//   .catch((error) => {
+//     res.status(500).send({
+//       message: "Erreur lors de la récupération du commentaire",
+//       error,
+//     });
+//   });
+  
+  
+  
+
+
+
+
+
+
 
 
 
