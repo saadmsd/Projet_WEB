@@ -7,6 +7,9 @@ function Reponse(props){
     
     const {currentUser, commentaire} = props;
     const [reponse, setReponse] = useState("");
+    const [reponses, setReponses] = useState([]);
+    const [like, setLike] = useState(false);
+
 
     const handleReponse = () => {
         // Envoyer la réponse à l'aide d'une requête axios
@@ -18,6 +21,7 @@ function Reponse(props){
                 texte: reponse,
                 date: new Date(),
                 nbLike: 0,
+                likedBy: [],
             },
         };
         axios(configuration)
@@ -27,24 +31,82 @@ function Reponse(props){
             }
             )
             .catch((error) => {
-                console.log(error);
+                console.log(error.response.data.message);
                 console.log("error");
             }
             );
-}
+    }
 
+    const formatDate = (date) => {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        return new Date(date).toLocaleDateString('fr-FR', options);
+    }
 
+    const getReponses = (e) => {
+        const configuration = {
+            method: "GET",
+            url: "/api/commentaire/reponse/"+commentaire.id,
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setReponses(response.data.result);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
+    const handleLike = (rep) => {
+        console.log(rep);
+        if(like === false){
+            if(rep.likedBy.includes(currentUser) === false){
+                
+                const configuration = {
+                    method: "PUT",
+                    url: "/api/commentaire/reponse/like/"+rep._id,
+                    data: {
+                        auteur: currentUser,
+                        nbLike: rep.nbLike+1,
+                    },
+                };
+                axios(configuration)
+                    .then((response) => {
+                        console.log(response);
+                        setReponses(response.data.result);
+                        setLike(true);
+                        console.log(rep.likeBy);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        console.log("error client");
+                    });
+            } else {
+                setLike(true);
+            }
+        }
+    }
 
-return(
-    <div>
-        <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
-            <button onClick={handleReponse}>Envoyer</button>
-  </div>
-);
+    return(
+        <div>
+            <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
+                <button onClick={handleReponse}>Envoyer</button>
+                <button onClick={getReponses}>Refresh</button>
+                {Array.isArray(reponses) && reponses.map((rep) => (
+                    <ul>
+                        <li>
+                        <h3>{rep.auteur}</h3>
+                        <p>{rep.texte}</p>
+                        <p>{formatDate(rep.date)}</p>
+                        <p>{rep.nbLike} likes</p>
+                        <button onClick={() => handleLike(rep)}>Like</button>
+                        </li>
+                    </ul>
+                    ))}
+        </div>
+    );
 
 }
 
 export default Reponse;
-
 

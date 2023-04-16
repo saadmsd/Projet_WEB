@@ -155,20 +155,32 @@ router.post('/commentaire/', (req, res) => {
 
 //afficher tous les commentaires
 router.get('/commentaire/', (req, res) => {
-  //recuperer tous les commentaire de la base de données et les envoyer au front dans le sens inverse de l'ordre de création
-  Commentaire.find()  
+  //recuperer tous les commentaire et les reponses de la base de données et les envoyer au front dans le sens inverse de l'ordre de création
+  Commentaire.find().sort({id:-1})
   .then((result) => {
-    res.status(200).send({
-      message: "Commentaires récupérés",
-      result,
+    Reponse.find().sort({id:-1})
+    .then((result2) => {
+      res.status(200).send({
+        message: "Commentaires récupérés",
+        result,
+        result2,
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: "Erreur lors de la récupération des réponses",
+        error,
+      });
     });
-  })
+  }
+  )
   .catch((error) => {
     res.status(500).send({
       message: "Erreur lors de la récupération des commentaires",
       error,
     });
-  });
+  }
+  );
 });
 
     
@@ -192,7 +204,7 @@ router.get('/user/:login', (req, res) => {
 
 // Liker un commentaire en fonction de son id
 router.put('/commentaire/like/:id', (req, res) => {
-  Commentaire.findOne({id:req.params.id})
+  Commentaire.findOne({_id:req.params.id})
   .then((result) => {
     //incrementer le nombre de like du commentaire
     result.nbLike = result.nbLike + 1;
@@ -225,16 +237,13 @@ router.put('/commentaire/like/:id', (req, res) => {
 router.post('/commentaire/reponse/:id', (req, res) => {
   Commentaire.findOne({id:req.params.id})
   .then((result) => {
-    //recuperer l'id du commentaire a repondre et l'incrementer de 0.1 pour la reponse
-    var iid = result.id + 0.1;
     //creer une nouvelle reponse
     const reponse = new Reponse({
-      id: iid,
       auteur: req.body.auteur,
       texte : req.body.texte,
       date: req.body.date,
       nbLike: req.body.nbLike,
-      parentId: result,
+      parentId: req.params.id,
     });
     //sauvegarder la reponse dans la base de données
     reponse.save()
@@ -252,50 +261,62 @@ router.post('/commentaire/reponse/:id', (req, res) => {
     });
   })
   .catch((error) => {
-    res.status(500).send({
+    res.status(501).send({
       message: "Erreur lors de la récupération du commentaire",
       error,
     });
   });
 });
 
-// //ajouter la repsonse a la liste des reponses du commentaire
-// router.put('/commentaire/reponse/:id', (req, res) => {
-//   Commentaire.findOne({id:req.params.id})
-//   .then((result) => {
-//     //recuperer la reponse a ajouter
-//     Reponse.findOne({id:req.body.id})
-//     .then((result2) => {
-//       //ajouter la reponse a la liste des reponses du commentaire
-//       result.reponses.push(result2);
-//       //sauvegarder le commentaire modifié dans la base de données
-//       result.save()
-//       .then((result) => {
-//         res.status(200).send({
-//           message: "Reponse ajoutée au commentaire",
-//           result,
-//         });
-//       })
-//       .catch((error) => {
-//         res.status(500).send({
-//           message: "Erreur lors de l'ajout de la reponse au commentaire",
-//           error,
-//         });
-//       });
-//     })
-//     .catch((error) => {
-//       res.status(500).send({
-//         message: "Erreur lors de la récupération de la reponse",
-//         error,
-//       });
-//     });
-//   })
-//   .catch((error) => {
-//     res.status(500).send({
-//       message: "Erreur lors de la récupération du commentaire",
-//       error,
-//     });
-//   });
+//afficher toutes les reponses d'un commentaire
+router.get('/commentaire/reponse/:id', (req, res) => {
+  Reponse.find({parentId:req.params.id})
+  .then((result) => {
+    res.status(200).send({
+      message: "Reponses récupérées",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération des reponses",
+      error,
+    });
+  });
+});
+
+// Liker une reponse en fonction de son id
+router.put('/commentaire/reponse/like/:id', (req, res) => {
+  Reponse.findOne({_id:req.params.id})
+  .then((result) => {
+    //incrementer le nombre de like de la reponse
+    result.nbLike = result.nbLike + 1;
+    //ajouter le login de l'utilisateur qui a liké la reponse dans le tableau des utilisateurs qui ont liké la reponse
+    result.likedBy.push(req.body.auteur);
+    //sauvegarder la reponse modifiée dans la base de données
+    result.save()
+    .then((result) => {
+      res.status(200).send({
+        message: "Reponse likée",
+        result,
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: "Erreur lors du like de la reponse",
+        error,
+      });
+    });
+  })
+  .catch((error) => {
+    res.status(501).send({
+      message: "Erreur lors de la récupération de la reponse",
+      error,
+    });
+  });
+});
+
+
   
   
   

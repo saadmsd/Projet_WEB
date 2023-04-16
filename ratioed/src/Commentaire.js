@@ -9,7 +9,6 @@ function Commentaire(props){
     const [commentaire, setCommentaire] = useState(props.commentaire);
     const [like, setLike] = useState(false);
     const [answer, setAnswer] = useState(false);
-    const [reponse, setReponse] = useState("");
 
     const handleLike = () => {
         //verifier si l'utilisateur a deja like
@@ -18,12 +17,10 @@ function Commentaire(props){
             if(commentaire.likedBy.includes(currentUser) === false){
                 const configuration = {
                     method: "PUT",
-                    url: "/api/commentaire/like/"+commentaire.id,
+                    url: "/api/commentaire/like/"+commentaire._id,
                     data: {
-                        auteur: commentaire.auteur,
-                        texte: commentaire.texte,
-                        date: commentaire.date,
-                        nbLike: commentaire.nbLike+1,
+                        auteur: currentUser,
+                        nbLike: commentaire.nbLike + 1,
                     },
                 };
                 axios(configuration)
@@ -31,7 +28,6 @@ function Commentaire(props){
                         console.log(response);
                         setCommentaire(response.data.result);
                         setLike(true);
-                        console.log(commentaire.likeBy);
                     })
                     .catch((error) => {
                         console.log(error);
@@ -56,7 +52,7 @@ function Commentaire(props){
             <h3>{commentaire.auteur}</h3>
             <p>{commentaire.texte}</p>
             <p>{props.formatDate(commentaire.date)}</p>
-            <p>{commentaire.nbLike}</p>
+            <p>{commentaire.nbLike} likes</p>
             <button onClick={handleLike}>
             <img src="https://img.icons8.com/ios/50/000000/like--v1.png" alt="like" />
             </button>

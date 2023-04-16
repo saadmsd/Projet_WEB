@@ -2,38 +2,35 @@
 
 const mongoose = require("mongoose");
 const comShema = new mongoose.Schema({
-    id : {
-        type : Number,
+    id: {
+        type: Number,
+        required: true,
         unique: true,
-        required: false,
-    },
-    auteur:{
-        type : String,
-    },
-    texte:{
-        type : String,
-        required: [true, "Please enter a comment"],
-    },
-    date : {
-        type : Date, 
+      },
+      auteur: {
+        type: String,
+        required: true,
+      },
+      texte: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
         default: Date.now(),
-        get: function(date) {
-            return date.toISOString().slice(0, 10);
+        get: function (date) {
+          return date.toISOString().slice(0, 10);
         },
-        required: false,
-    },
-    nbLike: {
+      },
+      nbLike: {
         type: Number,
         default: 0,
-    },
-    likedBy: { 
+      },
+      likedBy: {
         type: [String],
         default: [],
-    },
-    responses: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "Reponse",
-    },
+        required: false,
+      },
 });
 
 
