@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import NavigationPanel from './NavigationPanel';
-import Bottom from './Bottom';
 import ListeCommentaire from './ListeCommentaire';
+import Switch from './Switch';
 
 function PagePrincipal(props){
     const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser} = props;
@@ -17,8 +17,9 @@ function PagePrincipal(props){
     return (
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-            <h1>Page Principal</h1><ListeCommentaire currentUser={currentUser}/>
-            <Bottom page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <h1>Page Principal</h1>
+            <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+            <ListeCommentaire currentUser={currentUser}/>
         </div>
     );
 }

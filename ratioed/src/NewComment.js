@@ -27,6 +27,7 @@ function NewComment(props) {
             .then((response) => {
                 console.log(response);
                 setComment("");
+                props.getCommentaires();
             })
             .catch((error) => {
                 console.log(error);

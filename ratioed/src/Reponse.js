@@ -9,6 +9,7 @@ function Reponse(props){
     const [reponse, setReponse] = useState("");
     const [reponses, setReponses] = useState([]);
     const [like, setLike] = useState(false);
+    const [ratio, setRatio] = useState(false);
 
 
     const handleReponse = () => {
@@ -75,7 +76,23 @@ function Reponse(props){
                         console.log(response);
                         setReponses(response.data.result);
                         setLike(true);
-                        console.log(rep.likeBy);
+                        if (rep.texte === "ratio"){
+                            if (rep.nbLike > commentaire.nbLike){
+                                const configuration = {
+                                    method: "DELETE",
+                                    url: "/api/commentaire/"+commentaire._id,
+                                };
+                                axios(configuration)
+                                    .then((response) => {
+                                        console.log(response);
+                                        setRatio(true);
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        console.log("error client");
+                                    })
+                            }
+                        }
                     })
                     .catch((error) => {
                         console.log(error);
@@ -92,6 +109,7 @@ function Reponse(props){
             <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
                 <button onClick={handleReponse}>Envoyer</button>
                 <button onClick={getReponses}>Refresh</button>
+                {ratio === true ? <p>Le commentaire a été supprimé car il a été ratio</p> : null}
                 {Array.isArray(reponses) && reponses.map((rep) => (
                     <ul>
                         <li>

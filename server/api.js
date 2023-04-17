@@ -316,6 +316,41 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
   });
 });
 
+//supprimer un commentaire en fonction de son id
+router.delete('/commentaire/:id', (req, res) => {
+  Commentaire.findOneAndDelete({id:req.params.id})
+  .then((result) => {
+    res.status(200).send({
+      message: "Commentaire supprimé",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({ 
+      message: "Erreur lors de la suppression du commentaire",
+      error,
+    });
+  });
+});
+
+//supprimer une reponse en fonction de son id
+router.delete('/commentaire/reponse/:id', (req, res) => {
+  Reponse.findOneAndDelete({_id:req.params.id})
+  .then((result) => {
+    res.status(200).send({
+      message: "Reponse supprimée",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la suppression de la reponse",
+      error,
+    });
+  });
+});
+
+
 
   
   

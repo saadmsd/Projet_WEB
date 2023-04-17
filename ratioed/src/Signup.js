@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './style/Signup.css';
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -57,7 +58,11 @@ const Signup = () => {
 
 
     return (
-        <form>
+        <div>
+        
+        <form id="signup">
+        <h1>BIENVENUE SUR RATIOED LE 1ER RESEAU SOCIAL DE RATIO AU MONDE ENTIER</h1>
+        <h2>Connectez-vous ou inscrivez-vous</h2>
         <label>
             Login:
             <input type="email" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />
@@ -82,6 +87,7 @@ const Signup = () => {
             <button type="reset" onClick={handleReset}>Reset</button>
         {error && <p>{error}</p>}
         </form>
+        </div>
     );
 };
 

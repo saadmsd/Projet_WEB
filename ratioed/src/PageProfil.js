@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import NavigationPanel from './NavigationPanel';
-import Bottom from './Bottom';
+import Switch from './Switch';
 
 function PageProfil (props) {
     const { isConnected, login, logout, page ,setPage } = props;
@@ -17,7 +17,7 @@ function PageProfil (props) {
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout}/>
             <h1>Page Profil</h1>
-            <Bottom page={page} setPage={setPage}/>
+            <Switch page={page} setPage={setPage}/>
         </div>
     );
 }

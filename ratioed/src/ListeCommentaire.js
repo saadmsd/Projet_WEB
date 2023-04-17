@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Commentaire from "./Commentaire";
+import NewComment from "./NewComment";
 import axios from "axios";
 
 function ListeCommentaire(props) {
@@ -36,9 +37,9 @@ function ListeCommentaire(props) {
     return (
         <div>
             <h2>Commentaires</h2>
+            <NewComment  id = "NC" currentUser={currentUser} getCommentaires={getCommentaires}/>
             {req===false ? getCommentaires() : null}
-            <button onClick={getCommentaires}>Refresh</button>
-            {commentaires.toReversed().map((commentaire) => (
+            {commentaires.reverse().map((commentaire) => (
                 <ul>
                     <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser}/>
                 </ul>
