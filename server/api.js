@@ -351,6 +351,22 @@ router.delete('/commentaire/reponse/:id', (req, res) => {
 });
 
 
+router.get('/user/:login', (req, res) => {
+  User.findOne({login:req.params.login})
+  .then((result) => {
+    res.status(200).send({
+      message: "Utilisateur récupéré",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération de l'utilisateur",
+      error,
+    });
+  });
+});
+
 
   
   

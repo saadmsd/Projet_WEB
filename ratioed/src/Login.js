@@ -26,8 +26,7 @@ function Login (props) {
                 console.log(response);
                 login();
                 getCommentaires();
-                setCurrentUser(loggin);
-                
+                setCurrentUser(loggin);                
             })
             .catch((error) => {
                 console.log(error);

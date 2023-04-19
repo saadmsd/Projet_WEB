@@ -8,6 +8,8 @@ function MainPage (props) {
     const [isConnected, setConnect] = useState(false);
     const [page, setPage] = useState("signin_page");
     const [currentUser, setCurrentUser] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const [Mypage, setMypage] = useState(false);
 
     const getConnected = () =>{
         setConnect(true);
@@ -19,14 +21,40 @@ function MainPage (props) {
         setPage("signin_page");
     }
 
+    const getProfile = () => {
+        setPage("profil_page");
+    }
+
+    const handleProfile = (commentaire) => {
+        const configuration = {
+            method: "GET",
+            url: "/api/user/"+commentaire.auteur,
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setSelectedUser(commentaire.auteur);
+                setPage("profil_page");
+                if (currentUser === commentaire.auteur){
+                    setMypage(true);
+                } else {
+                    setMypage(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
     return (
         <div>
             {isConnected === false 
             ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> 
             : (isConnected === true && page === "message_page")
-                ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile}/>
                 : (isConnected === true && page === "profil_page")
-                    ?<PageProfil isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage}/>
+                    ?<PageProfil isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile}/>
                     : null}
         </div>
     );

@@ -1,13 +1,18 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Commentaire from "./Commentaire";
 import NewComment from "./NewComment";
 import axios from "axios";
 
 function ListeCommentaire(props) {
     
-    const {currentUser} = props;
+    const {currentUser, page, setPage, handleProfile, getProfile} = props;
     const [commentaires, setCommentaires] = useState([]);
     const [req,setReq] = useState(false);
+
+    
+    // useEffect(() => {
+    //     getCommentaires();
+    // }, []);
 
     const getCommentaires = () => {
             const configuration = {
@@ -38,10 +43,10 @@ function ListeCommentaire(props) {
         <div>
             <h2>Commentaires</h2>
             <NewComment  id = "NC" currentUser={currentUser} getCommentaires={getCommentaires}/>
-            {req===false ? getCommentaires() : null}
+            {req === false ? getCommentaires() : null}
             {commentaires.reverse().map((commentaire) => (
                 <ul>
-                    <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser}/>
+                    <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile}/>
                 </ul>
             ))}
 
