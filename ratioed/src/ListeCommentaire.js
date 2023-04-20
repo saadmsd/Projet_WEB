@@ -38,11 +38,15 @@ function ListeCommentaire(props) {
         return new Date(date).toLocaleDateString('fr-FR', options);
     }
 
+
+
+
     
     return (
         <div>
             <h2>Commentaires</h2>
             <NewComment id="NC" currentUser={currentUser} getCommentaires={getCommentaires} />
+            <button onClick={getCommentaires}>Refresh</button>
             {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
                 <ul>
                     <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>

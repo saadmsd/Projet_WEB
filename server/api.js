@@ -79,7 +79,7 @@ router.post("/login/", (request, response) => {
               userId: user._id,
             },
             "Random-token",
-            {expiresIn: "5sec",}
+            {expiresIn: "24h"}
           );
           response.status(200).send({
             message: "Login successful",

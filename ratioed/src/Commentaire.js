@@ -79,6 +79,20 @@ function Commentaire(props){
         }
     }
 
+    const handleDelete = () => {
+            const configuration = {
+                method: "DELETE",
+                url: "/api/commentaire/"+commentaire._id,
+            };
+            axios(configuration)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
 
     return (
         <div className="commentaire">

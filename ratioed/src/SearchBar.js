@@ -30,8 +30,6 @@ function   SearchBar ( props ){
     }
 
 
-
-
     return(
         <div>
             <input type="text" value={query} onChange={getQuery} name='query' placeholder='Search...' />
