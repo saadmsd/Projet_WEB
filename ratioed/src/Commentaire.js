@@ -3,11 +3,12 @@ import axios from "axios";
 import Reponse from "./Reponse";
 import PageProfil from "./PageProfil";
 import { render } from "react-dom";
+import "./style/Commentaire.css";
 
 
 function Commentaire(props){
 
-    const {currentUser, getProfile, page, setPage} = props;
+    const {currentUser, getProfile, page, setPage, selectedUser, setSelectedUser} = props;
     const [commentaire, setCommentaire] = useState(props.commentaire);
     const [like, setLike] = useState(false);
     const [answer, setAnswer] = useState(false);
@@ -73,14 +74,17 @@ function Commentaire(props){
             alert("Vous êtes déjà sur votre profil");
         }else{
             getProfile();
+            setSelectedUser(commentaire.auteur);
 
         }
     }
 
 
     return (
-        <div>
-            <h3><span onClick={handleProfileClick}>{commentaire.auteur}</span></h3>
+        <div className="commentaire">
+            <h3>
+                <span className ="click" onClick={handleProfileClick}>{commentaire.auteur}</span>
+            </h3>
             <p>{commentaire.texte}</p>
             <p>{props.formatDate(commentaire.date)}</p>
             <p>{commentaire.nbLike} likes</p>

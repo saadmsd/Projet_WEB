@@ -5,29 +5,29 @@ import axios from "axios";
 
 function ListeCommentaire(props) {
     
-    const {currentUser, page, setPage, handleProfile, getProfile} = props;
+    const {currentUser, page, setPage, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
     const [commentaires, setCommentaires] = useState([]);
     const [req,setReq] = useState(false);
 
     
-    // useEffect(() => {
-    //     getCommentaires();
-    // }, []);
+    useEffect(() => {
+        getCommentaires();
+    }, []);
 
     const getCommentaires = () => {
-            const configuration = {
-                method: "GET",
-                url: "/api/commentaire/",
-            };
-            axios(configuration)
-                .then((response) => {
-                    console.log(response);
-                    setCommentaires([]);
-                    setCommentaires(response.data.result);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });    
+        const configuration = {
+            method: "GET",
+            url: "/api/commentaire/",
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setCommentaires([]);
+                setCommentaires(response.data.result);
+            })
+            .catch((error) => {
+                console.log(error);
+            });    
 
         setReq(true);
     };
@@ -42,11 +42,10 @@ function ListeCommentaire(props) {
     return (
         <div>
             <h2>Commentaires</h2>
-            <NewComment  id = "NC" currentUser={currentUser} getCommentaires={getCommentaires}/>
-            {req === false ? getCommentaires() : null}
-            {commentaires.reverse().map((commentaire) => (
+            <NewComment id="NC" currentUser={currentUser} getCommentaires={getCommentaires} />
+            {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
                 <ul>
-                    <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile}/>
+                    <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                 </ul>
             ))}
 
@@ -56,4 +55,3 @@ function ListeCommentaire(props) {
 }
 
 export default ListeCommentaire;
-    

@@ -22,7 +22,11 @@ function MainPage (props) {
     }
 
     const getProfile = () => {
-        setPage("profil_page");
+        if (page === "profil_page") {
+            alert("Vous êtes déjà sur votre profil");
+        } else if (page === "message_page"){
+            setPage("profil_page");
+        }
     }
 
     const handleProfile = (commentaire) => {
@@ -52,9 +56,9 @@ function MainPage (props) {
             {isConnected === false 
             ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> 
             : (isConnected === true && page === "message_page")
-                ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile}/>
+                ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                 : (isConnected === true && page === "profil_page")
-                    ?<PageProfil isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile}/>
+                    ?<PageProfil isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                     : null}
         </div>
     );

@@ -4,7 +4,8 @@ import Switch from './Switch';
 import ListeCommentaire from './ListeCommentaire';
 
 function PageProfil (props) {
-    const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser, handleProfile, getProfile} = props;
+    const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
+
 
     const getConnected = () => {
         login();
@@ -18,8 +19,9 @@ function PageProfil (props) {
         <div>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout}/>
             <h1>Page Profil</h1>
-            <Switch page={page} setPage={setPage}/>
-            <ListeCommentaire currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile}/>
+            <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
+            {(currentUser === selectedUser) ? <h2>Vous êtes sur votre profil</h2> : <h2>Vous êtes sur le profil de {selectedUser}</h2>}
+            <ListeCommentaire currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
         </div>
     );
 }
