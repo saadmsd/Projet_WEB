@@ -22,9 +22,7 @@ function MainPage (props) {
     }
 
     const getProfile = () => {
-        if (page === "profil_page") {
-            alert("Vous êtes déjà sur votre profil");
-        } else if (page === "message_page"){
+        if (page === "message_page"){
             setPage("profil_page");
         }
     }

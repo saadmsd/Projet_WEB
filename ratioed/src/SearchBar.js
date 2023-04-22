@@ -4,6 +4,8 @@ import axios from 'axios' ;
 
 function   SearchBar ( props ){
 
+    const {currentUser, getProfile, handleProfile, selectedUser, setSelectedUser} = props;
+
     const [query, setQuery] = useState("") ;
     const [result, setResult] = useState([]) ;
 
@@ -14,8 +16,8 @@ function   SearchBar ( props ){
         const configuration  = {
             method : "GET",
             url : "/api/search",
-            data : {
-                query:query
+            params : {
+                login: query,
             }
         };
         axios(configuration)
@@ -30,17 +32,25 @@ function   SearchBar ( props ){
     }
 
 
+    const handleProfileClick = (user) => {
+        setSelectedUser(user);
+        getProfile();
+    }
+
+
     return(
         <div>
             <input type="text" value={query} onChange={getQuery} name='query' placeholder='Search...' />
             <button onClick={handleSearchSubmit}>Search</button>
+            {result.length === 0 ? <p>No result</p> : 
             <ul>
                 {result.map((user) => (
-                    <li>{user.login}</li>
+                    <li key={user._id} className="click" onClick={() => handleProfileClick(user.login)}>{user.login}</li>
                 ))}
             </ul>
+            }
         </div>
-    )
+    );
 
 } 
 

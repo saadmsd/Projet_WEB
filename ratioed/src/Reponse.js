@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import Commentaire from "./Commentaire";
@@ -12,6 +12,10 @@ function Reponse(props){
     const [like, setLike] = useState(false);
     const [ratio, setRatio] = useState(false);
 
+
+    useEffect(() => {
+        getReponses();
+    }, []);
 
     const handleReponse = () => {
         // Envoyer la réponse à l'aide d'une requête axios
@@ -50,7 +54,6 @@ function Reponse(props){
         console.log(rep);
         if(like === false){
             if(rep.likedBy.includes(currentUser) === false){
-                
                 const configuration = {
                     method: "PUT",
                     url: "/api/commentaire/reponse/like/"+rep._id,

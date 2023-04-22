@@ -369,8 +369,9 @@ router.get('/user/:login', (req, res) => {
 
 // Retourne la liste des utilisateurs contenant les caractere de la requete dans leur login
 router.get('/search', (req, res) => {
-  User.find({login: new RegExp(req.query.login, 'i')}) 
+  User.find({login: new RegExp(req.query.login, 'i')})
   .then((result) => {
+    console.log(req.query.login) 
     res.status(200).send({
       message: "Utilisateurs récupérés",
       result,

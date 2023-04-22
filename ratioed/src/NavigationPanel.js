@@ -6,7 +6,7 @@ import './style/NavigationPanel.css';
 
 function NavigationPanel(props) {
 
-  const {currentUser,setCurrentUser} = props;
+  const {currentUser,setCurrentUser, getProfile, handleProfile, selectedUser, setSelectedUser} = props;
 
   return (
     <div>
@@ -14,7 +14,7 @@ function NavigationPanel(props) {
           <img src="logo.gif" alt="Logo de Ratioed" />
             {(props.isConnected) ? 
             <div>
-                <SearchBar id="form"/>
+                <SearchBar id="form" currentUser={currentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                 <Logout logout={props.logout} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             </div>
             :<Login login={props.login} currentUser={currentUser} setCurrentUser={setCurrentUser}/>}
