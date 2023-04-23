@@ -87,6 +87,7 @@ function Commentaire(props){
             axios(configuration)
                 .then((response) => {
                     console.log(response);
+                    props.getCommentaires();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -109,6 +110,7 @@ function Commentaire(props){
             {answer === true ? <div>
                 <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} />
             </div> : null}
+            {currentUser === commentaire.auteur ? <button onClick={handleDelete}>Supprimer</button> : null}
         </div>
     );
 
