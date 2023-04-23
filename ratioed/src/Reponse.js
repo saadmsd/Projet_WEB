@@ -97,6 +97,22 @@ function Reponse(props){
         }
     }
 
+    const handleDelete = (rep) => {
+        const configuration = {
+            method: "DELETE",
+            url: "/api/commentaire/reponse/"+rep._id,
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setReponses(response.data.result);
+            })
+            .catch((error) => {
+                console.log(error);
+                console.log("error client");
+            })
+    }
+
     return(
         <div>
             <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
@@ -111,6 +127,7 @@ function Reponse(props){
                             <p>{formatDate(rep.date)}</p>
                             <p>{rep.nbLike} likes</p>
                             <button onClick={() => handleLike(rep)}>Like</button>
+                            {currentUser === rep.auteur ? <button onClick={() => handleDelete(rep)}>Supprimer</button> : null}
                         </li>
                         </ul>
                     ))
