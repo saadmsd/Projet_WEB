@@ -23,8 +23,6 @@ function Commentaire(props){
             .then((response) => {
                 console.log(response);
                 setReponses(response.data.result);
-                console.log("error get");
-
             })
             .catch((error) => {
                 console.log(error);
@@ -80,19 +78,38 @@ function Commentaire(props){
     }
 
     const handleDelete = () => {
-            const configuration = {
-                method: "DELETE",
-                url: "/api/commentaire/"+commentaire._id,
-            };
-            axios(configuration)
-                .then((response) => {
-                    console.log(response);
-                    props.getCommentaires();
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
+        //supprimer le commentaire et les reponses associees en envoyant 2 axios
+        const configuration = {
+            method: "DELETE",
+            url: "/api/commentaire/"+commentaire._id,
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                props.getCommentaires();
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+            }
+            );
+
+        const configuration2 = {
+            method: "DELETE",
+            url: "/api/commentaire/reponse/"+commentaire.id,
+        };
+        axios(configuration2)
+            .then((response) => {
+                console.log(response);
+                props.getCommentaires();
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+            }
+            );
+
+    }
 
 
     return (
@@ -107,9 +124,7 @@ function Commentaire(props){
             <img src="https://img.icons8.com/ios/50/000000/like--v1.png" alt="like" />
             </button>
             {answer === false ? <button onClick={handleAnswer}>Répondre</button> : <button onClick={handleAnswer}>Annuler</button>}
-            {answer === true ? <div>
-                <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} />
-            </div> : null}
+            <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} handleDelete={handleDelete} />
             {currentUser === commentaire.auteur ? <button onClick={handleDelete}>Supprimer</button> : null}
         </div>
     );
