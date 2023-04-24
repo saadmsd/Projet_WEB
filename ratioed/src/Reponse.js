@@ -66,27 +66,8 @@ function Reponse(props){
                     .then((response) => {
                         console.log(response.data.result);
                         setReponses(response.data.result);
-                        setLike(true);
-                        //getReponses();
-                        //RATIO
-                        // if (rep.texte === "ratio"){
-                        //     if (rep.nbLike > commentaire.nbLike){
-                        //         const configuration = {
-                        //             method: "DELETE",
-                        //             url: "/api/commentaire/"+commentaire._id,
-                        //         };
-                        //         axios(configuration)
-                        //             .then((response) => {
-                        //                 console.log(response);
-                        //                 setRatio(true);
-                        //             })
-                        //             .catch((error) => {
-                        //                 console.log(error);
-                        //                 console.log("error client");
-                        //             })
-                        //     }
-                        // }
-                    })
+                        setLike(true);                     
+                       })
                     .catch((error) => {
                         console.log(error);
                         console.log("error client");
