@@ -316,6 +316,7 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
   });
 });
 
+//Supprimer un commentaire 
 router.delete('/commentaire/:id', (req, res) => {
   Commentaire.findOneAndDelete({_id:req.params.id})
   .then((result) => {
@@ -325,13 +326,32 @@ router.delete('/commentaire/:id', (req, res) => {
     });
   })
   .catch((error) => {
-    res.status(500).send({ 
+    res.status(500).send({
       message: "Erreur lors de la suppression du commentaire",
       error,
     });
   });
 });
-  
+
+
+//Supprimer les reponse en fonction du commentaire parent
+router.delete('/commentaire/reponse/:id', (req, res) => {
+  Reponse.deleteMany({parentId:req.params.id})
+  .then((result) => {
+    res.status(200).send({
+      message: "Reponses supprimées",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la suppression des reponses",
+      error,
+    });
+  });
+});
+
+
 //supprimer une reponse en fonction de son id
 router.delete('/commentaire/reponse/:id', (req, res) => {
   Reponse.findOneAndDelete({_id:req.params.id})
@@ -379,6 +399,40 @@ router.get('/search', (req, res) => {
   .catch((error) => {
     res.status(500).send({
       message: "Erreur lors de la récupération des utilisateurs",
+      error,
+    });
+  });
+});
+
+//retourne le nombre de like d'un commentaire
+router.get('/commentaire/like/:id', (req, res) => {
+  Commentaire.findOne({_id:req.params.id})
+  .then((result) => {
+    res.status(200).send({
+      message: "Nombre de like récupéré",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération du nombre de like",
+      error,
+    });
+  });
+});
+
+//retourne le nombre de like d'une reponse
+router.get('/commentaire/reponse/like/:id', (req, res) => {
+  Reponse.findOne({_id:req.params.id})
+  .then((result) => {
+    res.status(200).send({
+      message: "Nombre de like récupéré",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération du nombre de like",
       error,
     });
   });

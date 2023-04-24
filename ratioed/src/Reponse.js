@@ -6,7 +6,7 @@ import Commentaire from "./Commentaire";
 
 function Reponse(props){
     
-    const {currentUser, commentaire, reponses, setReponses ,getReponses} = props;
+    const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete} = props;
     const [reponse, setReponse] = useState("");
     //const [reponses, setReponses] = useState([]);
     const [like, setLike] = useState(false);
@@ -51,8 +51,7 @@ function Reponse(props){
     }
 
     const handleLike = (rep) => {
-        console.log(rep);
-        if(like === false){
+
             if(rep.likedBy.includes(currentUser) === false){
                 const configuration = {
                     method: "PUT",
@@ -64,21 +63,32 @@ function Reponse(props){
                 };
                 axios(configuration)
                     .then((response) => {
-                        console.log(response.data.result);
-                        setReponses(response.data.result);
-                        setLike(true);                     
+                        console.log(response);
+                        //RATIO supprime le commentaire si la reponse a plus de like
+                        // if(rep.nbLike > commentaire.nbLike){
+                        //     handleDelete(commentaire);
+                        // }
+                       
+                        getReponses();
+                        setLike(true);                  
                        })
                     .catch((error) => {
                         console.log(error);
-                        console.log("error client");
+                        console.log(like);
+                        
                     });
+                const comLike = commentaire.nbLike;
+                const repLike = rep.nbLike;
+                console.log(comLike);
+                console.log(repLike);
+               
             } else {
                 setLike(true);
             }
-        }
+        
     }
 
-    const handleDelete = (rep) => {
+    const handleDeleteR = (rep) => {
         const configuration = {
             method: "DELETE",
             url: "/api/commentaire/reponse/"+rep._id,
@@ -87,6 +97,7 @@ function Reponse(props){
             .then((response) => {
                 console.log(response);
                 setReponses(response.data.result);
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -108,7 +119,7 @@ function Reponse(props){
                             <p>{formatDate(rep.date)}</p>
                             <p>{rep.nbLike} likes</p>
                             <button onClick={() => handleLike(rep)}>Like</button>
-                            {currentUser === rep.auteur ? <button onClick={() => handleDelete(rep)}>Supprimer</button> : null}
+                            {currentUser === rep.auteur ? <button onClick={() => handleDeleteR(rep)}>Supprimer</button> : null}
                         </li>
                         </ul>
                     ))
