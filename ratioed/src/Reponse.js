@@ -51,42 +51,36 @@ function Reponse(props){
     }
 
     const handleLike = (rep) => {
-
-            if(rep.likedBy.includes(currentUser) === false){
-                const configuration = {
-                    method: "PUT",
-                    url: "/api/commentaire/reponse/like/"+rep._id,
-                    data: {
-                        auteur: currentUser,
-                        nbLike: rep.nbLike+1,
-                    },
-                };
-                axios(configuration)
-                    .then((response) => {
-                        console.log(response);
-                        //RATIO supprime le commentaire si la reponse a plus de like
-                        // if(rep.nbLike > commentaire.nbLike){
-                        //     handleDelete(commentaire);
-                        // }
-                       
-                        getReponses();
-                        setLike(true);                  
-                       })
-                    .catch((error) => {
-                        console.log(error);
-                        console.log(like);
-                        
-                    });
-                const comLike = commentaire.nbLike;
-                const repLike = rep.nbLike;
-                console.log(comLike);
-                console.log(repLike);
-               
-            } else {
-                setLike(true);
-            }
-        
-    }
+        if (rep.likedBy.includes(currentUser) === false) {
+          const configuration = {
+            method: "PUT",
+            url: "/api/commentaire/reponse/like/" + rep._id,
+            data: {
+              auteur: currentUser,
+              nbLike: rep.nbLike + 1,
+            },
+          };
+          axios(configuration)
+            .then((response) => {
+              console.log(response);
+              getReponses();
+              setLike(true);
+              const comLike = commentaire.nbLike;
+              const repLike = response.data.result.nbLike;
+              if (repLike > comLike && response.data.result.texte === "ratio") {
+                handleDelete();
+                setRatio(true);
+                alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);              }
+            })
+            .catch((error) => {
+              console.log(error);
+              console.log(like);
+            });
+        } else {
+          setLike(true);
+        }
+      };
+    
 
     const handleDeleteR = (rep) => {
         const configuration = {
