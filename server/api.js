@@ -441,67 +441,64 @@ router.get('/commentaire/reponse/like/:id', (req, res) => {
 
   
   
-// Get following list
-router.get("/:username/following", async (req, res) => {
+// Récupérer la liste des utilisateurs suivis
+router.get("/user/:username/following", async (req, res) => {
   try {
     const { username } = req.params;
-    const user = await User.findOne({ username });
-    const following = user.following;
-    res.status(200).json(following);
+    const user = await User.findOne({ login: username }).populate("following");
+    res.status(200).send({
+      message: "Liste des utilisateurs suivis récupérée avec succès",
+      following: user.following,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send("Erreur interne du serveur");
   }
 });
 
-// Get followers list
-router.get("/:username/followers", async (req, res) => {
+// Récupérer la liste des abonnés
+router.get("/user/:username/followers", async (req, res) => {
   try {
     const { username } = req.params;
-    const users = await User.find({ following: username });
-    const followers = users.map((user) => user.username);
-    res.status(200).json(followers);
+    const user = await User.findOne({ login: username }).populate("followers");
+    res.status(200).send({
+      message: "Liste des abonnés récupérée avec succès",
+      followers: user.followers,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send("Erreur interne du serveur");
   }
 });
 
-// Handle follow and unfollow actions
-router.put("/:username/follow", async (req, res) => {
+// Gérer les actions de suivi et de désabonnement
+router.put("/user/:username/follow", async (req, res) => {
   try {
     const { username } = req.params;
-    const { userToFollow } = req.body;
+    const { user } = req.body;
 
-    // Check if userToFollow exists
-    const user = await User.findOne({ username: userToFollow });
-    if (!user) {
-      return res.status(404).send("User not found");
+    // Vérifier si l'utilisateur à suivre existe
+    const userToFollow = await User.findOne({ login: user });
+    if (!userToFollow) {
+      return res.status(404).send("Utilisateur introuvable");
     }
 
-    // Toggle follow state
-    const isFollowing = user.followers.includes(username);
+    // Bascule de l'état de suivi
+    const isFollowing = userToFollow.followers.includes(username);
     if (isFollowing) {
-      await User.updateOne({ username }, { $pull: { following: userToFollow } });
-      await User.updateOne({ username: userToFollow }, { $pull: { followers: username } });
+      await User.updateOne({ login: username }, { $pull: { following: userToFollow.login } });
+      await User.updateOne({ login: userToFollow.login }, { $pull: { followers: username } });
     } else {
-      await User.updateOne({ username }, { $push: { following: userToFollow } });
-      await User.updateOne({ username: userToFollow }, { $push: { followers: username } });
+      await User.updateOne({ login: username }, { $push: { following: userToFollow.login } });
+      await User.updateOne({ login: userToFollow.login }, { $push: { followers: username } });
     }
 
-    res.status(200).send("Success");
+    res.status(200).send("Action de suivi effectuée avec succès");
   } catch (err) {
     console.error(err);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send("Erreur interne du serveur");
   }
 });
-
-module.exports = router;
-
-
-
-
-
 
 
 

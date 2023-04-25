@@ -22,16 +22,8 @@ const userShema = new mongoose.Schema({
         required: [true, "Please enter a firstname"],
         unique : false,
     },
-    followers: {
-        type: Array,
-        required: false,
-        unique : false,
-    },
-    following: {
-        type: Array,
-        required: false,
-        unique : false,
-    },
+    followers: [String],
+    following: [String],
 });
 
 module.exports = mongoose.model.User || mongoose.model("User", userShema);
