@@ -441,8 +441,62 @@ router.get('/commentaire/reponse/like/:id', (req, res) => {
 
   
   
-  
+// Get following list
+router.get("/:username/following", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const user = await User.findOne({ username });
+    const following = user.following;
+    res.status(200).json(following);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
+// Get followers list
+router.get("/:username/followers", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const users = await User.find({ following: username });
+    const followers = users.map((user) => user.username);
+    res.status(200).json(followers);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// Handle follow and unfollow actions
+router.put("/:username/follow", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { userToFollow } = req.body;
+
+    // Check if userToFollow exists
+    const user = await User.findOne({ username: userToFollow });
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    // Toggle follow state
+    const isFollowing = user.followers.includes(username);
+    if (isFollowing) {
+      await User.updateOne({ username }, { $pull: { following: userToFollow } });
+      await User.updateOne({ username: userToFollow }, { $pull: { followers: username } });
+    } else {
+      await User.updateOne({ username }, { $push: { following: userToFollow } });
+      await User.updateOne({ username: userToFollow }, { $push: { followers: username } });
+    }
+
+    res.status(200).send("Success");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+module.exports = router;
 
 
 
