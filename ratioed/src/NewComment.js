@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+import "./style/NewComment.css"
 
 function NewComment(props) {
 
@@ -40,9 +40,9 @@ function NewComment(props) {
     };
 
     return (
-        <div>
-            <textarea type="text" value={comment} onChange={handleComment} />
-            <button onClick={handleAddComment}>Add Comment</button>
+        <div className="newComment">
+            <textarea placeholder="Quoi de neuf ?" type="text" value={comment} onChange={handleComment} />
+            <button onClick={handleAddComment}>Publier</button>
         </div>
     );
 }

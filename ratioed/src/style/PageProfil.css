@@ -1,0 +1,13 @@
+/*feuile de style pour la page de profil*/
+
+.main_content {
+    display: flex;
+    flex-direction: row;
+    /* background fondu clair transparent*/
+    background: rgba(152, 170, 255, 0.5);
+    /* bordure arrondie */
+    border-radius: 10px;
+    /* ombre */
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
