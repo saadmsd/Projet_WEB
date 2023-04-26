@@ -316,8 +316,9 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
   });
 });
 
+
 //Supprimer un commentaire 
-router.delete('/commentaire/:id', (req, res) => {
+router.delete('/commentaire/ratio/:id', (req, res) => {
   Commentaire.findOneAndDelete({_id:req.params.id})
   .then((result) => {
     res.status(200).send({
@@ -499,6 +500,48 @@ router.put("/user/:username/follow", async (req, res) => {
     res.status(500).send("Erreur interne du serveur");
   }
 });
+
+
+//ratio : incremente le cptRatio de l'auteur de la reponse 
+router.put('/commentaire/reponse/ratio/:id', (req, res) => {
+  Reponse.findOne({_id:req.params.id})
+  .then((result) => {
+    result.cptRatio = result.cptRatio + 1;
+    result.save();
+    res.status(200).send({  
+      message: "Ratio incrémenté",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de l'incrémentation du ratio",
+      error,
+    });
+  });
+});
+
+//ratio : incremente le cptRatioed de l'auteur du commentaire
+router.put('/commentaire/ratio/:id', (req, res) => {
+  Commentaire.findOne({_id:req.params.id})
+  .then((result) => {
+    result.cptRatioed = result.cptRatioed + 1;
+    result.save();
+    res.status(200).send({
+      message: "Ratio incrémenté",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de l'incrémentation du ratio",
+      error,
+    });
+  });
+});
+
+
+
 
 
 

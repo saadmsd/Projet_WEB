@@ -24,6 +24,16 @@ const userShema = new mongoose.Schema({
     },
     followers: [String],
     following: [String],
+    cptRatio: {
+        type: Number,
+        default: 0,
+        required: false,
+      },
+      cptRatioed: {
+        type: Number,
+        default: 0,
+        required: false,
+      }
 });
 
 module.exports = mongoose.model.User || mongoose.model("User", userShema);

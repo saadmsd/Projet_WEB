@@ -31,21 +31,6 @@ const comShema = new mongoose.Schema({
         default: [],
         required: false,
       },
-      listeFriends: {
-        type: [String],
-        default: [],
-        required: false,
-      },
-      cptRatio: {
-        type: Number,
-        default: 0,
-        required: false,
-      },
-      cptRatioed: {
-        type: Number,
-        default: 0,
-        required: false,
-      }
 });
 
 
