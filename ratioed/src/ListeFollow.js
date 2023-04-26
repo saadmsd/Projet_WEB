@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./style/ListeFollow.css"
 
 function ListeFollow(props) {
     const { currentUser, selectedUser, setSelectedUser, page, setPage, handleProfile, getProfile } = props;
@@ -56,30 +57,32 @@ function ListeFollow(props) {
             </button>
             </div>
         ) : null}
-        <div>
-            <h2>Following</h2>
-            <ul>
-            {following.map((user) => (
-                <li key={user}>
-                <button onClick={() => setSelectedUser(user)}>
-                    {user}
-                </button>
-                </li>
-            ))}
-            </ul>
-        </div>
-        <div>
-            <h2>Followers</h2>
-            <ul>
-            {followers.map((user) => (
-                <li key={user}>
-                <button onClick={() => setSelectedUser(user)}>
-                    {user}
-                </button>
-                </li>
-            ))}
-            </ul>
-        </div>
+            <div className="aside">
+                <div className="follow">
+                    <h2>Following</h2>
+                    <ul>
+                    {following.map((user) => (
+                        <li key={user}>
+                        <span onClick={() => setSelectedUser(user)}>
+                            {user}
+                        </span>
+                        </li>
+                    ))}
+                    </ul>
+                </div>
+                <div className="follow">
+                    <h2>Followers</h2>
+                    <ul>
+                    {followers.map((user) => (
+                        <li key={user}>
+                        <span onClick={() => setSelectedUser(user)}>
+                            {user}
+                        </span>
+                        </li>
+                    ))}
+                    </ul>
+                </div>
+            </div>
         </div>
     );
 }

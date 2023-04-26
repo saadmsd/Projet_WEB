@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Commentaire from "./Commentaire";
 import NewComment from "./NewComment";
 import axios from "axios";
+import "./style/ListeCommentaire.css";
 
 function ListeCommentaire(props) {
     
@@ -43,10 +44,12 @@ function ListeCommentaire(props) {
 
     
     return (
-        <div>
+        <div className="box">
             <h2>Commentaires</h2>
-            <NewComment id="NC" currentUser={currentUser} getCommentaires={getCommentaires} />
-            <button onClick={getCommentaires}>Refresh</button>
+            {page !== "profil_page" || selectedUser === currentUser ? (
+                <NewComment id="NC" currentUser={currentUser} getCommentaires={getCommentaires} />
+            ) : null}
+            <button name="refresh" onClick={getCommentaires}>Rafraîchir</button>
             {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
                 <ul>
                     <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>

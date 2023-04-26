@@ -117,12 +117,13 @@ function Commentaire(props){
             <h3>
                 <span className ="click" onClick={handleProfileClick}>{commentaire.auteur}</span>
             </h3>
-            <p>{commentaire.texte}</p>
-            <p>{props.formatDate(commentaire.date)}</p>
-            <p>{commentaire.nbLike} likes</p>
+            <p name="text">{commentaire.texte}</p>
+            <p name='date'>{props.formatDate(commentaire.date)}</p>
+            <p name="likes">{commentaire.nbLike}
             <button onClick={handleLike}>
-            <img src="https://img.icons8.com/ios/50/000000/like--v1.png" alt="like" />
+                <img src="pngwing.png" alt="like" />
             </button>
+            </p>
             {answer === false ? <button onClick={handleAnswer}>Répondre</button> : <button onClick={handleAnswer}>Annuler</button>}
             <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} handleDelete={handleDelete} />
             {currentUser === commentaire.auteur ? <button onClick={handleDelete}>Supprimer</button> : null}
