@@ -10,6 +10,17 @@
     width: 400px;
 }
 
+#signup img {
+    /*tient compte de la taille du formulaire*/
+    width: 70%;
+    border-radius: 20px;
+    /*centrer l'image*/
+    display: block;
+    margin: 0 auto;
+    height: auto;
+    margin-bottom: 10px;
+
+}
 
 #signup h1 {
     font-size: 20px;
