@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./style/Reponse.css";
 import "./style/Commentaire.css";
+import Swal from 'sweetalert2'
 function Reponse(props){
     
     const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete} = props;
@@ -70,7 +71,21 @@ function Reponse(props){
                 handleDelete();
                 setRatio(true);
                 handleRatio(rep);
-                alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);              }
+                //alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);
+                Swal.fire({
+                    title: 'RATIO!',
+                    text: `HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`,
+                    color: 'red',
+                    confirmButtonText: 'EZ',
+                    position: 'center',
+                    backdrop: `
+                        rgba(123,0,0,0.4)
+                        url("kimpembe.gif")
+                        center top
+                        no-repeat
+                    `
+                })
+              }
             })
             .catch((error) => {
               console.log(error);
