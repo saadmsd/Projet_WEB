@@ -318,7 +318,7 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
 
 
 //Supprimer un commentaire 
-router.delete('/commentaire/ratio/:id', (req, res) => {
+router.delete('/commentaire/:id', (req, res) => {
   Commentaire.findOneAndDelete({_id:req.params.id})
   .then((result) => {
     res.status(200).send({
@@ -502,31 +502,10 @@ router.put("/user/:username/follow", async (req, res) => {
 });
 
 
-//ratio : incremente le cptRatio de l'auteur de la reponse 
-router.put('/commentaire/reponse/ratio/:id', (req, res) => {
-  Reponse.findOne({_id:req.params.id})
+//ratio : incremente le cptRatio de l'auteur de la reponse et le cptratio de l'auteur du commentaire
+router.put('/commentaire/ratio/:id/:idd', (req, res) => {
+  User.findOneAndUpdate({_id:req.params.id}, {$inc: {cptRatio: 1}}) //
   .then((result) => {
-    result.cptRatio = result.cptRatio + 1;
-    result.save();
-    res.status(200).send({  
-      message: "Ratio incrémenté",
-      result,
-    });
-  })
-  .catch((error) => {
-    res.status(500).send({
-      message: "Erreur lors de l'incrémentation du ratio",
-      error,
-    });
-  });
-});
-
-//ratio : incremente le cptRatioed de l'auteur du commentaire
-router.put('/commentaire/ratio/:id', (req, res) => {
-  Commentaire.findOne({_id:req.params.id})
-  .then((result) => {
-    result.cptRatioed = result.cptRatioed + 1;
-    result.save();
     res.status(200).send({
       message: "Ratio incrémenté",
       result,
@@ -538,7 +517,23 @@ router.put('/commentaire/ratio/:id', (req, res) => {
       error,
     });
   });
+  User.findOneAndUpdate({_id:req.params.idd}, {$inc: {cptRatioed: 1}}) // in
+  .then((result) => {
+    res.status(200).send({
+      message: "Ratioed incrémenté",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de l'incrémentation du ratioed",
+      error,
+    });
+  });
 });
+
+
+
 
 
 
