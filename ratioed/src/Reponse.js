@@ -68,6 +68,7 @@ function Reponse(props){
                 const repLike = response.data.result.nbLike;
                 if (repLike > comLike && response.data.result.texte === "ratio") {
                 handleDelete();
+                //Ratio(rep);
                 setRatio(true);
                 handleRatio(rep);
                 //alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);
@@ -110,14 +111,10 @@ function Reponse(props){
             })
     }
 
-    const handleRatio = (rep) => {
+    const Ratio = (rep) => {
         const configuration = {
             method: "PUT",
-            url: "/api/commentaire/reponse/ratio/"+rep._id,
-            data: {
-                auteur: rep.auteur,
-                cptRatio: rep.cptRatio + 1,
-            },
+            url: "/api/commentaire/ratio/"+rep._id+"/"+commentaire._id,
         };
         axios(configuration)
             .then((response) => {
@@ -127,30 +124,9 @@ function Reponse(props){
                 console.log(error);
                 console.log("error client");
             })
-
-        const configuration2 = {
-            method: "PUT",
-            url: "/api/commentaire/ratio/"+commentaire.id,
-            data: {
-                auteur: commentaire.auteur,
-                cptRatioed: commentaire.cptRatioed + 1,
-            },
-        };
-        axios(configuration2)
-            .then((response) => {
-                console.log(response);
-            }
-            )
-            .catch((error) => {
-                console.log(error);
-                console.log("error client");
-            }
-            )
     }
 
 
-
-    
     return(
         <div className="reponse">
             <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
