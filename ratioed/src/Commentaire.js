@@ -32,30 +32,24 @@ function Commentaire(props){
 
     const handleLike = () => {
         //verifier si l'utilisateur a deja like
-        
-        if(like === false){
-            if(commentaire.likedBy.includes(currentUser) === false){
-                const configuration = {
-                    method: "PUT",
-                    url: "/api/commentaire/like/"+commentaire._id,
-                    data: {
-                        auteur: currentUser,
-                        nbLike: commentaire.nbLike + 1,
-                    },
-                };
-                axios(configuration)
-                    .then((response) => {
-                        console.log(response);
-                        setCommentaire(response.data.result);
-                        setLike(true);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            } else {
-                setLike(true);
-            }
-        }
+        const configuration = {
+            method: "PUT",
+            url: "/api/commentaire/like/"+commentaire._id,
+            data: {
+                auteur: currentUser,
+                nbLike: commentaire.nbLike,
+            },
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setCommentaire(response.data.result);
+                setLike(response.data.like);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+            
     }
 
     const handleAnswer = () => {
@@ -120,9 +114,15 @@ function Commentaire(props){
             <p name="text">{commentaire.texte}</p>
             <p name='date'>{props.formatDate(commentaire.date)}</p>
             <p name="likes">{commentaire.nbLike}
-            <button onClick={handleLike}>
-                <img src="pngwing.png" alt="like" />
-            </button>
+            {commentaire.likedBy.includes(currentUser) === false ?
+                <button name="nolike" onClick={handleLike}>
+                    <img src="pngwing.png" alt="like" />
+                </button>
+                :
+                <button name="like" onClick={handleLike}>
+                    <img src="pngwing.png" alt="like" />
+                </button>
+            }
             </p>
             <div className="bottom">
                 {answer === false ? <button name="voir" onClick={handleAnswer}>Voir les réponses</button> : 

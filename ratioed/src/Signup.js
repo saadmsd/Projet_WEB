@@ -62,6 +62,7 @@ const Signup = () => {
         
         <form id="signup">
         <h1>BIENVENUE SUR RATIOED LE 1ER RESEAU SOCIAL DE RATIO AU MONDE ENTIER</h1>
+        <img src="logo.jpeg" alt="ratioed"></img>
         <h2>Connectez-vous ou inscrivez-vous</h2>
         <label>
             Login:

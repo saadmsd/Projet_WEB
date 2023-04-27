@@ -74,16 +74,22 @@ p[name=likes] button:hover {
     background-color: #ff000014;
 }
 
-p[name=likes] img {
+button[name=nolike] img {
     width: auto;
     height: 30px;
     /*diminuer la luminosité de l'image*/
     filter: brightness(0.5);
 }
 
-p[name=likes] img:hover {
+button[name=nolike] img:hover {
     filter: brightness(1);
 }
+button[name=like] img {
+    width: auto;
+    height: 30px;
+    /*diminuer la luminosité de l'image*/
+}
+
 
 button[name=voir] {
     text-decoration: none;

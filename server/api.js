@@ -206,6 +206,19 @@ router.get('/user/:login', (req, res) => {
 router.put('/commentaire/like/:id', (req, res) => {
   Commentaire.findOne({_id:req.params.id})
   .then((result) => {
+    if (result.likedBy.includes(req.body.auteur)) {
+      //decrementer le nombre de like du commentaire
+      result.nbLike = result.nbLike - 1;
+      //supprimer le login de l'utilisateur qui a liké le commentaire dans le tableau des utilisateurs qui ont liké le commentaire
+      result.likedBy.pull(req.body.auteur);
+      //sauvegarder le commentaire modifié dans la base de données
+      result.save()
+      return res.status(200).send({
+        message: "Commentaire unliké",
+        result,
+        like: false,
+      });
+    }
     //incrementer le nombre de like du commentaire
     result.nbLike = result.nbLike + 1;
     //ajouter le login de l'utilisateur qui a liké le commentaire dans le tableau des utilisateurs qui ont liké le commentaire
@@ -216,6 +229,7 @@ router.put('/commentaire/like/:id', (req, res) => {
       res.status(200).send({
         message: "Commentaire liké",
         result,
+        like: true,
       });
     })
     .catch((error) => {
@@ -289,6 +303,19 @@ router.get('/commentaire/reponse/:id', (req, res) => {
 router.put('/commentaire/reponse/like/:id', (req, res) => {
   Reponse.findOne({_id:req.params.id})
   .then((result) => {
+    if (result.likedBy.includes(req.body.auteur)) {
+      //decrementer le nombre de like du commentaire
+      result.nbLike = result.nbLike - 1;
+      //supprimer le login de l'utilisateur qui a liké le commentaire dans le tableau des utilisateurs qui ont liké le commentaire
+      result.likedBy.pull(req.body.auteur);
+      //sauvegarder le commentaire modifié dans la base de données
+      result.save()
+      return res.status(200).send({
+        message: "Réponse unlikée",
+        result,
+        like: false,
+      });
+    }
     //incrementer le nombre de like de la reponse
     result.nbLike = result.nbLike + 1;
     //ajouter le login de l'utilisateur qui a liké la reponse dans le tableau des utilisateurs qui ont liké la reponse
@@ -299,6 +326,7 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
       res.status(200).send({
         message: "Reponse likée",
         result,
+        like: true,
       });
     })
     .catch((error) => {
@@ -308,6 +336,7 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
       });
     });
   })
+
   .catch((error) => {
     res.status(501).send({
       message: "Erreur lors de la récupération de la reponse",

@@ -15,7 +15,7 @@ function Reponse(props){
 
     useEffect(() => {
         getReponses();
-    }, []);
+    }, [like, ratio, reponses]);
 
     const handleReponse = () => {
         // Envoyer la réponse à l'aide d'une requête axios
@@ -37,7 +37,7 @@ function Reponse(props){
                 setReponse("");
                 // Mettre à jour la liste des réponses avec la nouvelle réponse
                 setReponses([...reponses, response.data.result]);
-                getReponses();
+                //getReponses();
             })
             .catch((error) => {
                 console.log("error");
@@ -51,23 +51,22 @@ function Reponse(props){
     }
 
     const handleLike = (rep) => {
-        if (rep.likedBy.includes(currentUser) === false) {
-          const configuration = {
+        const configuration = {
             method: "PUT",
             url: "/api/commentaire/reponse/like/" + rep._id,
             data: {
-              auteur: currentUser,
-              nbLike: rep.nbLike + 1,
+                auteur: currentUser,
+                nbLike: rep.nbLike,
             },
-          };
-          axios(configuration)
+        };
+        axios(configuration)
             .then((response) => {
-              console.log(response);
-              getReponses();
-              setLike(true);
-              const comLike = commentaire.nbLike;
-              const repLike = response.data.result.nbLike;
-              if (repLike > comLike && response.data.result.texte === "ratio") {
+                console.log(response);
+                //getReponses();
+                setLike(response.data.like);
+                const comLike = commentaire.nbLike;
+                const repLike = response.data.result.nbLike;
+                if (repLike > comLike && response.data.result.texte === "ratio") {
                 handleDelete();
                 setRatio(true);
                 handleRatio(rep);
@@ -85,16 +84,13 @@ function Reponse(props){
                         no-repeat
                     `
                 })
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-              console.log(like);
-            });
-        } else {
-          setLike(true);
-        }
-      };
+                }
+        })
+        .catch((error) => {
+            console.log(error);
+            console.log(like);
+        });
+    };
     
 
     const handleDeleteR = (rep) => {
@@ -168,7 +164,15 @@ function Reponse(props){
                             <p name="text">{rep.texte}</p>
                             <p name="date">{formatDate(rep.date)}</p>
                             <p name="likes">{rep.nbLike}
-                                <button onClick={() => handleLike(rep)}><img src="pngwing.png" alt="like" /></button>
+                            {rep.likedBy.includes(currentUser) === false ?
+                                <button name="nolike" onClick={() => handleLike(rep)}>
+                                    <img src="pngwing.png" alt="like" />
+                                </button>
+                                :
+                                <button name="like" onClick={() => handleLike(rep)}>
+                                    <img src="pngwing.png" alt="like" />
+                                </button>
+                            }
                             </p>
                             {currentUser === rep.auteur ? <button name="delete" onClick={() => handleDeleteR(rep)}>Supprimer</button> : null}
                         </li>
