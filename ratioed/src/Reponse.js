@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
-import Commentaire from "./Commentaire";
-
-
+import "./style/Reponse.css";
+import "./style/Commentaire.css";
+import Swal from 'sweetalert2'
 function Reponse(props){
     
     const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete} = props;
@@ -71,7 +71,22 @@ function Reponse(props){
                 handleDelete();
                 //Ratio(rep);
                 setRatio(true);
-                alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);              }
+                handleRatio(rep);
+                //alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);
+                Swal.fire({
+                    title: 'RATIO!',
+                    text: `HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`,
+                    color: 'red',
+                    confirmButtonText: 'EZ',
+                    position: 'center',
+                    backdrop: `
+                        rgba(123,0,0,0.4)
+                        url("kimpembe.gif")
+                        center top
+                        no-repeat
+                    `
+                })
+              }
             })
             .catch((error) => {
               console.log(error);
@@ -117,7 +132,7 @@ function Reponse(props){
 
 
     return(
-        <div>
+        <div className="reponse">
             <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
                 <button onClick={handleReponse}>Envoyer</button>
                 {ratio === true ? <p>Le commentaire a été supprimé car il a été ratio</p> : null}
@@ -126,11 +141,12 @@ function Reponse(props){
                         <ul>
                         <li>
                             <h3>{rep.auteur}</h3>
-                            <p>{rep.texte}</p>
-                            <p>{formatDate(rep.date)}</p>
-                            <p>{rep.nbLike} likes</p>
-                            <button onClick={() => handleLike(rep)}>Like</button>
-                            {currentUser === rep.auteur ? <button onClick={() => handleDeleteR(rep)}>Supprimer</button> : null}
+                            <p name="text">{rep.texte}</p>
+                            <p name="date">{formatDate(rep.date)}</p>
+                            <p name="likes">{rep.nbLike}
+                                <button onClick={() => handleLike(rep)}><img src="pngwing.png" alt="like" /></button>
+                            </p>
+                            {currentUser === rep.auteur ? <button name="delete" onClick={() => handleDeleteR(rep)}>Supprimer</button> : null}
                         </li>
                         </ul>
                     ))

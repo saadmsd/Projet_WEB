@@ -316,7 +316,6 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
   });
 });
 
-
 //Supprimer un commentaire 
 router.delete('/commentaire/:id', (req, res) => {
   Commentaire.findOneAndDelete({_id:req.params.id})
@@ -334,9 +333,26 @@ router.delete('/commentaire/:id', (req, res) => {
   });
 });
 
+//Supprimer un commentaire apres ratio
+router.delete('/commentaire/ratio/:id', (req, res) => {
+  Commentaire.findOneAndDelete({_id:req.params.id})
+  .then((result) => {
+    res.status(200).send({
+      message: "Commentaire supprimé",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la suppression du commentaire",
+      error,
+    });
+  });
+});
+
 
 //Supprimer les reponse en fonction du commentaire parent
-router.delete('/commentaire/reponse/:id', (req, res) => {
+router.delete('/commentaire/reponses/:id', (req, res) => {
   Reponse.deleteMany({parentId:req.params.id})
   .then((result) => {
     res.status(200).send({
