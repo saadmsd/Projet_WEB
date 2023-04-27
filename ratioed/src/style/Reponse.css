@@ -1,0 +1,77 @@
+/* Feuille de style pour Reponse */
+
+.reponse {
+    display: flex;
+    flex-direction: column;
+    background: rgba(58, 73, 183, 0.046);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.45);
+    border-left: 3px solid rgba(58, 73, 183, 0.258);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    margin-left: 5%;
+}
+
+.reponse input {
+    background: rgba(0, 0, 0, 0.719);
+    color: #fcfcfc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    margin: 10px;
+    resize: none;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.33;
+}
+
+.reponse button {
+    text-decoration: none;
+    color: #000;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.33;
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #c0c0c0b6;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    width: 10%;
+}
+
+.reponse button:hover {
+    background-color: #afbcca;
+    color: #000;
+}
+
+.reponse li {
+    list-style-type: none;
+    margin: 10px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.719);
+    color: #fcfcfc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+}
+
+button[name="delete"] {
+    background-color: #000000;
+    color: #ffffff5d;
+    border: 1px solid #ffffff46;
+    /*mettre le bouton tout à droite*/
+    margin-left: auto;
+    padding: 5px;
+    border-radius: 5px;
+    width: auto;
+    font-size: 12px;
+}
+
+button[name="delete"]:hover {
+    background-color: #7c0000;
+    color: #fff;
+}

@@ -96,7 +96,7 @@ function Commentaire(props){
 
         const configuration2 = {
             method: "DELETE",
-            url: "/api/commentaire/reponse/"+commentaire.id,
+            url: "/api/commentaire/reponses/"+commentaire.id,
         };
         axios(configuration2)
             .then((response) => {
@@ -124,9 +124,15 @@ function Commentaire(props){
                 <img src="pngwing.png" alt="like" />
             </button>
             </p>
-            {answer === false ? <button onClick={handleAnswer}>Répondre</button> : <button onClick={handleAnswer}>Annuler</button>}
-            <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} handleDelete={handleDelete} />
-            {currentUser === commentaire.auteur ? <button onClick={handleDelete}>Supprimer</button> : null}
+            <div className="bottom">
+                {answer === false ? <button name="voir" onClick={handleAnswer}>Voir les réponses</button> : 
+                <div>
+                    <button name="voir" onClick={handleAnswer}>Masquer les réponses</button>
+                    <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} handleDelete={handleDelete} />
+                </div>
+                }
+                {currentUser === commentaire.auteur ? <button name="delete" onClick={handleDelete}>Supprimer</button> : null}
+            </div>
         </div>
     );
 
