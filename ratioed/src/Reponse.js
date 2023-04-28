@@ -15,7 +15,7 @@ function Reponse(props){
 
     useEffect(() => {
         getReponses();
-    }, [like, ratio, reponses]);
+    }, [like, ratio, reponse]);
 
     const handleReponse = () => {
         // Envoyer la réponse à l'aide d'une requête axios
@@ -62,28 +62,28 @@ function Reponse(props){
         axios(configuration)
             .then((response) => {
                 console.log(response);
-                //getReponses();
+                getReponses();
                 setLike(response.data.like);
                 const comLike = commentaire.nbLike;
                 const repLike = response.data.result.nbLike;
                 if (repLike > comLike && response.data.result.texte === "ratio") {
-                handleDelete();
-                setRatio(true);
-                handleRatio(rep);
-                //alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);
-                Swal.fire({
-                    title: 'RATIO!',
-                    text: `HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`,
-                    color: 'red',
-                    confirmButtonText: 'EZ',
-                    position: 'center',
-                    backdrop: `
-                        rgba(123,0,0,0.4)
-                        url("neymar.gif")
-                        center top
-                        no-repeat
-                    `
-                })
+                    handleDelete();
+                    setRatio(true);
+                    handleRatio(rep);
+                    //alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);
+                    Swal.fire({
+                        title: 'RATIO!',
+                        text: `HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`,
+                        color: 'red',
+                        confirmButtonText: 'EZ',
+                        position: 'center',
+                        backdrop: `
+                            rgba(123,0,0,0.4)
+                            url("neymar.gif")
+                            center top
+                            no-repeat
+                        `
+                    })
                 }
         })
         .catch((error) => {
@@ -102,7 +102,7 @@ function Reponse(props){
             .then((response) => {
                 console.log(response);
                 setReponses(response.data.result);
-                
+                getReponses();        
             })
             .catch((error) => {
                 console.log(error);
