@@ -1,5 +1,6 @@
 import { useState }from 'react' ;
 import axios from 'axios' ;
+import './style/SearchBar.css' ;
 
 
 function   SearchBar ( props ){
@@ -42,13 +43,15 @@ function   SearchBar ( props ){
         <div>
             <input type="text" value={query} onChange={getQuery} name='query' placeholder='Search...' />
             <button onClick={handleSearchSubmit}>Search</button>
-            {result.length === 0 ? <p>No result</p> : 
-            <ul>
-                {result.map((user) => (
-                    <li key={user._id} className="click" onClick={() => handleProfileClick(user.login)}>{user.login}</li>
-                ))}
-            </ul>
-            }
+            <div class="response-container">
+                {result.length === 0 ? <p>No result</p> : 
+                <ul>
+                    {result.map((user) => (
+                        <li key={user._id} className="click" onClick={() => handleProfileClick(user.login)}>{user.login}</li>
+                    ))}
+                </ul>
+                }
+            </div>
         </div>
     );
 

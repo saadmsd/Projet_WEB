@@ -547,10 +547,32 @@ router.put("/user/:username/follow", async (req, res) => {
 });
 
 
-//ratio : incremente le cptRatio de l'auteur de la reponse et le cptratio de l'auteur du commentaire
-router.put('/commentaire/ratio/:id/:idd', (req, res) => {
-  User.findOneAndUpdate({_id:req.params.id}, {$inc: {cptRatio: 1}}) //
+//ratio : incremente le cptRatioed de l'auteur du commentaire
+router.put('/commentaire/ratioed/:login', (req, res) => {
+  console.log(req.params.login)
+  User.findOneAndUpdate({login:"PNL"})
   .then((result) => {
+    result.cptRatioed = result.cptRatioed + 1;
+    result.save();
+    console.log(result)
+    res.status(200).send({
+      message: "Ratio incrémenté",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(502).send({
+      message: "Erreur lors de l'incrémentation du ratio",
+      error,
+    });
+  });
+});
+
+router.put('/commentaire/reponse/ratio/:login', (req, res) => {
+  User.findOneAndUpdate({login:"aa"})
+  .then((result) => {
+    result.cptRatio = result.cptRatio + 1;
+    result.save();
     res.status(200).send({
       message: "Ratio incrémenté",
       result,
@@ -562,28 +584,30 @@ router.put('/commentaire/ratio/:id/:idd', (req, res) => {
       error,
     });
   });
-  User.findOneAndUpdate({_id:req.params.idd}, {$inc: {cptRatioed: 1}}) // in
-  .then((result) => {
-    res.status(200).send({
-      message: "Ratioed incrémenté",
-      result,
-    });
-  })
-  .catch((error) => {
-    res.status(500).send({
-      message: "Erreur lors de l'incrémentation du ratioed",
-      error,
-    });
-  });
 });
 
 
+router.put('/incrementRatio/:idCommentaire/:idReponse', async (req, res) => {
+  const idCommentaire = req.params.idCommentaire;
+  const idReponse = req.params.idReponse;
 
+  try {
+    const commentaire = await Commentaire.findOne({ id: idCommentaire });
+    const userAuteurReponse = await User.findOne({ login: commentaire.auteur });
+    const userAuteurCommentaire = await User.findOne({ login: userAuteurReponse.cptRatioed });
 
+    userAuteurReponse.cptRatio++;
+    await userAuteurReponse.save();
 
+    userAuteurCommentaire.cptRatioed++;
+    await userAuteurCommentaire.save();
 
-
-
+    res.status(200).json({ message: 'Ratio incremented successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
 
 
 
