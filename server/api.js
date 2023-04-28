@@ -416,21 +416,7 @@ router.delete('/commentaire/reponse/:id', (req, res) => {
 });
 
 
-router.get('/user/:login', (req, res) => {
-  User.findOne({login:req.params.login})
-  .then((result) => {
-    res.status(200).send({
-      message: "Utilisateur récupéré",
-      result,
-    });
-  })
-  .catch((error) => {
-    res.status(500).send({
-      message: "Erreur lors de la récupération de l'utilisateur",
-      error,
-    });
-  });
-});
+
 
 // Retourne la liste des utilisateurs contenant les caractere de la requete dans leur login
 router.get('/search', (req, res) => {
@@ -549,9 +535,14 @@ router.put("/user/:username/follow", async (req, res) => {
 
 //ratio : incremente le cptRatioed de l'auteur du commentaire
 router.put('/commentaire/ratioed/:login', (req, res) => {
-  console.log(req.params.login)
-  User.findOneAndUpdate({login:"PNL"})
+  console.log("ratioed" + req.params.login)
+  User.findOne({login:req.params.login})
   .then((result) => {
+    if (!result) {
+      return res.status(404).send({
+        message: "Utilisateur non trouvé",
+      });
+    }
     result.cptRatioed = result.cptRatioed + 1;
     result.save();
     console.log(result)
@@ -568,18 +559,26 @@ router.put('/commentaire/ratioed/:login', (req, res) => {
   });
 });
 
+
 router.put('/commentaire/reponse/ratio/:login', (req, res) => {
-  User.findOneAndUpdate({login:"aa"})
+  console.log("ratioed" + req.params.login)
+  User.findOne({login:req.params.login})
   .then((result) => {
+    if (!result) {
+      return res.status(404).send({
+        message: "Utilisateur non trouvé",
+      });
+    }
     result.cptRatio = result.cptRatio + 1;
     result.save();
+    console.log(result)
     res.status(200).send({
       message: "Ratio incrémenté",
       result,
     });
   })
   .catch((error) => {
-    res.status(500).send({
+    res.status(502).send({
       message: "Erreur lors de l'incrémentation du ratio",
       error,
     });
@@ -608,6 +607,60 @@ router.put('/incrementRatio/:idCommentaire/:idReponse', async (req, res) => {
     res.status(500).json({ error: 'Something went wrong' });
   }
 });
+
+//retourne la liste des utilisateurs qui ont le plus de cptRatioed 
+router.get('/user/stats/ratioed', (req, res) => {
+  User.find().sort({cptRatioed:-1}).limit(10)
+  .then((result) => {
+    res.status(200).send({
+      message: "Liste des utilisateurs qui ont le plus de cptRatioed récupérée",
+      result,
+    });
+    console.log(result)
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération de la liste des utilisateurs qui ont le plus de cptRatioed",
+      error,
+    });
+  });
+});
+
+//retourne la liste des utilisateurs qui ont le plus de cptRatio
+router.get('/user/stats/ratio', (req, res) => {
+  User.find().sort({cptRatio:-1}).limit(10)
+  .then((result) => {
+    res.status(200).send({
+      message: "Liste des utilisateurs qui ont le plus de cptRatio récupérée",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération de la liste des utilisateurs qui ont le plus de cptRatio",
+      error,
+    });
+  });
+});
+
+//retourne le cptRatioed et cptRatio d'un utilisateur
+router.get('/user/stats/:login', (req, res) => {
+  User.findOne({login:req.params.login})
+  .then((result) => {
+    res.status(200).send({
+      message: "cptRatioed et cptRatio récupérés",
+      result,
+    });
+  })
+  .catch((error) => {
+    res.status(500).send({
+      message: "Erreur lors de la récupération de cptRatioed et cptRatio",
+      error,
+    });
+  });
+});
+
+
 
 
 

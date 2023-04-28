@@ -78,7 +78,7 @@ function Reponse(props){
                     position: 'center',
                     backdrop: `
                         rgba(123,0,0,0.4)
-                        url("neymar.gif")
+                        url("kimpembe.gif")
                         center top
                         no-repeat
                     `
