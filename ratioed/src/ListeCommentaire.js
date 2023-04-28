@@ -13,7 +13,7 @@ function ListeCommentaire(props) {
     
     useEffect(() => {
         getCommentaires();
-    }, []);
+    }, [page, selectedUser]);
 
     const getCommentaires = () => {
         const configuration = {
@@ -52,7 +52,9 @@ function ListeCommentaire(props) {
             <button name="refresh" onClick={getCommentaires}>Rafraîchir</button>
             {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
                 <ul>
-                    <Commentaire key={commentaire.id} commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+                    <li key={commentaire.id} >
+                    <Commentaire commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+                    </li>
                 </ul>
             ))}
 

@@ -17,10 +17,8 @@ function PageConnexion(props) {
 
     return (
         <div className="PageConnexion">
-            <body>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout} userCurrent={userCurrent} setCurrentUser={setCurrentUser} />
             <Signup />
-            </body>
         </div>
     );
 }
