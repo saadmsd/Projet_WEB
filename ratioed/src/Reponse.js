@@ -9,13 +9,13 @@ function Reponse(props){
     const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete} = props;
     const [reponse, setReponse] = useState("");
     //const [reponses, setReponses] = useState([]);
-    const [like, setLike] = useState(false);
+    const [like, setLike] = useState(0);
     const [ratio, setRatio] = useState(false);
 
 
     useEffect(() => {
         getReponses();
-    }, [like, ratio, reponse]);
+    }, [like]);
 
     const handleReponse = () => {
         // Envoyer la réponse à l'aide d'une requête axios
@@ -33,11 +33,11 @@ function Reponse(props){
         axios(configuration)
             .then((response) => {
                 console.log(response);
-                console.log("reponse");
+                //console.log("reponse");
                 setReponse("");
                 // Mettre à jour la liste des réponses avec la nouvelle réponse
                 setReponses([...reponses, response.data.result]);
-                //getReponses();
+                getReponses();
             })
             .catch((error) => {
                 console.log("error");
@@ -62,14 +62,14 @@ function Reponse(props){
         axios(configuration)
             .then((response) => {
                 console.log(response);
-                getReponses();
-                setLike(response.data.like);
+                //getReponses();
+                setLike(response.data.result.nbLike);
                 const comLike = commentaire.nbLike;
                 const repLike = response.data.result.nbLike;
                 if (repLike > comLike && response.data.result.texte === "ratio") {
                     handleDelete();
+                    //handleRatio(rep);
                     setRatio(true);
-                    handleRatio(rep);
                     //alert(`HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`);
                     Swal.fire({
                         title: 'RATIO!',
@@ -79,7 +79,7 @@ function Reponse(props){
                         position: 'center',
                         backdrop: `
                             rgba(123,0,0,0.4)
-                            url("neymar.gif")
+                            url("kimpembe.gif")
                             center top
                             no-repeat
                         `
@@ -88,7 +88,6 @@ function Reponse(props){
         })
         .catch((error) => {
             console.log(error);
-            console.log(like);
         });
     };
     
@@ -101,7 +100,7 @@ function Reponse(props){
         axios(configuration)
             .then((response) => {
                 console.log(response);
-                setReponses(response.data.result);
+                //setReponses(response.data.result);
                 getReponses();        
             })
             .catch((error) => {

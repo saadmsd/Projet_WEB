@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Reponse from "./Reponse";
 import PageProfil from "./PageProfil";
@@ -14,7 +14,11 @@ function Commentaire(props){
     const [answer, setAnswer] = useState(false);
     const [reponses, setReponses] = useState([]);
 
-    const getReponses = (e) => {
+    useEffect(() => {
+        if (answer === true) {getReponses()};
+    }, [answer]);
+    
+    const getReponses = () => {
         const configuration = {
             method: "GET",
             url: "/api/commentaire/reponse/"+commentaire.id,
