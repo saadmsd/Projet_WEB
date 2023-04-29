@@ -69,7 +69,7 @@ router.post("/login/", (request, response) => {
         .then((result) => {
           if(!result){
             return response.status(401).send({
-              message: "Password is incorrect",
+              message: "Votre mot de passe est incorrect",
               error,
             });
           }
@@ -88,7 +88,7 @@ router.post("/login/", (request, response) => {
         })
         .catch((error) => {
           response.status(500).send({
-            message: "Password is incorrect",
+            message: "Votre mot de passe est incorrect",
             error,
           });
         });
