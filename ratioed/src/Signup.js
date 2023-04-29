@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import './style/Signup.css';
+import Swal from 'sweetalert2';
 
 axios.defaults.baseURL = "http://localhost:3000";
 
@@ -32,18 +33,59 @@ const Signup = () => {
             axios(configuration)
                 .then((response) => {
                     console.log(response);
-                    setError("User created successfully");
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'BIENVENUE ' + firstname + ' ' + lastname + ' !',
+                        text: "Vous êtes bien inscrit",
+                        color: 'green',
+                        confirmButtonText: 'OK',
+                        position: 'center',
+                        backdrop: `
+                            rgba(0,123,0,0.4)
+                            url("verratti.gif")
+                            center top
+                            no-repeat
+                        `
+                    })
                 })
                 .catch((error) => {
                     console.log(error);
                     setError(error.response.data.message);
-                    }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'OUPS !',
+                        text: error,
+                        color: 'red',
+                        confirmButtonText: 'OK',
+                        position: 'center',
+                        backdrop: `
+                            rgba(123,0,0,0.4)
+                            url("kimpembe.gif")
+                            center top
+                            no-repeat
+                        `
+                    })
+                }
                 );
         } else {
             setPassOk(false)
             setError("Passwords do not match");
             setPass1("");
             setPass2("");
+            Swal.fire({
+                icon: 'error',
+                title: 'OUPS !',
+                text: error,
+                color: 'red',
+                confirmButtonText: 'OK',
+                position: 'center',
+                backdrop: `
+                    rgba(123,0,0,0.4)
+                    url("nuno.gif")
+                    center top
+                    no-repeat
+                `
+            })
         }
     };
 
@@ -86,7 +128,6 @@ const Signup = () => {
         </label>
         <button type="submit" onClick={handleSubmit}>Sign up</button>
             <button type="reset" onClick={handleReset}>Reset</button>
-        {error && <p>{error}</p>}
         </form>
         </div>
     );

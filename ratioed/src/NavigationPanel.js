@@ -13,7 +13,7 @@ function NavigationPanel(props) {
         <nav id="navigation_pan">
           <img src="logo.gif" alt="Logo de Ratioed" />
             {(props.isConnected) ? 
-            <div>
+            <div className='top-right'>
                 <SearchBar id="form" currentUser={currentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                 <Logout logout={props.logout} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             </div>

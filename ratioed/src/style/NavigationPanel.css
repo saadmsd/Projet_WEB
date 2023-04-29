@@ -7,28 +7,26 @@
   
   /*mettre l'image a gauche*/
     #navigation_pan img { 
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
         width: 100px;
-        border-radius: 15%;
+        border-radius: 15%;    
+    }
+
+    .top-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
       
     }
-  
-  /*mettre le formulaire au centre de la page*/
-    #navigation_pan form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+    .top-right button {
+      margin-left: 10px;
     }
     #navigation_pan input {
-        width: 200px;
+        width: 300px;
         height: 30px;
         border-radius: 5px;
-        border: none;
-        background-color: #cecece;
-        color: #007bff;
+        border: 1px solid #000000;
+        background-color: #cececed4;
+        color: #000000;
         font-weight: bold;
         font-size: 16px;
         transition: background-color 0.2s; 
@@ -38,16 +36,16 @@
         width: 100px;
         height: 30px;
         border-radius: 5px;
-        border: none;
-        background-color: #cecece;
-        color: #007bff;
+        border: 1px solid #000000;
+        background-color: #cececec5;
+        color: #000000;
         font-weight: bold;
         font-size: 16px;
         transition: background-color 0.2s;
     }
     #navigation_pan button:hover{
-      background-color: #0092bb;
-      color: #bfec0d;
+      background-color: #121212d1;
+      color: #ffffff;
     }
   
   
