@@ -16,7 +16,7 @@ function Switch(props){
     }
 
     return (
-        <div>
+        <div className='switch'>
             {(page === "message_page") ? <button className="button" onClick={switchPage}>Mon Profil</button> : <button className="button" onClick={switchPage}>Page Principale</button>}
             {page === "message_page" || page === "profil_page" ? <button className="button" onClick={() => setPage("notif_page")}>Notifications</button> : null}
         </div>

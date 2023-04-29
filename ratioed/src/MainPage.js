@@ -51,7 +51,7 @@ function MainPage (props) {
 
 
     return (
-        <div>
+        <div className='main'>
             {isConnected === false 
             ? <PageConnexion isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} /> 
             : (isConnected === true && page === "message_page")

@@ -13,24 +13,24 @@
     width: 100%;
 }
 
-p {
+.commentaire p {
     color: #fcfcfc;
     margin: 0;
 }
 
-h3 { 
+.commentaire h3 { 
     color: #fcfcfc;
     /* nom de l'utilisateur gras et en italique */
     font-weight: bold;
     margin: 20px;
 }
 
-h3 span:hover {
+.commentaire h3 span:hover {
     color: #b9b9b9;
     cursor: pointer;
 }
 
-p[name=text] {
+.commentaire p[name=text] {
     color: #ffffff;
     background: rgba(200, 157, 157, 0.128);
     border-radius: 10px;
@@ -39,14 +39,14 @@ p[name=text] {
     margin: 10px;
 }
 
-p[name=date] {
+.commentaire p[name=date] {
     color: #b9b9b9;
     font-style: italic;
     padding: 10px;
     margin: 10px;
 }
 
-p[name=likes] {
+.commentaire p[name=likes] {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -56,7 +56,7 @@ p[name=likes] {
     
 }
 
-p[name=likes] button {/* petit bouton pour liker le commentaire */
+.commentaire p[name=likes] button {/* petit bouton pour liker le commentaire */
     background: none;
     border: none;
     margin-left: 5px;
@@ -70,28 +70,28 @@ p[name=likes] button {/* petit bouton pour liker le commentaire */
 
 }
 
-p[name=likes] button:hover {
+.commentaire p[name=likes] button:hover {
     background-color: #ff000014;
 }
 
-button[name=nolike] img {
+.commentaire button[name=nolike] img {
     width: auto;
     height: 30px;
     /*diminuer la luminosité de l'image*/
     filter: brightness(0.5);
 }
 
-button[name=nolike] img:hover {
+.commentaire button[name=nolike] img:hover {
     filter: brightness(1);
 }
-button[name=like] img {
+.commentaire button[name=like] img {
     width: auto;
     height: 30px;
     /*diminuer la luminosité de l'image*/
 }
 
 
-button[name=voir] {
+.commentaire button[name=voir] {
     text-decoration: none;
     color: #ffffff;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -108,13 +108,13 @@ button[name=voir] {
     filter: brightness(0.5);
 }
 
-button[name=voir]:hover {
+.commentaire button[name=voir]:hover {
     background-color: #300c0c;
     color: #ffffff;
     filter: brightness(1);
 }
 
-button[name="delete"] {
+.commentaire button[name="delete"] {
     background-color: #000000;
     color: #ffffff5d;
     border: 1px solid #ffffff46;
@@ -131,7 +131,7 @@ button[name="delete"] {
 
 }
 
-button[name="delete"]:hover {
+.commentaire button[name="delete"]:hover {
     background-color: #7c0000;
     color: #fff;
 }

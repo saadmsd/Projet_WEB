@@ -2,3 +2,46 @@
 .principal {
     margin-top: 100px;
 }
+
+.principal h1 {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #ffffff30;
+    border-radius: 10px;
+    width: 50%;
+    margin: auto;
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+.principal h2 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 10px;
+    width: auto;
+    margin: 10px auto; 
+    padding: 5px;
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+
+.switch button {
+    width: auto;
+    height: 30px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    margin-left: 5px;
+    border: 1px solid #000000;
+    border-bottom: #000000;
+    background-color: #cecece72;
+    color: #000000;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.switch button:hover {
+    background-color: #000000d1;
+    color: #ffffff;
+}

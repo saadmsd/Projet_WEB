@@ -3,6 +3,28 @@
 .profil {
     margin-top: 100px;
 }
+.profil h1 {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #ffffff30;
+    border-radius: 10px;
+    width: 50%;
+    margin: auto;
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+.profil h2 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 10px;
+    width: auto;
+    margin: 10px auto; 
+    padding: 5px;
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
 .main_content {
     display: flex;
     flex-direction: row;
