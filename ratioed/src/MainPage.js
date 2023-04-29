@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PagePrincipal from './PagePrincipal';
 import PageConnexion from './PageConnexion';
 import PageProfil from './PageProfil';
+import PageNotif from './PageNotif';
 import axios from 'axios';
 
 function MainPage (props) {
@@ -57,7 +58,9 @@ function MainPage (props) {
                 ? <PagePrincipal isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                 : (isConnected === true && page === "profil_page")
                     ?<PageProfil isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-                    : null}
+                    : (isConnected === true && page === "notif_page")
+                        ?<PageNotif isConnected={isConnected} page={page} login={getConnected} logout={setLogout} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/> 
+                        : null}
         </div>
     );
 }

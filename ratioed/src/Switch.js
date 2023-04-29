@@ -12,13 +12,13 @@ function Switch(props){
         } else if (page === "message_page"){
             setSelectedUser(currentUser)
             setPage("profil_page");
-
         }
     }
 
     return (
         <div>
             {(page === "message_page") ? <button className="button" onClick={switchPage}>Mon Profil</button> : <button className="button" onClick={switchPage}>Page Principale</button>}
+            {page === "message_page" || page === "profil_page" ? <button className="button" onClick={() => setPage("notif_page")}>Notifications</button> : null}
         </div>
     );         
 }
