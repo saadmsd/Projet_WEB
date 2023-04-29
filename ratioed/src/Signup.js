@@ -54,7 +54,7 @@ const Signup = () => {
                     Swal.fire({
                         icon: 'error',
                         title: 'OUPS !',
-                        text: error,
+                        text: error.response.data.message,
                         color: 'red',
                         confirmButtonText: 'OK',
                         position: 'center',
@@ -107,8 +107,8 @@ const Signup = () => {
         <img src="logo.jpeg" alt="ratioed"></img>
         <h2>Connectez-vous ou inscrivez-vous</h2>
         <label>
-            Login:
-            <input type="email" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />
+            Pseudo:
+            <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />
         </label>
         <label>
             Password:

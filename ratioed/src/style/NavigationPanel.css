@@ -1,14 +1,42 @@
 #navigation_pan {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-  } 
-  
-  /*mettre l'image a gauche*/
+} 
+
+.top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: #000000c2;
+  opacity: 1;
+  box-shadow: 0 4px 6px rgb(79, 79, 79);
+}
+
+.scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: #000000c2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.361);
+  opacity: 0.5;
+  transition: all 0.3s ease-in-out;
+}
+
+.scrolled:hover {
+  opacity: 1;
+}  
+/*mettre l'image a gauche*/
     #navigation_pan img { 
-        width: 100px;
+        width: 70px;
         border-radius: 15%;    
+        margin-left: 10px;
     }
 
     .top-right {
@@ -19,6 +47,7 @@
     }
     .top-right button {
       margin-left: 10px;
+      margin-right: 15px;
     }
     #navigation_pan input {
         width: 300px;
@@ -43,11 +72,14 @@
         font-size: 16px;
         transition: background-color 0.2s;
     }
-    #navigation_pan button:hover{
-      background-color: #121212d1;
+    #navigation_pan .login button:hover{
+      background-color: #055100d1;
       color: #ffffff;
     }
-  
+    #navigation_pan .logout button:hover {
+      background-color: #c20000d1;
+      color: #ffffff;
+    }
   
   #navigation_pan button:hover {
     cursor: pointer;

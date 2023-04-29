@@ -12,6 +12,9 @@
     margin: 10px;
 }
 
+.boxComs {
+    margin: 10px;
+}
 .box button[name="refresh"] {
     /* bouton pour rafraichir la liste */
     text-decoration: none;

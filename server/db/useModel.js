@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const userShema = new mongoose.Schema({
     login: {
         type: String,
-        required: [true, "Please enter an email"],
-        unique: [true, "Email already exists"],
+        required: [true, "Please enter an username"],
+        unique: [true, "Username already exists"],
     },
     password: {
         type: String,
@@ -35,5 +35,14 @@ const userShema = new mongoose.Schema({
         required: false,
       }
 });
+
+userShema.post('save', function(error, doc, next) {
+    if (error.code === 11000) {
+      next(new Error('Le pseudo existe déjà'));
+    } else {
+      next(error);
+    }
+  });
+
 
 module.exports = mongoose.model.User || mongoose.model("User", userShema);

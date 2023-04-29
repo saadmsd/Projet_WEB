@@ -7,7 +7,6 @@ const dbConnect = require("./db/dbConnect.js");
 const User = require("./db/useModel.js");
 const Commentaire = require("./db/comModel.js");
 const Reponse = require("./db/repModel.js");
-const FriendList = require("./db/friendListModel.js");
 
 // execute database connection 
 dbConnect();
@@ -44,7 +43,7 @@ router.post("/user/", (request, response) => {
         // catch error if the new user wasn't added successfully to the database
         .catch((error) => {
           response.status(500).send({
-            message: "Error creating user",
+            message: error.message || "Some error occurred while creating the user.",
             error,
           });
         });

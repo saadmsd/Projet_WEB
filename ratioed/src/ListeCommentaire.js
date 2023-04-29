@@ -51,7 +51,7 @@ function ListeCommentaire(props) {
             ) : null}
             <button name="refresh" onClick={getCommentaires}>Rafraîchir</button>
             {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
-                <ul>
+                <ul className="boxComs">
                     <li key={commentaire.id} >
                     <Commentaire commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                     </li>

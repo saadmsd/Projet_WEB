@@ -3,6 +3,7 @@ import NavigationPanel from './NavigationPanel';
 import ListeCommentaire from './ListeCommentaire';
 import Switch from './Switch';
 import Stats from './Stats';
+import "./style/PagePrincipal.css"
 
 function PagePrincipal(props){
     const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
@@ -16,12 +17,14 @@ function PagePrincipal(props){
     }
 
     return (
-        <div> 
+        <div className='principal'> 
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
             <h1>Page Principal</h1>
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
-            <ListeCommentaire currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-            <Stats></Stats>
+            <div className="main_content">
+                <Stats></Stats>
+                <ListeCommentaire currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+            </div>
         </div>
     );
 }
