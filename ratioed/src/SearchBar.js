@@ -1,60 +1,65 @@
-import { useState }from 'react' ;
-import axios from 'axios' ;
-import './style/SearchBar.css' ;
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import './style/SearchBar.css';
 
+function SearchBar(props) {
+    const { currentUser, getProfile, handleProfile, selectedUser, setSelectedUser } = props;
+    const [query, setQuery] = useState('');
+    const [result, setResult] = useState([]);
 
-function   SearchBar ( props ){
-
-    const {currentUser, getProfile, handleProfile, selectedUser, setSelectedUser} = props;
-
-    const [query, setQuery] = useState("") ;
-    const [result, setResult] = useState([]) ;
-
-    const  getQuery  = (evt) => {setQuery(evt.target.value)} ;
-
-    const handleSearchSubmit = ( evt ) => {
-        evt.preventDefault () ;
-        const configuration  = {
-            method : "GET",
-            url : "/api/search",
-            params : {
+    useEffect(() => {
+        if (query !== '') {
+            const configuration = {
+                method: 'GET',
+                url: '/api/search',
+                params: {
                 login: query,
-            }
-        };
-        axios(configuration)
-            .then((response) => {
-                console.log(response);
-                setResult([]);
-                setResult(response.data.result);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
+                },
+            };
+            axios(configuration)
+                .then((response) => {
+                    console.log(response);
+                    setResult([]);
+                    setResult(response.data.result);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } 
+        else {
+            setResult([]);
+        }
+    }, [query]);
 
+    const handleSearch = (evt) => {
+        setQuery(evt.target.value);
+    };
 
     const handleProfileClick = (user) => {
         setSelectedUser(user);
         getProfile();
-    }
+    };
 
-
-    return(
-        <div>
-            <input type="text" value={query} onChange={getQuery} name='query' placeholder='Search...' />
-            <button onClick={handleSearchSubmit}>Search</button>
-            <div class="response-container">
-                {result.length === 0 ? <p>No result</p> : 
-                <ul>
+    return (
+        <div className='searchBar'>
+            <input type="text" value={query} onInput={handleSearch} name="query" placeholder="Search..." />
+            {query !== '' ? (
+                <div className="response-container">
+                {result.length === 0 ? (
+                    <p>No result</p>
+                ) : (
+                    <ul>
                     {result.map((user) => (
-                        <li key={user._id} className="click" onClick={() => handleProfileClick(user.login)}>{user.login}</li>
+                        <li key={user._id} className="click" onClick={() => handleProfileClick(user.login)}>
+                        {user.login}
+                        </li>
                     ))}
-                </ul>
-                }
-            </div>
+                    </ul>
+                )}
+                </div>
+            ) : null}
         </div>
     );
+}
 
-} 
-
-export default SearchBar ;
+export default SearchBar;
