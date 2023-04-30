@@ -21,13 +21,13 @@ function PageProfil (props) {
 
     useEffect(() => {
         getStats();
-    }, []);
+    }, [selectedUser]);
 
 
     const getStats = () => {
         const configuration = {
             method: "GET",
-            url: "/api/stats/" + currentUser,
+            url: "/api/user/stats/" + selectedUser,
         };
         axios(configuration)
             .then((response) => {
