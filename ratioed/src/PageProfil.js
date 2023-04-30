@@ -49,10 +49,10 @@ function PageProfil (props) {
             {(currentUser === selectedUser) ? <h2>Vous êtes sur votre profil</h2> : <h2>Vous êtes sur le profil de {selectedUser}</h2>}
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
             <div className="main_content">
-            <div className="stats">
+            <div className="statsP">
                 <h3>Statistiques</h3>
-                <p>Ratio : {ratio}</p>
-                <p>Ratioed : {ratioed}</p>
+                <p className='ratio'>Ratio : {ratio}</p>
+                <p className='ratioed'>Ratioed : {ratioed}</p>
             </div>
             <ListeFollow currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
             <ListeCommentaire currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>

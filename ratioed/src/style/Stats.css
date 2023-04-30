@@ -1,0 +1,99 @@
+/* Feuille de style pour STats */
+
+.asideS {
+    /* prend la partie gauche de la page dynamiquement */
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    padding: 10px;
+}
+
+.stats {
+    /* prend la partie gauche de la page dynamiquement */
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: rgba(152, 252, 255, 0.295);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.looser {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: brown;
+    margin: 10px auto; 
+    text-shadow: 0px 0px 10px rgb(135, 135, 135);
+}
+
+.boss {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: gold;
+    margin: 10px auto; 
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+
+.asideS ol{
+    counter-reset: item;
+    border-top: 1px solid black;
+    padding: 5px;
+    text-decoration: none;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+.asideS ol li{
+    /*paragraphes alignés sur la même ligne et espacés*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #fff;
+    transition: background-color 0.2s;
+}
+.asideS ol li::before { 
+    counter-increment: item;
+    content: counter(item) ". ";
+  }
+.asideS ol li:nth-child(1) {
+    color: rgba(255, 217, 0, 0.178);
+    background-image: url("gold.png");
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 20px 20px;
+}
+.asideS ol li:nth-child(2) {
+    color: rgba(192, 192, 192, 0.094);
+    background-image: url("silver.png");
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 20px 20px;
+}
+.asideS ol li:nth-child(3) {
+    color: rgba(165, 42, 42, 0.115);
+    background-image: url("bronze.png");
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 20px 20px;
+}
+
+.asideS ol li:hover{
+    background-color: #afbcca8a;
+    border-radius: 5px;
+    /*cursor: pointer;*/
+}
+.asideS ol li p{
+    text-decoration: none;
+    color: #000000;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
