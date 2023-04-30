@@ -11,14 +11,6 @@ function PageProfil (props) {
     const [ratio, setRatio] = useState(0);
     const [ratioed, setRatioed] = useState(0);
 
-    const getConnected = () => {
-        login();
-    };  
-
-    const setLogout = () => {
-        logout();
-    };
-
     useEffect(() => {
         getStats();
     }, [selectedUser]);
@@ -44,7 +36,7 @@ function PageProfil (props) {
 
     return (
         <div className='profil'>
-            <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+            <NavigationPanel isConnected={isConnected} login={login} logout={logout} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
             {(currentUser === selectedUser) ? <h1>Vous êtes sur votre profil</h1> : <h1>Vous êtes sur le profil de <br></br>{selectedUser}</h1>}
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
             <div className="main_content">

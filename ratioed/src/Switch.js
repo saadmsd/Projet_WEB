@@ -5,33 +5,35 @@ function Switch(props){
     //Bouton pour basculer de la page principale à la page de connexion et inversement
     const {page, setPage, currentUser, setCurrentUser, setSelectedUser, selectedUser} = props;
 
-    const switchPage = () => {
-        if (page === "profil_page") {
-            setSelectedUser(null);
-            setPage("message_page");
-        } else if (page === "message_page"){
+    const switchPage = (pg) => {
+        if (pg === "profil_page") {
             setSelectedUser(currentUser)
-            setPage("profil_page");
+            setPage(pg);
+        } 
+        else {
+            setSelectedUser(null);
+            setPage(pg);
         }
     }
 
     return (
         <div className='switch'>
-            {(page === "message_page") ? 
-                <button className="button" onClick={switchPage}>
-                    <img src="user.png" alt="Profil"/>
-                    Mon Profil
-                </button> 
-            :   <button className="button" onClick={switchPage}>
-                    <img src="home.png" alt="Accueil"/>
-                    Accueil
-                </button>}
-            {page === "message_page" || page === "profil_page" ? 
-                <button onClick={() => setPage("notif_page")}>
-                    <img src="alarm.png" alt="Notifications"/>
-                    Notifications
-                </button> 
-            : null}
+
+            <button className="button" onClick={() => switchPage("message_page")}>
+                <img src="home.png" alt="Accueil"/>
+                Accueil
+            </button>
+
+            <button className="button" onClick={() => switchPage("profil_page")}>
+                <img src="user.png" alt="Profil"/>
+                Mon Profil
+            </button> 
+
+            <button className="button" onClick={() => setPage("notif_page")}>
+                <img src="alarm.png" alt="Notifications"/>
+                Notifications
+            </button> 
+
         </div>
     );         
 }

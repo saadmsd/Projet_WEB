@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import NavigationPanel from "./NavigationPanel";
+import Switch from "./Switch";
+import "./style/PageNotif.css";
+
 
 function PageNotif(props) {
-  const { page, setPage, currentUser, setCurrentUser } = props;
+  const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
   const [comments, setComments] = useState([]);
   const [user, setUser] = useState(null);
   const [followers, setFollowers] = useState([]);
@@ -78,7 +82,11 @@ function PageNotif(props) {
   
 
   return (
-    <div>
+    <div className="notif">
+      <NavigationPanel isConnected={isConnected} login={login} logout={logout} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
+      <h1>Accueil</h1>
+      <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
+
       {comments.map((comment) => (
         <div key={comment._id}>
           <p>{comment.texte}</p>
@@ -90,24 +98,24 @@ function PageNotif(props) {
           )}
         </div>
       ))}
-        <div>
-      {followers.length > 0 && (
-        <p>Nouveaux followers :</p>
-      )}
-      <ul>
-        {followers.map((follower) => (
-          <li key={follower}>
-            {currentUser !== follower ? (
-              <span>
-                <span className="username">{follower}</span> vous a follow.
-              </span>
-            ) : (
-              <span>Vous vous êtes follow vous-même ?!?</span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div>
+        {followers.length > 0 && (
+          <p>Nouveaux followers :</p>
+        )}
+        <ul>
+          {followers.map((follower) => (
+            <li key={follower}>
+              {currentUser !== follower ? (
+                <span>
+                  <span className="username">{follower}</span> vous a follow.
+                </span>
+              ) : (
+                <span>Vous vous êtes follow vous-même ?!?</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
