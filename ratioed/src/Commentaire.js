@@ -67,7 +67,7 @@ function Commentaire(props){
 
     const handleProfileClick = () => {
         if(page === "profile_page" && selectedUser === commentaire.auteur){
-            alert("Vous êtes déjà sur votre profil");
+            alert("Vous êtes déjà sur le profil");
         }else{
             getProfile();
             setSelectedUser(commentaire.auteur);

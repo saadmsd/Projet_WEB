@@ -25,10 +25,17 @@
     padding: 5px;
     text-shadow: 0px 0px 10px rgb(0, 0, 0);
 }
-
+.switch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 .switch button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: auto;
-    height: 30px;
+    height: 50px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     margin-left: 5px;
@@ -42,6 +49,12 @@
 }
 
 .switch button:hover {
-    background-color: #000000d1;
+    background-color: #00000068;
     color: #ffffff;
+}
+
+.switch button img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
 }

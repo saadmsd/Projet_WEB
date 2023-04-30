@@ -26,7 +26,7 @@ function Logout (props) {
 
     return (    
         <div className='logout'>
-            <button className="button" onClick={setLogout}>logout</button>
+            <button className="button" onClick={setLogout}>Se déconnecter</button>
         </div>
     );
 }

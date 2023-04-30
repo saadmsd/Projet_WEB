@@ -42,11 +42,11 @@ function SearchBar(props) {
 
     return (
         <div className='searchBar'>
-            <input type="text" value={query} onInput={handleSearch} name="query" placeholder="Search..." />
+            <input type="text" value={query} onInput={handleSearch} name="query" placeholder="Recherche utilisateur..." />
             {query !== '' ? (
                 <div className="response-container">
                 {result.length === 0 ? (
-                    <p>No result</p>
+                    <p>Pas de résultat</p>
                 ) : (
                     <ul>
                     {result.map((user) => (

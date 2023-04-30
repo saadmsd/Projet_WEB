@@ -51,9 +51,11 @@ function ListeFollow(props) {
     return (
         <div>
         {page === "profil_page" && selectedUser !== currentUser ? (
-            <div>
+            <div className="action-follow">
             <button onClick={() => handleFollow(selectedUser)}>
-                {followers.includes(currentUser) ? "Unfollow" : "Follow"}
+                {followers.includes(currentUser) ? 
+                    <img src="unfollow.png" alt="unfollow" />
+                :   <img src="follow.png" alt="follow" />}
             </button>
             </div>
         ) : null}

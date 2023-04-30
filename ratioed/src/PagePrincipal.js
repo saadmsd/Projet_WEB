@@ -19,7 +19,7 @@ function PagePrincipal(props){
     return (
         <div className='principal'> 
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-            <h1>Page Principal</h1>
+            <h1>Accueil</h1>
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
             <div className="main_content">
                 <Stats></Stats>

@@ -40,13 +40,12 @@ function PageProfil (props) {
             });
     }
 
-        
+
 
     return (
         <div className='profil'>
             <NavigationPanel isConnected={isConnected} login={getConnected} logout={setLogout} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-            <h1>Page Profil</h1>
-            {(currentUser === selectedUser) ? <h2>Vous êtes sur votre profil</h2> : <h2>Vous êtes sur le profil de {selectedUser}</h2>}
+            {(currentUser === selectedUser) ? <h1>Vous êtes sur votre profil</h1> : <h1>Vous êtes sur le profil de <br></br>{selectedUser}</h1>}
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
             <div className="main_content">
             <div className="statsP">

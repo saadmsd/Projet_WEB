@@ -111,23 +111,23 @@ const Signup = () => {
             <input type="text" value={login} onChange={(e) => setLogin(e.target.value)} name =  "login" />
         </label>
         <label>
-            Password:
+            Mot de passe:
             <input type="password" value={pass1} onChange={(e) => setPass1(e.target.value)} name = "pass1" />
         </label>
         <label>
-            Confirm Password:
+            Confirmer le mot de passe:
             <input type="password" value={pass2} onChange={(e) => setPass2(e.target.value)} name = "pass2" />
         </label>
         <label>
-            Lastname:
+            Nom:
             <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} name = "lastname" />
         </label>
         <label>
-            Firstname:
+            Prénom:
             <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} name = "firstname" />
         </label>
-        <button type="submit" onClick={handleSubmit}>Sign up</button>
-            <button type="reset" onClick={handleReset}>Reset</button>
+        <button type="submit" onClick={handleSubmit}>S'inscrire</button>
+            <button type="reset" onClick={handleReset}>Effacer</button>
         </form>
         </div>
     );

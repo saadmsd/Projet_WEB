@@ -17,8 +17,21 @@ function Switch(props){
 
     return (
         <div className='switch'>
-            {(page === "message_page") ? <button className="button" onClick={switchPage}>Mon Profil</button> : <button className="button" onClick={switchPage}>Page Principale</button>}
-            {page === "message_page" || page === "profil_page" ? <button className="button" onClick={() => setPage("notif_page")}>Notifications</button> : null}
+            {(page === "message_page") ? 
+                <button className="button" onClick={switchPage}>
+                    <img src="user.png" alt="Profil"/>
+                    Mon Profil
+                </button> 
+            :   <button className="button" onClick={switchPage}>
+                    <img src="home.png" alt="Accueil"/>
+                    Accueil
+                </button>}
+            {page === "message_page" || page === "profil_page" ? 
+                <button onClick={() => setPage("notif_page")}>
+                    <img src="alarm.png" alt="Notifications"/>
+                    Notifications
+                </button> 
+            : null}
         </div>
     );         
 }

@@ -12,9 +12,10 @@
   left: 0;
   width: 100%;
   z-index: 999;
-  background-color: #000000c2;
+  background-color: #b9b9b9;
   opacity: 1;
   box-shadow: 0 4px 6px rgb(79, 79, 79);
+  transition: all 0.3s ease-in-out;
 }
 
 .scrolled {
@@ -31,6 +32,7 @@
 
 .scrolled:hover {
   opacity: 1;
+  background-color: #b9b9b9cc;
 }  
 /*mettre l'image a gauche*/
     #navigation_pan img { 
@@ -49,7 +51,7 @@
       margin-left: 10px;
       margin-right: 15px;
     }
-    #navigation_pan input {
+    #navigation_pan .login input {
         width: 300px;
         height: 30px;
         border-radius: 5px;
@@ -62,7 +64,7 @@
     }
 
     #navigation_pan button {
-        width: 100px;
+        width: auto;
         height: 30px;
         border-radius: 5px;
         border: 1px solid #000000;

@@ -50,9 +50,9 @@ function Login (props) {
 
     return (
         <form className='login'>
-            <label htmlFor="loggin">Login</label><input id="login" onChange={getLoggin} name = "login" />
+            <label htmlFor="loggin">Pseudo</label><input id="login" onChange={getLoggin} name = "login" />
             <label htmlFor="mdp">Mot de passe</label><input type="password" id="mdp" onChange={getPassword} name = "password" />
-            <button type="submit" onClick={handleSubmit}>Log In</button>
+            <button type="submit" onClick={handleSubmit}>Se connecter</button>
         </form>
     );
 }
