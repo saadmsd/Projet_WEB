@@ -25,9 +25,15 @@
 .aside {
     /* prend la partie gauche de la page dynamiquement */
     display: flex;
-    flex-direction: row;
-    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    height: max-content;
     padding: 10px;
+    margin-top: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: rgba(255, 73, 73, 0);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .follow {
@@ -39,7 +45,7 @@
     margin: 5px;
     border: 1px solid black;
     border-radius: 10px;
-    background: rgba(255, 152, 152, 0.295);
+    background: rgba(75, 162, 255, 0.479);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -56,7 +62,6 @@
     padding: 7px;
     border-bottom: 1px solid #fff;
     transition: background-color 0.2s;
-    border-radius: 5px;
 }
 .aside ul li:hover{
     background-color: #afbcca;
@@ -67,10 +72,9 @@
     text-decoration: none;
     color: #000;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     padding: 0;
     transition: background-color 0.2s;
     cursor: pointer;
-    width: 100%;
 }

@@ -40,22 +40,7 @@
     background-color: #c0c0c0b6;
     transition: background-color 0.2s;
     cursor: pointer;
-    width: 10%;
-}
-button[name=nolike] img {
-    width: auto;
-    height: 30px;
-    /*diminuer la luminosité de l'image*/
-    filter: brightness(0.5);
-}
-
-button[name=nolike] img:hover {
-    filter: brightness(1);
-}
-button[name=like] img {
-    width: auto;
-    height: 30px;
-    /*diminuer la luminosité de l'image*/
+    width: fit-content;
 }
 
 
@@ -75,19 +60,3 @@ button[name=like] img {
     font-size: 14px;
 }
 
-button[name="delete"] {
-    background-color: #000000;
-    color: #ffffff5d;
-    border: 1px solid #ffffff46;
-    /*mettre le bouton tout à droite*/
-    margin-left: auto;
-    padding: 5px;
-    border-radius: 5px;
-    width: auto;
-    font-size: 12px;
-}
-
-button[name="delete"]:hover {
-    background-color: #7c0000;
-    color: #fff;
-}

@@ -1,0 +1,41 @@
+.switch {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10%;
+}
+.switch button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    margin-left: 5px;
+    border: 1px solid #000000;
+    border-bottom: #000000;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.switch button:hover {
+    background-color: #00000068;
+    color: #ffffff;
+}
+/*bouton non cliqué*/
+.switch-no {
+    background-color: #cecece72;
+    color: #000000;
+}
+/*bouton cliqué*/
+.switch-yes {
+    background-color: #00000068;
+    color: #ffffff;
+}
+.switch button img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}

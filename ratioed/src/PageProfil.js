@@ -37,15 +37,15 @@ function PageProfil (props) {
     return (
         <div className='profil'>
             <NavigationPanel isConnected={isConnected} login={login} logout={logout} currentUser={currentUser} setCurrentUser={setCurrentUser} getProfile={getProfile} handleProfile={handleProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
-            {(currentUser === selectedUser) ? <h1>Vous êtes sur votre profil</h1> : <h1>Vous êtes sur le profil de <br></br>{selectedUser}</h1>}
+            {(currentUser === selectedUser) ? <h1>Vous êtes sur votre profil</h1> : <h1>{selectedUser}</h1>}
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
             <div className="main_content">
             <div className="statsP">
-                <h3>Statistiques</h3>
+                <h3>{selectedUser}</h3>
                 <p className='ratio'>Ratio : {ratio}</p>
                 <p className='ratioed'>Ratioed : {ratioed}</p>
+                <ListeFollow currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
             </div>
-            <ListeFollow currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
             <ListeCommentaire currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
             </div>
         </div>

@@ -63,8 +63,7 @@
     padding: 1px;
     cursor: pointer;
     /*reduire la zone cliquable*/
-    width: auto;
-    height: auto;
+    width: fit-content;
     border-radius: 100%;
     transition: background-color 0.2s;
 
@@ -104,7 +103,7 @@
     background-color: #2722229c;
     transition: background-color 0.2s;
     cursor: pointer;
-    width: 12%;
+    width: fit-content;
     filter: brightness(0.5);
 }
 
@@ -122,12 +121,12 @@
     margin-left: auto;
     padding: 5px;
     border-radius: 5px;
-    width: auto;
+    width: fit-content;
     font-size: 12px;
     background-color: #3434344e;
     transition: background-color 0.2s;
     cursor: pointer;
-    width: 10%;
+    width: fit-content;
 
 }
 
