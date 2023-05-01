@@ -627,7 +627,7 @@ router.get('/user/stats/ratioed', (req, res) => {
 
 //retourne la liste des utilisateurs qui ont le plus de cptRatio
 router.get('/user/stats/ratio', (req, res) => {
-  User.find().sort({cptRatio:-1}).limit(10)
+  User.find().sort({cptRatio:-1}).limit(5)
   .then((result) => {
     res.status(200).send({
       message: "Liste des utilisateurs qui ont le plus de cptRatio récupérée",
