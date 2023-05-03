@@ -16,7 +16,9 @@ const Signup = () => {
     const [pass2, setPass2] = useState("");
     const [error, setError] = useState("");
 
-    
+    const majuscule = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     const handleSubmit = (e) => {  
         e.preventDefault();
         if (pass1===pass2) {
@@ -140,11 +142,11 @@ const Signup = () => {
                 </label>
                 <label htmlFor="firstname">
                     Prénom:
-                    <input type="text" value={firstname} onChange={(e) => setFirstname(e.target.value)} name = "firstname" />
+                    <input type="text" value={firstname} onChange={(e) => setFirstname(majuscule(e.target.value))} name = "firstname" />
                 </label>
                 <label htmlFor="lastname">
                     Nom:
-                    <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} name = "lastname" />
+                    <input type="text" value={lastname} onChange={(e) => setLastname(majuscule(e.target.value))} name = "lastname" />
                 </label>
                 <label htmlFor="birthdate">
                     Date de naissance:
