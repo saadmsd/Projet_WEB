@@ -10,6 +10,7 @@ function PageProfil (props) {
     const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
     const [ratio, setRatio] = useState(0);
     const [ratioed, setRatioed] = useState(0);
+    const avatar = "https://robohash.org/"+selectedUser+".png";
 
     useEffect(() => {
         getStats();
@@ -31,8 +32,7 @@ function PageProfil (props) {
                 console.log(error);
             });
     }
-
-
+        
 
     return (
         <div className='profil'>
@@ -41,6 +41,7 @@ function PageProfil (props) {
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
             <div className="main_content">
             <div className="statsP">
+                <img src= {avatar} alt="profil-img" className="profilP"></img>
                 <h3>{selectedUser}</h3>
                 <p className='ratio'>Ratio : {ratio}</p>
                 <p className='ratioed'>Ratioed : {ratioed}</p>

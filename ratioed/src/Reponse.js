@@ -9,7 +9,7 @@ function Reponse(props){
     const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete} = props;
     const [reponse, setReponse] = useState("");
     //const [reponses, setReponses] = useState([]);
-    const [like, setLike] = useState(0);
+    const [like, setLike] = useState(-1);
     const [ratio, setRatio] = useState(false);
 
 
@@ -46,7 +46,7 @@ function Reponse(props){
     
 
     const formatDate = (date) => {
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'};
         return new Date(date).toLocaleDateString('fr-FR', options);
     }
 
@@ -156,31 +156,30 @@ function Reponse(props){
             <input type="text" placeholder="Votre reponse" onChange={(e) => setReponse(e.target.value)} value={reponse} name="reponse" />
                 <button onClick={handleReponse}>Envoyer</button>
                 {ratio === true ? <p>Le commentaire a été supprimé car il a été ratio</p> : null}
-                {Array.isArray(reponses) && reponses.length > 0 ? (
-                    reponses.map((rep) => (
-                        <ul>
-                        <li>
-                            <h3>{rep.auteur}</h3>
-                            <p name="text">{rep.texte}</p>
-                            <p name="date">{formatDate(rep.date)}</p>
-                            <p name="likes">{rep.nbLike}
-                            {rep.likedBy.includes(currentUser) === false ?
-                                <button name="nolike" onClick={() => handleLike(rep)}>
-                                    <img src="pngwing.png" alt="like" />
-                                </button>
-                                :
-                                <button name="like" onClick={() => handleLike(rep)}>
-                                    <img src="pngwing.png" alt="like" />
-                                </button>
-                            }
-                            </p>
-                            {currentUser === rep.auteur ? <button name="delete" onClick={() => handleDeleteR(rep)}>Supprimer</button> : null}
-                        </li>
-                        </ul>
-                    ))
-                ) : (<p>Pas de réponse</p>)
-                }
-
+                <ul>
+                    {Array.isArray(reponses) && reponses.length > 0 ? (
+                        reponses.map((rep) => (
+                            <li key={rep._id}>
+                                <h3>{rep.auteur}</h3>
+                                <p name="text">{rep.texte}</p>
+                                <p name="date">{formatDate(rep.date)}</p>
+                                <p name="likes">{rep.nbLike}
+                                {rep.likedBy.includes(currentUser) === false ?
+                                    <button name="nolike" onClick={() => handleLike(rep)}>
+                                        <img src="pngwing.png" alt="like" />
+                                    </button>
+                                    :
+                                    <button name="like" onClick={() => handleLike(rep)}>
+                                        <img src="pngwing.png" alt="like" />
+                                    </button>
+                                }
+                                </p>
+                                {currentUser === rep.auteur ? <button name="delete" onClick={() => handleDeleteR(rep)}>Supprimer</button> : null}
+                            </li>
+                        ))
+                    ) : (<p>Pas de réponse</p>)
+                    }
+                </ul>
         </div>
     );
 
