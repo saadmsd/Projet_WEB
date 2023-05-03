@@ -1,7 +1,7 @@
 #navigation_pan {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content:space-around;
     align-items: center;
     padding: 10px;
 } 
@@ -35,7 +35,7 @@
   background-color: #b9b9b9cc;
 }  
 /*mettre l'image a gauche*/
-    #navigation_pan img { 
+    .navigation_pan img { 
         width: 70px;
         border-radius: 15%;    
         margin-left: 10px;
@@ -45,7 +45,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      
+      margin-right: 10px;
     }
     .top-right button {
       margin-left: 10px;
@@ -91,13 +91,22 @@
   .topC {
     display: flex;
     flex-direction: row;
-    width: 90%;
+    align-items: center;
+    justify-content: space-between;
   }
   .defile {
     /* Marquee */
     border-radius: 10px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
     margin-right: 30px;
+    height: 50px;
+    overflow: hidden;
+  }
+  .defile img {
+    height: 50px;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
   }
   .defile-text {
     font-size: 22px;
@@ -106,4 +115,22 @@
     text-shadow: 0px 0px 10px rgb(255, 0, 0);
     margin-left: 10px;
 
+  }
+
+  .profilNav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 10px;
+  }
+  .profilNav img {
+    height: 40px;
+    width: auto;
+  }
+
+  .profilNav span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+    margin-left: 10px;
   }

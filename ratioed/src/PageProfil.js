@@ -10,7 +10,7 @@ function PageProfil (props) {
     const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
     const [ratio, setRatio] = useState(0);
     const [ratioed, setRatioed] = useState(0);
-    const avatar = "https://robohash.org/"+selectedUser+".png";
+    const avatar = "https://robohash.org/"+selectedUser+".png?bgset=bg1";
 
     useEffect(() => {
         getStats();
