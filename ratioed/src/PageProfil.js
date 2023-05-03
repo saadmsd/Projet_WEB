@@ -5,6 +5,7 @@ import ListeCommentaire from './ListeCommentaire';
 import ListeFollow from './ListeFollow';
 import "./style/PageProfil.css"
 import axios from 'axios';
+import moment from 'moment';
 
 function PageProfil (props) {
     const {isConnected, login, logout, page, setPage, currentUser,setCurrentUser, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
@@ -12,8 +13,8 @@ function PageProfil (props) {
     const [ratioed, setRatioed] = useState(0);
     const [nom , setNom] = useState("");
     const [prenom , setPrenom] = useState("");
-    const [date , setDate] = useState("");
-
+    const [dateJ , setDateJ] = useState("");
+    const [dateN , setDateN] = useState("");
     const avatar = "https://robohash.org/"+selectedUser+".png?bgset=bg1";
 
     useEffect(() => {
@@ -33,7 +34,8 @@ function PageProfil (props) {
                 setRatioed(response.data.result.cptRatioed);
                 setNom(response.data.result.lastname);
                 setPrenom(response.data.result.firstname);
-                setDate(response.data.result.dateJoin);
+                setDateN(response.data.result.dateBirth);
+                setDateJ(response.data.result.dateJoin);
             })
             .catch((error) => {
                 console.log(error);
@@ -42,7 +44,7 @@ function PageProfil (props) {
 
     const formatDate = () => {
         const options = { day: 'numeric', month: 'long', year: 'numeric' };
-        return new Date(date).toLocaleDateString('fr-FR', options);
+        return new Date(dateJ).toLocaleDateString('fr-FR', options);
     }
 
 
@@ -56,6 +58,7 @@ function PageProfil (props) {
                 <img src= {avatar} alt="profil-img" className="profilP"></img>
                 <h3>@{selectedUser}</h3>
                 <p className='nom'> {prenom} {nom}</p>
+                <p className='date'>{moment().diff(dateN, 'years')} ans</p>
                 <p className='date'>A rejoint Ratio'ed le : {formatDate()}</p>
                 <p className='ratio'>Ratio : {ratio}</p>
                 <p className='ratioed'>Ratioed : {ratioed}</p>
