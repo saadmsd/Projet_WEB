@@ -27,7 +27,7 @@ router.post("/user/", (request, response) => {
         password: hashedPassword,
         lastname: request.body.lastname,
         firstname: request.body.firstname,
-
+        dateJoin: Date.now(),
       });
 
       // save the new user
@@ -94,7 +94,7 @@ router.post("/login/", (request, response) => {
     })
     .catch((error) => {
       response.status(500).send({
-        message: "User not found",
+        message: "Utilisateur introuvable",
         error,
       });
     });

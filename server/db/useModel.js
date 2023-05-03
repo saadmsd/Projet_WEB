@@ -33,7 +33,11 @@ const userShema = new mongoose.Schema({
         type: Number,
         default: 0,
         required: false,
-      }
+      },
+    dateJoin: {
+        type: Date,
+    },
+
 });
 
 userShema.post('save', function(error, doc, next) {
