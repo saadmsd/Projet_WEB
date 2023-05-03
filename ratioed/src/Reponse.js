@@ -6,7 +6,7 @@ import "./style/Commentaire.css";
 import Swal from 'sweetalert2'
 function Reponse(props){
     
-    const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete} = props;
+    const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete, handleProfileClick} = props;
     const [reponse, setReponse] = useState("");
     //const [reponses, setReponses] = useState([]);
     const [like, setLike] = useState(-1);
@@ -160,7 +160,10 @@ function Reponse(props){
                     {Array.isArray(reponses) && reponses.length > 0 ? (
                         reponses.map((rep) => (
                             <li key={rep._id}>
-                                <h3>{rep.auteur}</h3>
+                                <h3 onClick={handleProfileClick}>
+                                    <img className="avatarR" src={"https://robohash.org/"+rep.auteur+".png?bgset=bg1"} alt="avatar" />
+                                    <span>{rep.auteur}</span>
+                                </h3>
                                 <p name="text">{rep.texte}</p>
                                 <p name="date">{formatDate(rep.date)}</p>
                                 <p name="likes">{rep.nbLike}

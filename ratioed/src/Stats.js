@@ -4,7 +4,7 @@ import axios from "axios";
 import "./style/Stats.css";
 
 function Stats(props){
-
+    const { getProfile, setSelectedUser } = props;
     const [ratioed, setRatioed] = useState([]);
     const [ratio, setRatio] = useState([]);
 
@@ -43,6 +43,10 @@ function Stats(props){
                 console.log(error);
             });
     }
+    const handleProfileClick = (user) => {
+        getProfile();
+        setSelectedUser(user);    
+    }
 
     return(
         <div>
@@ -53,7 +57,7 @@ function Stats(props){
                     <ol>
                         {ratio.map((ratio) => (
                             <li key={ratio._id}>
-                                <p>{ratio.login}</p>
+                                <p onClick={() => handleProfileClick(ratio.login)}>{ratio.login}</p>
                                 <p>{ratio.cptRatio}</p>
                             </li>
                         ))}

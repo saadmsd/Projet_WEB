@@ -20,7 +20,7 @@ function PagePrincipal(props){
             <h1>Accueil</h1>
             <Switch page={page} setPage={setPage} currentUser={currentUser} setCurrentUser={setCurrentUser} setSelectedUser={setSelectedUser} selectedUser={selectedUser}/>
             <div className="main_content">
-                <Stats></Stats>
+                <Stats getProfile={getProfile} setSelectedUser={setSelectedUser}/>
                 <ListeCommentaire currentUser={currentUser} page={page} setPage={setPage} handleProfile={handleProfile} getProfile={getProfile} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
             </div>
         </div>
