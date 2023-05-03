@@ -34,6 +34,9 @@ const userShema = new mongoose.Schema({
         default: 0,
         required: false,
       },
+    dateBirth: {
+        type: Date,
+    },
     dateJoin: {
         type: Date,
     },

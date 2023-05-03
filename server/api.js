@@ -27,6 +27,7 @@ router.post("/user/", (request, response) => {
         password: hashedPassword,
         lastname: request.body.lastname,
         firstname: request.body.firstname,
+        dateBirth: request.body.dateBirth,
         dateJoin: Date.now(),
       });
 
