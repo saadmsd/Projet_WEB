@@ -15,7 +15,7 @@ function Commentaire(props){
     const [reponses, setReponses] = useState([]);
 
     useEffect(() => {
-        if (answer === true) {getReponses()};
+        getReponses();
     }, [answer]);
     
     const getReponses = () => {
@@ -109,11 +109,12 @@ function Commentaire(props){
 
     }
 
-
+    const avatar = "https://robohash.org/"+commentaire.auteur+".png?bgset=bg1";
     return (
         <div className="commentaire">
-            <h3>
-                <span className ="click" onClick={handleProfileClick}>{commentaire.auteur}</span>
+            <h3 onClick={handleProfileClick}>
+                <img className="avatar" src={avatar} alt="avatar" />
+                <span>{commentaire.auteur}</span>
             </h3>
             <p name="text">{commentaire.texte}</p>
             <p name='date'>{props.formatDate(commentaire.date)}</p>
@@ -129,10 +130,10 @@ function Commentaire(props){
             }
             </p>
             <div className="bottom">
-                {answer === false ? <button name="voir" onClick={handleAnswer}>Voir les réponses</button> : 
+                {answer === false ? <button name="voir" onClick={handleAnswer}>Voir les {reponses.length} réponses</button> : 
                 <div>
                     <button name="voir" onClick={handleAnswer}>Masquer les réponses</button>
-                    <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} handleDelete={handleDelete} />
+                    <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} handleDelete={handleDelete} handleProfileClick={handleProfileClick}/>
                 </div>
                 }
                 {currentUser === commentaire.auteur ? <button name="delete" onClick={handleDelete}>Supprimer</button> : null}

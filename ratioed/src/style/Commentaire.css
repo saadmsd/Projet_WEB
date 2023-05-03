@@ -18,17 +18,26 @@
 }
 
 .commentaire h3 { 
-    color: #fcfcfc;
-    /* nom de l'utilisateur gras et en italique */
-    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     margin: 20px;
 }
 
-.commentaire h3 span:hover {
-    color: #b9b9b9;
+.commentaire h3:hover {
     cursor: pointer;
+    filter: brightness(0.8);
 }
-
+.commentaire h3 span {
+    color: #fcfcfc;
+    font-weight: bold;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px;
+}
 .commentaire p[name=text] {
     color: #ffffff;
     background: rgba(200, 157, 157, 0.128);
