@@ -61,7 +61,7 @@ function ListeFollow(props) {
         ) : null}
             <div className="aside">
                 <div className="follow">
-                    <h2>Following</h2>
+                    <h3>{following.length} abonnements</h3>
                     <ul>
                     {following.map((user) => (
                         <li key={user}>
@@ -73,7 +73,7 @@ function ListeFollow(props) {
                     </ul>
                 </div>
                 <div className="follow">
-                    <h2>Followers</h2>
+                    <h3>{followers.length} abonnés</h3>
                     <ul>
                     {followers.map((user) => (
                         <li key={user}>
