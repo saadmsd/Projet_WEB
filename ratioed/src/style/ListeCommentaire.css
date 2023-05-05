@@ -42,3 +42,41 @@
     list-style-type: none;
     padding: 10px;
 }
+
+.followingOnly {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    border-bottom: #000000;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+.followingOnly button {
+    border-radius: 5px;
+    margin-inline: 5%;
+    width: 40%;
+    height: 40px;
+    border: 1px solid #000000;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.followingOnly button:hover {
+    background-color: #00000068;
+    color: #ffffff;
+}
+/*bouton non cliqué*/
+.followingOnly-no {
+    background-color: #cecece72;
+    color: #000000;
+}
+/*bouton cliqué*/
+.followingOnly-yes {
+    background-color: #00000068;
+    color: #ffffff;
+}
