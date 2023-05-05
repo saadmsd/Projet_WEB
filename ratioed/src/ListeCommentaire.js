@@ -8,14 +8,26 @@ function ListeCommentaire(props) {
     
     const {currentUser, page, setPage, handleProfile, getProfile, selectedUser, setSelectedUser} = props;
     const [commentaires, setCommentaires] = useState([]);
-    const [req,setReq] = useState(false);
+    const [followingOnly, setFollowingOnly] = useState(false);
 
-    
     useEffect(() => {
         getCommentaires();
-    }, [page, selectedUser]);
+    }, [page, selectedUser, followingOnly]);
 
     const getCommentaires = () => {
+        if (page === "profil_page") {
+            getProfileCommentaires();
+        }
+        else {
+            if (followingOnly === true) {
+                getFollowingCommentaires();
+            } else {
+                getAllCommentaires();
+            }
+        }
+    };
+
+    const getAllCommentaires = () => {
         const configuration = {
             method: "GET",
             url: "/api/commentaire/",
@@ -23,16 +35,42 @@ function ListeCommentaire(props) {
         axios(configuration)
             .then((response) => {
                 console.log(response);
-                setCommentaires([]);
                 setCommentaires(response.data.result);
             })
             .catch((error) => {
                 console.log(error);
             });    
-
-        setReq(true);
     };
 
+    const getFollowingCommentaires = () => {
+        const configuration = {
+            method: "GET",
+            url: "/api/commentaire/following/"+currentUser,
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setCommentaires(response.data.commentaires);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    const getProfileCommentaires = () => {
+        const configuration = {
+            method: "GET",
+            url: "/api/commentaire/"+selectedUser,
+        };
+        axios(configuration)
+            .then((response) => {
+                console.log(response);
+                setCommentaires(response.data.commentaires);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     
     const formatDate = (date) => {
         const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'};
@@ -50,8 +88,14 @@ function ListeCommentaire(props) {
                 <NewComment id="NC" currentUser={currentUser} getCommentaires={getCommentaires} />
             ) : null}
             <button name="refresh" onClick={getCommentaires}>Rafraîchir</button>
+            {page === "message_page" ? (
+                <div className="followingOnly">
+                    <button className={followingOnly ? "followingOnly-no": "followingOnly-yes"} onClick={() => setFollowingOnly(false)}>Tous les commentaires</button>
+                    <button className={followingOnly ? "followingOnly-yes": "followingOnly-no"} onClick={() => setFollowingOnly(true)}>Abonnements</button>
+                </div>
+            ) : null}
             <ul className="boxComs">
-                {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
+                {commentaires.map((commentaire) => (
                     <li key={commentaire._id} >
                     <Commentaire commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                     </li>

@@ -155,35 +155,56 @@ router.post('/commentaire/', (req, res) => {
 
 //afficher tous les commentaires
 router.get('/commentaire/', (req, res) => {
-  //recuperer tous les commentaire et les reponses de la base de données et les envoyer au front dans le sens inverse de l'ordre de création
-  Commentaire.find().sort({id:-1})
+  Commentaire.find().sort({date:-1})
   .then((result) => {
-    Reponse.find().sort({id:-1})
-    .then((result2) => {
-      res.status(200).send({
-        message: "Commentaires récupérés",
-        result,
-        result2,
-      });
-    })
-    .catch((error) => {
-      res.status(500).send({
-        message: "Erreur lors de la récupération des réponses",
-        error,
-      });
+    res.status(200).send({
+      message: "Commentaires récupérés",
+      result,
     });
-  }
-  )
+  })
   .catch((error) => {
     res.status(500).send({
       message: "Erreur lors de la récupération des commentaires",
       error,
     });
-  }
-  );
+  });
 });
 
-    
+//afficher les commentaires d'un utilisateur
+router.get('/commentaire/:user', async (req, res) => {
+  try {
+    // recuperer que les commentaires d'un utilisateur si le parametre user est renseigné
+      const commentaires = await Commentaire.find({auteur:req.params.user}).sort({date:-1});
+      return res.status(200).send({
+        message: "Commentaires de l'utilisateur récupérés",
+        commentaires,
+      });
+  } catch (error) {
+    res.status(500).send({
+      message: "Erreur lors de la récupération des commentaires",
+      error,
+    });
+  }
+});
+
+//afficher les commentaires des utilisateurs suivis
+router.get('/commentaire/following/:user', async (req, res) => {
+  try {
+    // recuperer l'utilisateur
+    const user = await User.findOne({login:req.params.user});
+    // recuperer les commentaires des utilisateurs suivis
+    const commentaires = await Commentaire.find({auteur:user.following}).sort({date:-1});
+    return res.status(200).send({
+      message: "Commentaires des utilisateurs suivis récupérés",
+      commentaires,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Erreur lors de la récupération des commentaires",
+      error,
+    });
+  }
+});
 
 //recuperer le nom et prenom de l'utilisateur par son login
 router.get('/user/:login', (req, res) => {
