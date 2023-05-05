@@ -33,6 +33,11 @@ const userShema = new mongoose.Schema({
         type: Number,
         default: 0,
         required: false,
+      },
+      notifs :{
+        type: [String],
+        default: [],
+        required: false,
       }
 });
 

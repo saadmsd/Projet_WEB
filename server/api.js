@@ -225,6 +225,18 @@ router.put('/commentaire/like/:id', (req, res) => {
     //sauvegarder le commentaire modifié dans la base de données
     result.save()
     .then((result) => {
+      //ajoute une notif au user qui a posté le commentaire
+      User.findOne({login:result.auteur})
+      .then((result2) => {
+        result2.notifs.push("Votre commentaire a été liké");
+        result2.save();
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Erreur lors de la récupération de l'utilisateur",
+          error,
+        });
+      });
       res.status(200).send({
         message: "Commentaire liké",
         result,
