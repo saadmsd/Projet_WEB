@@ -10,12 +10,14 @@ function Switch(props){
     useEffect(() => {
         if (page === "message_page") {
           setActiveButton(1);
-        } else if (page === "profil_page") {
+        } else if (page === "profil_page" && selectedUser === currentUser) {
           setActiveButton(2);
         } else if (page === "notif_page") {
           setActiveButton(3);
+        } else {
+          setActiveButton(0);
         }
-      }, [page]);
+      }, [page, selectedUser, currentUser]);
 
     const switchPage = (pg) => {
         if (pg === "message_page") {

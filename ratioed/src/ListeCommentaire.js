@@ -35,7 +35,7 @@ function ListeCommentaire(props) {
 
     
     const formatDate = (date) => {
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'};
         return new Date(date).toLocaleDateString('fr-FR', options);
     }
 
@@ -50,13 +50,14 @@ function ListeCommentaire(props) {
                 <NewComment id="NC" currentUser={currentUser} getCommentaires={getCommentaires} />
             ) : null}
             <button name="refresh" onClick={getCommentaires}>Rafraîchir</button>
-            {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
-                <ul className="boxComs">
-                    <li key={commentaire.id} >
+            <ul className="boxComs">
+                {commentaires.filter(commentaire => selectedUser ? commentaire.auteur === selectedUser : true).map((commentaire) => (
+                    <li key={commentaire._id} >
                     <Commentaire commentaire={commentaire} formatDate={formatDate} currentUser={currentUser} getProfile={getProfile} page={page} setPage={setPage} handleProfile={handleProfile} getCommentaires={getCommentaires} selectedUser={selectedUser} setSelectedUser={setSelectedUser}/>
                     </li>
-                </ul>
-            ))}
+                ))}
+            </ul>
+
 
         </div>
     );

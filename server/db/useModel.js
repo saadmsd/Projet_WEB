@@ -38,7 +38,14 @@ const userShema = new mongoose.Schema({
         type: [String],
         default: [],
         required: false,
-      }
+      },
+    dateBirth: {
+        type: Date,
+    },
+    dateJoin: {
+        type: Date,
+    },
+
 });
 
 userShema.post('save', function(error, doc, next) {
