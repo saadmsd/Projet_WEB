@@ -72,7 +72,7 @@ function Reponse(props){
                 handleRatio(rep);
                 Swal.fire({
                     title: 'RATIO!',
-                    text: `HAHAHAHAHAHAHAHAHAHAHA TA REUSSI A RATIO CE PTIT BOUFFON DE ${commentaire.auteur}`,
+                    text: `Félicitation vous avez réussi à ratio l'utilisateur ${commentaire.auteur}`,
                     color: 'red',
                     confirmButtonText: 'EZ',
                     position: 'center',
