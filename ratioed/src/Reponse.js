@@ -92,6 +92,27 @@ function Reponse(props){
     
 
     const handleDeleteR = (rep) => {
+        Swal.fire({
+            title: 'Êtes-vous sûr de vouloir supprimer votre réponse ?',
+            text: "Vous ne pourrez pas revenir en arrière !",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Supprimer',
+            cancelButtonText: 'Annuler'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Supprimé !',
+                'La réponse a bien été supprimé.',
+                'success'
+                )
+                deleteReponse(rep);
+            }
+            })
+    }
+    const deleteReponse = (rep) => {
         const configuration = {
             method: "DELETE",
             url: "/api/commentaire/reponse/"+rep._id,

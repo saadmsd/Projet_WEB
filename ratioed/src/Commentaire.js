@@ -4,7 +4,7 @@ import Reponse from "./Reponse";
 import PageProfil from "./PageProfil";
 import { render } from "react-dom";
 import "./style/Commentaire.css";
-
+import Swal from 'sweetalert2'
 
 function Commentaire(props){
 
@@ -76,6 +76,28 @@ function Commentaire(props){
     }
 
     const handleDelete = () => {
+        Swal.fire({
+            title: 'Êtes-vous sûr de vouloir supprimer ce commentaire ?',
+            text: "Vous ne pourrez pas revenir en arrière !",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Supprimer',
+            cancelButtonText: 'Annuler'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                'Supprimé !',
+                'Le commentaire a bien été supprimé.',
+                'success'
+                )
+                deleteCommentaire();
+            }
+            })
+    }
+    
+    const deleteCommentaire = () => {
         //supprimer le commentaire et les reponses associees en envoyant 2 axios
         const configuration = {
             method: "DELETE",
