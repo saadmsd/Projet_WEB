@@ -29,6 +29,7 @@ router.post("/user/", (request, response) => {
         firstname: request.body.firstname,
         dateBirth: request.body.dateBirth,
         dateJoin: Date.now(),
+        avatar: "https://robohash.org/"+request.body.login+request.body.cptAvatar+".png?bgset=bg1",
       });
 
       // save the new user

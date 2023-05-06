@@ -45,6 +45,16 @@ const userShema = new mongoose.Schema({
     dateJoin: {
         type: Date,
     },
+    avatar: {
+        type: String,
+        default: "https://robohash.org/{login}.png?bgset=bg1",
+        required: false,
+    },
+    cptAvatar: {
+        type: Number,
+        default: 0,
+        required: false,
+    },
 
 });
 
