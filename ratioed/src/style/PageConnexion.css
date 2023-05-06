@@ -2,11 +2,10 @@
 
 body {
     background-image: url("Kimpembe.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-repeat: repeat;
+    background-size: 400px
 }
+
 
 .login {
     width: auto;

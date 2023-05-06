@@ -23,7 +23,7 @@ function NavigationPanel(props) {
   return (
     <div className="navigation_pan">
         <nav  className={isTop ? "top" : "scrolled"} id="navigation_pan">
-          <img src="colo.ico" alt="Logo de Ratioed" />
+          <img src="logo.jpeg" alt="Logo de Ratioed" />
             {(props.isConnected) ? 
             <div className='topC'>
               <div className='top-right'>
