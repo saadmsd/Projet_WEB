@@ -137,7 +137,6 @@ function Reponse(props){
                 auteur: currentUser,
                 nbLike: rep.nbLike,
             },
-
         };
         axios(configuration)
             .then((response) => {
