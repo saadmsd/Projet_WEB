@@ -11,72 +11,14 @@ function PageNotif(props) {
   const [user, setUser] = useState(null);
   const [followers, setFollowers] = useState([]);
 
-  useEffect(() => {
-    getComments();
-    getFollowers();
-  }, []);
 
-  const getComments = () => {
-    const configuration = {
-      method: "GET",
-      url: "/api/user/comments/" + currentUser,
-    };
-    axios(configuration)
-      .then((response) => {
-        console.log(response);
-        setComments(response.data.result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
-  const getUser = (() => {
-    const configuration = {
-        method: "GET",
-        url: "/api/user/"+currentUser,
-    };
-    axios(configuration)
-        .then((response) => {
-            console.log(response);
-            setUser(response.data.result);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    });
-
-    const getFollowers = () => {
-        const followingUrl = `/api/user/${currentUser}/following`;
-        axios.get(followingUrl)
-          .then((response) => {
-            const following = response.data.following.map(user => user.login);
-            const followersUrl = `/api/user/${currentUser}/followers`;
-            axios.get(followersUrl)
-              .then((response) => {
-                const currentFollowers = response.data.followers.map(user => user.login);
-                const newFollowers = currentFollowers.filter(follower => !following.includes(follower));
-                setFollowers(newFollowers);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      };
+  const getUser
 
 
 
-  const getLikedBy = (comment) => {
-    let likedByString = comment.likedBy.join(", ");
-    let lastCommaIndex = likedByString.lastIndexOf(",");
-    if (lastCommaIndex !== -1) {
-      likedByString = likedByString.slice(0, lastCommaIndex) + " et" + likedByString.slice(lastCommaIndex + 1);
-    }
-    return likedByString ;
-  };
+  
+    
 
   
   
