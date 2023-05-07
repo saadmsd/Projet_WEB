@@ -66,7 +66,7 @@ function Reponse(props){
                 setLike(response.data.result.nbLike);
                 const comLike = commentaire.nbLike;
                 const repLike = response.data.result.nbLike;
-                if (repLike > comLike && response.data.result.texte === "ratio") {
+                if (repLike > comLike && new RegExp("ratio", "i").test(rep.texte)) {
                     deleteCommentaire();
                     setRatio(true);
                     handleRatio(rep);
