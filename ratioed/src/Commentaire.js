@@ -155,7 +155,7 @@ function Commentaire(props){
                 {answer === false ? <button name="voir" onClick={handleAnswer}>Voir les {reponses.length} réponses</button> : 
                 <div>
                     <button name="voir" onClick={handleAnswer}>Masquer les réponses</button>
-                    <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} handleDelete={handleDelete} handleProfileClick={handleProfileClick}/>
+                    <Reponse currentUser={currentUser} commentaire={commentaire} reponses={reponses} setReponses={setReponses} getReponses={getReponses} deleteCommentaire={deleteCommentaire} handleProfileClick={handleProfileClick}/>
                 </div>
                 }
                 {currentUser === commentaire.auteur ? <button name="delete" onClick={handleDelete}>Supprimer</button> : null}

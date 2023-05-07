@@ -234,59 +234,43 @@ router.put('/commentaire/like/:id', (req, res) => {
       result.likedBy.pull(req.body.auteur);
       //sauvegarder le commentaire modifié dans la base de données
       result.save()
-      .then((result) => {
-        //retirer la notif au user qui a posté le commentaire
-        User.findOne({login:result.auteur})
-        .then((result2) => {
-          result2.notifs.pull("Votre commentaire " + result.texte + " a été liké par " + req.body.auteur);
-          result2.save();
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: "Erreur lors de la récupération de l'utilisateur",
-            error,
-          });
-        });
-      })
-      .catch((error) => {
-        res.status(500).send({
-          message: "Erreur lors du like du commentaire",
-          error,
-        });
-      });
-    } else {
-      //incrementer le nombre de like du commentaire
-      result.nbLike = result.nbLike + 1;
-      //ajouter le login de l'utilisateur qui a liké le commentaire dans le tableau des utilisateurs qui ont liké le commentaire
-      result.likedBy.push(req.body.auteur);
-      //sauvegarder le commentaire modifié dans la base de données
-      result.save()
-      .then((result) => {
-        //ajoute une notif au user qui a posté le commentaire
-        User.findOne({login:result.auteur})
-        .then((result2) => {
-          result2.notifs.push("Votre commentaire : " + result.texte + " : a été liké par " + req.body.auteur);
-          result2.save();
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: "Erreur lors de la récupération de l'utilisateur",
-            error,
-          });
-        });
-        res.status(200).send({
-          message: "Commentaire liké",
-          result,
-          like: true,
-        });
-      })
-      .catch((error) => {
-        res.status(500).send({
-          message: "Erreur lors du like du commentaire",
-          error,
-        });
+      return res.status(200).send({
+        message: "Commentaire unliké",
+        result,
+        like: false,
       });
     }
+    //incrementer le nombre de like du commentaire
+    result.nbLike = result.nbLike + 1;
+    //ajouter le login de l'utilisateur qui a liké le commentaire dans le tableau des utilisateurs qui ont liké le commentaire
+    result.likedBy.push(req.body.auteur);
+    //sauvegarder le commentaire modifié dans la base de données
+    result.save()
+    .then((result) => {
+      //ajoute une notif au user qui a posté le commentaire
+      User.findOne({login:result.auteur})
+      .then((result2) => {
+        result2.notifs.push("Votre commentaire a été liké");
+        result2.save();
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Erreur lors de la récupération de l'utilisateur",
+          error,
+        });
+      });
+      res.status(200).send({
+        message: "Commentaire liké",
+        result,
+        like: true,
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: "Erreur lors du like du commentaire",
+        error,
+      });
+    });
   })
   .catch((error) => {
     res.status(500).send({
@@ -295,7 +279,6 @@ router.put('/commentaire/like/:id', (req, res) => {
     });
   });
 });
-
 
 //ajouter une reponse a un commentaire
 router.post('/commentaire/reponse/:id', (req, res) => {
@@ -312,18 +295,6 @@ router.post('/commentaire/reponse/:id', (req, res) => {
     //sauvegarder la reponse dans la base de données
     reponse.save()
     .then((result) => {
-      //ajoute une notif au user qui a posté le commentaire
-      User.findOne({login:result.auteur})
-      .then((result2) => {
-        result2.notifs.push(req.body.auteur + " a répondu à votre commentaire " + result.texte);
-        result2.save();
-      })
-      .catch((error) => {
-        res.status(500).send({
-          message: "Erreur lors de la récupération de l'utilisateur",
-          error,
-        });
-      });
       res.status(201).send({
         message: "Reponse ajoutée",
         result,
@@ -372,63 +343,36 @@ router.put('/commentaire/reponse/like/:id', (req, res) => {
       result.likedBy.pull(req.body.auteur);
       //sauvegarder le commentaire modifié dans la base de données
       result.save()
-     .then((result) => {
-        //retirer la notif au user qui a posté le commentaire
-        User.findOne({login:result.auteur})
-        .then((result2) => {
-          result2.notifs.pull("Votre reponse " + result.texte + " a été liké par " + req.body.auteur);
-          result2.save();
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: "Erreur lors de la récupération de l'utilisateur",
-            error,
-          });
-        });
-      })
-      .catch((error) => {
-        res.status(500).send({
-          message: "Erreur lors du like du reponse",
-          error,
-        });
-      });
-    }else {
-      //incrementer le nombre de like du commentaire
-      result.nbLike = result.nbLike + 1;
-      //ajouter le login de l'utilisateur qui a liké le commentaire dans le tableau des utilisateurs qui ont liké le commentaire
-      result.likedBy.push(req.body.auteur);
-      //sauvegarder le commentaire modifié dans la base de données
-      result.save()
-      .then((result) => {
-        //ajoute une notif au user qui a posté le commentaire
-        User.findOne({login:result.auteur})
-        .then((result2) => {
-          result2.notifs.push("Votre commentaire : " + result.texte + " : a été liké par " + req.body.auteur);
-          result2.save();
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: "Erreur lors de la récupération de l'utilisateur",
-            error,
-          });
-        });
-        res.status(200).send({
-          message: "Reponse liké",
-          result,
-          like: true,
-        });
-      })
-      .catch((error) => {
-        res.status(500).send({
-          message: "Erreur lors du like du reponse",
-          error,
-        });
+      return res.status(200).send({
+        message: "Réponse unlikée",
+        result,
+        like: false,
       });
     }
+    //incrementer le nombre de like de la reponse
+    result.nbLike = result.nbLike + 1;
+    //ajouter le login de l'utilisateur qui a liké la reponse dans le tableau des utilisateurs qui ont liké la reponse
+    result.likedBy.push(req.body.auteur);
+    //sauvegarder la reponse modifiée dans la base de données
+    result.save()
+    .then((result) => {
+      res.status(200).send({
+        message: "Reponse likée",
+        result,
+        like: true,
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: "Erreur lors du like de la reponse",
+        error,
+      });
+    });
   })
+
   .catch((error) => {
-    res.status(500).send({
-      message: "Erreur lors de la récupération du reponse",
+    res.status(501).send({
+      message: "Erreur lors de la récupération de la reponse",
       error,
     });
   });
@@ -511,6 +455,7 @@ router.delete('/commentaire/reponse/:id', (req, res) => {
 router.get('/search', (req, res) => {
   User.find({login: new RegExp(req.query.login, 'i')})
   .then((result) => {
+    console.log(req.query.login) 
     res.status(200).send({
       message: "Utilisateurs récupérés",
       result,
@@ -759,8 +704,6 @@ router.get('/user/comments/:login', (req, res) => {
     });
   });
 });
-
-
 
 
 
