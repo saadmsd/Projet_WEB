@@ -639,7 +639,7 @@ router.put('/incrementRatio/:idCommentaire/:idReponse', async (req, res) => {
 
 //retourne la liste des utilisateurs qui ont le plus de cptRatioed 
 router.get('/user/stats/ratioed', (req, res) => {
-  User.find().sort({cptRatioed:-1}).limit(10)
+  User.find().sort({cptRatioed:-1}).limit(5)
   .then((result) => {
     res.status(200).send({
       message: "Liste des utilisateurs qui ont le plus de cptRatioed récupérée",
