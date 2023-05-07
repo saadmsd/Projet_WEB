@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const { router } = require('./api.js');
-const auth = require("./auth");
 
 const app = express();
 
@@ -10,16 +9,6 @@ const basedir = path.normalize(path.dirname(__dirname));
 console.debug(`Base directory: ${basedir}`);
 
 app.use(express.static(path.join(basedir, 'public')));
-
-// free endpoint
-app.get("/free-endpoint", (request, response) => {
-    response.json({ message: "You are free to access me anytime" });
-  });
-  
- // authentication endpoint
-app.get("/auth-endpoint", auth, (request, response) => {
-    response.json({ message: "You are authorized to access me" });
-  });
 
 
 
