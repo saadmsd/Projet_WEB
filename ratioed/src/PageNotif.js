@@ -19,12 +19,12 @@ function PageNotif(props) {
   const getComments = () => {
     const configuration = {
       method: "GET",
-      url: "/api/user/comments/" + currentUser,
+      url: "/api/commentaire/" + currentUser,
     };
     axios(configuration)
       .then((response) => {
         console.log(response);
-        setComments(response.data.result);
+        setComments(response.data.commentaires);
       })
       .catch((error) => {
         console.log(error);

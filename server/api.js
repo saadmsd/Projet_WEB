@@ -688,25 +688,6 @@ router.get('/user/stats/:login', (req, res) => {
   });
 });
 
-//Recupere les commentaires d'un utilisateur
-router.get('/user/comments/:login', (req, res) => {
-  Commentaire.find({auteur:req.params.login})
-  .then((result) => {
-    res.status(200).send({
-      message: "Commentaires récupérés",
-      result,
-    });
-  })
-  .catch((error) => {
-    res.status(500).send({
-      message: "Erreur lors de la récupération des commentaires",
-      error,
-    });
-  });
-});
-
-
-
 
 
 router.get('/', (req, res) => {
