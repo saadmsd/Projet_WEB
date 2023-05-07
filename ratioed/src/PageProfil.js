@@ -15,9 +15,7 @@ function PageProfil (props) {
     const [prenom , setPrenom] = useState("");
     const [dateJ , setDateJ] = useState("");
     const [dateN , setDateN] = useState("");
-    const [cptAvatar, setCptAvatar] = useState(0);
-    const [avatar, setAvatar] = useState("https://robohash.org/"+selectedUser+cptAvatar+".png?bgset=bg1");
-    
+    const avatar = "https://robohash.org/"+selectedUser+".png?bgset=bg1";
 
     useEffect(() => {
         getStats();
@@ -38,8 +36,6 @@ function PageProfil (props) {
                 setPrenom(response.data.result.firstname);
                 setDateN(response.data.result.dateBirth);
                 setDateJ(response.data.result.dateJoin);
-                setCptAvatar(response.data.result.cptAvatar)
-                setAvatar(response.data.result.avatar);
             })
             .catch((error) => {
                 console.log(error);
