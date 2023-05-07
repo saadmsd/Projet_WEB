@@ -6,7 +6,7 @@ import "./style/Commentaire.css";
 import Swal from 'sweetalert2'
 function Reponse(props){
     
-    const {currentUser, commentaire, reponses, setReponses ,getReponses, handleDelete, handleProfileClick} = props;
+    const {currentUser, commentaire, reponses, setReponses ,getReponses, deleteCommentaire, handleProfileClick} = props;
     const [reponse, setReponse] = useState("");
     //const [reponses, setReponses] = useState([]);
     const [like, setLike] = useState(-1);
@@ -67,22 +67,22 @@ function Reponse(props){
                 const comLike = commentaire.nbLike;
                 const repLike = response.data.result.nbLike;
                 if (repLike > comLike && response.data.result.texte === "ratio") {
-                handleDelete();
-                setRatio(true);
-                handleRatio(rep);
-                Swal.fire({
-                    title: 'RATIO!',
-                    text: `Félicitation vous avez réussi à ratio l'utilisateur ${commentaire.auteur}`,
-                    color: 'red',
-                    confirmButtonText: 'EZ',
-                    position: 'center',
-                    backdrop: `
-                        rgba(123,0,0,0.4)
-                        url("kimpembe.gif")
-                        center top
-                        no-repeat
-                    `
-                })
+                    deleteCommentaire();
+                    setRatio(true);
+                    handleRatio(rep);
+                    Swal.fire({
+                        title: 'RATIO!',
+                        text: `Félicitation vous avez réussi à ratio l'utilisateur ${commentaire.auteur}`,
+                        color: 'red',
+                        confirmButtonText: 'EZ',
+                        position: 'center',
+                        backdrop: `
+                            rgba(123,0,0,0.4)
+                            url("kimpembe.gif")
+                            center top
+                            no-repeat
+                        `
+                    })
                 }
         })
         .catch((error) => {
